@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generated Resume</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+        .container {
+            border: 1px solid #ccc;
+            padding: 30px;
+            margin-top: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        h3 {
+            color: #555;
+            margin-top: 10px;
+        }
+        p {
+            color: #666;
+        }
+        .generated-text {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 10px;
+            min-height: 100px;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        .buttons button {
+            padding: 8px 16px;
+            margin-right: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .buttons button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Generated Resume</h1>
+    <div class="container">
+        <h2>Job Title: {{ resume.job_title }}</h2>
+        <h3>Job Description:</h3>
+        <p>{{ resume.job_description }}</p>
+        <h3>Generated Resume:</h3>
+        <div class="generated-text" contenteditable="true">
+            {{ resume.generated_text | safe }}
+        </div>
+        <div class="buttons">
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit">Save Resume</button>
+            </form>
+            <button onclick="downloadResume()">Download Resume</button>
+        </div>
+    </div>
+
+    <script>
+        function downloadResume() {
+            // Replace 'data' with the content of the generated resume
+            let data = document.querySelector('.generated-text').innerText;
+            // Create a Blob containing the resume content
+            let blob = new Blob([data], { type: 'text/plain' });
+
+            // Create a link element and trigger the download
+            let a = document.createElement('a');
+            a.href = window.URL.createObjectURL(blob);
+            a.download = 'generated_resume.txt';
+            a.click();
+        }
+    </script>
+
+    <!-- Placeholder for Generate Cover Letter functionality -->
+    <div class="container">
+        <div class="buttons">
+            <button onclick="generateCoverLetter()">Generate Cover Letter</button>
+        </div>
+    </div>
+</body>
+</html>

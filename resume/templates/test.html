@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <title>Invoice Generator</title>
+    <style>
+      /* Add your CSS styles here */
+      body {
+        font-family: Arial, sans-serif;
+      }
+      form {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      label {
+        display: block;
+        margin-bottom: 10px;
+      }
+      input[type="text"] {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+      }
+      textarea {
+        width: 100%;
+        height: 150px;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+      }
+      button[type="submit"] {
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button[type="submit"]:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <form method="post">
+      {% csrf_token %}
+      <label for="company_name">Company Name</label>
+      <input type="text" name="company_name" placeholder="Enter your company name here">
+      <label for="invoice_number">Invoice Number</label>
+      <input type="text" name="invoice_number" placeholder="Enter your invoice number here">
+      <label for="invoice_date">Invoice Date</label>
+      <input type="text" name="invoice_date" placeholder="Enter your invoice date here">
+      <label for="customer_name">Customer Name</label>
+      <input type="text" name="customer_name" placeholder="Enter your customer's name here">
+      <label for="customer_address">Customer Address</label>
+      <textarea name="customer_address" placeholder="Enter your customer's address here"></textarea>
+      <label for="items">Items</label>
+      <textarea name="items" placeholder="Enter the items for this invoice here"></textarea>
+      <button type="submit">Generate PDF</button>
+    </form>
+  </body>
+</html>

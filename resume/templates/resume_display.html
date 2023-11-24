@@ -1,0 +1,92 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resume Preview</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+
+</head>
+<body>
+   
+<div id="page">
+    <div class="photo-and-name">
+        <img src="{% static 'img/profile.png'%}" class="photo" alt="Profile Picture">
+        <div class="contact-info-box">
+            <h1 class="name">{{ generated_text.name }}</h1>
+            <br>
+            <h3 class="job-title">{{ resume.job_title }}</h3>
+            <p class="contact-details">Phone: {{ generated_text.contactDetails.phone }} &nbsp; - &nbsp; Email: {{ generated_text.contactDetails.email }}</p>
+        </div>
+    </div>
+    <div id="objective">
+        <h3>Objective</h3>
+        <p>
+            {{ generated_text.objective }}
+        </p>
+    </div>
+    <div id="education">
+        <h3>Education</h3>
+                <table>
+            {% for education_item in generated_text.education %}
+
+            <tr class="school-1">
+                <td rowspan="2">{{education_item.dates}}</td>
+                <td><b>{{education_item.degree}}</b></td>
+                <td>{{education_item.university}}</td>
+
+            </tr>
+            {% endfor %}
+
+        </table>
+
+    </div>
+    <div id="work">
+        <h3>Experience</h3>
+        <table>
+            {% for experience_item in generated_text.experience %}
+            <tr class="work-1">
+                <td>{{experience_item.title}}</td>                
+                <td>{{experience_item.dates}}</td>
+                <td><b>{{experience_item.company}}</b></td>
+                <td> 
+                {% for role in experience_item.responsibilities %}
+                <li>{{role}}</li>
+                {% endfor %}   
+                </td>
+            </tr>
+            {% endfor %} 
+        </table>
+    </div>
+  
+    <div id="work">
+        <h3>Skills </h3>
+        <table>
+            <tr class="work-1">
+            <div class="button-container">
+                {% for skill in generated_text.skills %}
+                    <button class="skill-button">{{ skill }}</button>
+                {% endfor %}
+            </div> 
+            </tr>
+        </table>
+    </div>
+
+    <div id="work">
+        <h3>Interests </h3>
+        <table>
+            <tr class="work-1">
+            <div class="button-container">
+                {% for interest in generated_text.interests %}
+                    <button class="interests-button">{{ interest }}</button>
+                {% endfor %}
+            </div> 
+            </tr>
+        </table>
+    </div> 
+</div>
+
+</body>
+</html>

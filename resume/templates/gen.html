@@ -1,0 +1,83 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generate Resume</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{% static 'gen.css' %}">
+</head>
+
+<body>
+
+  <div class="container container-xl">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+    <div class="row">
+      <div class="col-12">
+        <h1>Generate Resume</h1>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-6 col-lg-6">
+        <div class="card ">
+          <div class="card-header">
+            <h4>Job Post</h4>  
+          </div>
+
+          <div class="card-body">
+            <label for="job_title">Job Title:</label>
+            <input type="text" class="form-control mb-2" name="job_title" placeholder="Enter job title" required>
+            <label for="job_description">Job description:</label>
+            <textarea class="form-control" name="job_description" rows="6" placeholder="Paste the job description here" required></textarea>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-6">
+        <div class="card">
+          <div class="card-header">
+            <h4>Your Resume</h4>
+          </div>
+        
+          <div class="card-body">
+            <label for="existing_resume_text">Existing Resume/CV Text:</label>
+            <textarea class="form-control" name="existing_resume_text" rows="6" placeholder="Paste your existing resume here" required></textarea>
+            <br>
+            <label for="existing_resume_file" class="btn btn-primary btn-block">Upload Resume</label>
+            <input type="file" name="existing_resume_file" id="existing_resume_file" accept=".pdf, .docx" style="display: none;">          </div>
+        
+        </div>
+
+      </div>
+
+    </div>
+    <div style="height: 30px;"></div>
+
+    <div class="row">
+      <div class="col-12">
+        <button type="submit" class="btn btn-lg btn-block btn-success">
+          Generate Resume
+        </button>
+      </div>
+    </div>
+  </from>
+  </div>
+
+  <!-- JavaScript -->
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}UpdateYourResume{% endblock title %}
+
+{% block content %}
+
+    <div class="container">
+        <h1>Generate Resume</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+
+                        <div class="card-header text-white bg-primary">
+                          <h4 class="card-title">Job Post</h4>  
+                        </div>
+                      
+                        <div class="card-body">
+                      
+                          <label for="job_title">Job Title:</label>
+                      
+                          <input type="text" class="form-control" name="job_title" 
+                            placeholder="Enter job title" required>
+                      
+                          <label class="mt-3" for="job_description">Job Description:</label>
+                          
+                          <textarea class="form-control" name="job_description" rows="3"
+                            placeholder="Paste job description" required></textarea>
+                      
+                        </div>
+                      
+                      </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card">
+
+                        <div class="card-header text-white bg-primary">
+                          <h4 class="card-title">Your Resume</h4>
+                        </div>
+                      
+                        <div class="card-body">
+                      
+                          <label>Existing Resume:</label>
+                          
+                          <textarea class="form-control" rows="3" placeholder="Paste resume text"></textarea>
+                      
+                          <div class="mt-3 text-center">
+                            <label class="btn btn-primary">
+                              <input type="file" accept=".pdf,.docx">
+                              Upload Resume  
+                            </label>
+                          </div>
+                      
+                        </div>
+                      
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="text-center">
+            <button class="btn btn-primary btn-lg text-center" type="submit">Generate Resume</button>
+            </div>
+        </form>
+        
+    </div>
+
+{% endblock %}
+
