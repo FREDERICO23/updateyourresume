@@ -90,3 +90,32 @@
     </div>
 </body>
 </html>
+<div class="buttons">
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Save Resume</button>
+    </form>
+    <button onclick="downloadResume()">Download Resume</button>
+</div>
+
+<script>
+function downloadResume() {
+    // Replace 'data' with the content of the generated resume
+    let data = document.querySelector('.generated-text').innerText;
+    // Create a Blob containing the resume content
+    let blob = new Blob([data], { type: 'text/plain' });
+
+    // Create a link element and trigger the download
+    let a = document.createElement('a');
+    a.href = window.URL.createObjectURL(blob);
+    a.download = 'generated_resume.txt';
+    a.click();
+}
+</script>
+
+<!-- Placeholder for Generate Cover Letter functionality -->
+<div class="container">
+<div class="buttons">
+    <button onclick="generateCoverLetter()">Generate Cover Letter</button>
+</div>
+</div>

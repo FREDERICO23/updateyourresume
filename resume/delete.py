@@ -51,20 +51,9 @@ def generate_resume(request):
         prompt = f"""
         Task: Generate a professionally styled, ATS-compliant resume tailored to the provided job title, job description, and the existing resume. The aim is to optimize the resume to increase its compatibility with ATS systems, while creatively adjusting certain sections to better align with the job requirements.
 
-        Instructions:
-
-        Input Data:
-
         Job Title: {job_title}
         Job Description: {job_description}
-        Existing Resume: {existing_resume}
-        Adjustments:
-
-        From the job description, extract the following in details: name, email, phone, summary, experience, education, skills and interests.
-        You will return a jSON response of the details using the keys:  name, contactDetails: "email, phone, linkedin", summary, experience:"title,company,dates,responsibilities(create a list)", education:"level, school, dates", skills(create a list), interests(create a list).
-
-        You will also improve the resume details like; interests, skills, experience title and responsibilities to match the job description to the latter.         
-        
+        Existing Resume: {existing_resume}        
         """
       
         # Call the OpenAI API to generate the resume
@@ -89,17 +78,17 @@ def generate_resume(request):
                 generated_text=generated_text
             )
             generated_resume.save()
-            
-            return redirect('resume_display', resume_id=generated_resume.id)
-
+            resume_id = generated_resume.id  
+            print(resume_id)
         else: 
             pass 
         
         context = {
-            'resume_id': generated_resume.id,
+            'resume': generated_text,
+            'resume_id' :resume_id
         }
-        print(generated_resume.id)
-        return redirect("resume_display", context)  
+
+        return redirect("resume_display", context )  
     
     return render(request, "generate_resume_form.html") 
 
@@ -129,35 +118,9 @@ def generate_cover_letter(request, resume_id):
     generated_resume = get_object_or_404(GeneratedResume, id=resume_id)
 
     cover_letter_prompt = f"""
-    Task: Generate a tailored cover letter based on the information extracted from the generated resume.
-
-    Instructions:
-
+    Task: Generate a tailored cover letter based on the information extracted from the generated resume.    
     Generated Resume Text:
     {generated_resume.generated_text}
-
-    Cover Letter Content:
-
-    Introduction:
-
-    Address the hiring manager or employer with a polite salutation.
-    Express your interest in the position and briefly mention where you learned about the job opening.
-    Highlight a key accomplishment or skill from your resume to capture attention.
-    Body:
-
-    Provide a brief overview of your professional background and experiences.
-    Emphasize how your skills and experiences align with the requirements of the job.
-    Reference specific achievements or projects mentioned in the resume.
-    Express enthusiasm for the opportunity and explain why you are a suitable candidate.
-    Closing:
-
-    Express appreciation for considering your application.
-    Mention your eagerness to further discuss your qualifications in an interview.
-    Include a polite closing statement and express anticipation for a positive response.
-    Note: Use the generated resume text to tailor the cover letter content, ensuring a cohesive and compelling narrative that aligns with the specific job requirements.
-
-    Output:
-
     Generate a well-crafted cover letter that complements the information in the generated resume.
     Ensure the cover letter is professionally written, error-free, and suitable for submission with job applications.
     """

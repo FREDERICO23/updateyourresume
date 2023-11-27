@@ -3,7 +3,7 @@
 body{font-family: 'Montserrat', sans-serif;}
 
 #page {
-    min-height: 200px;
+    min-height: 100%;
     width: 60%;
     min-width: 600px;
     background: whitesmoke;
@@ -18,7 +18,7 @@ body{font-family: 'Montserrat', sans-serif;}
 
 .photo {
     width: 15%;
-    min-width: 130px;
+    min-width: 100px;
     float: left;
     margin-right: 20px;
 }
@@ -29,7 +29,7 @@ body{font-family: 'Montserrat', sans-serif;}
 }
 
 .name {
-    margin-bottom: -5px;
+    margin-bottom: -10px;
 }
 .job-title {
     display: inline-block;
@@ -42,14 +42,14 @@ body{font-family: 'Montserrat', sans-serif;}
     margin: auto;
     margin-top: 25px;
     padding: 5px;
-    font-size: 15px;
+    font-size: 12px;
 }
 
 #objective {
     
 }
 
-#objective h3 {
+#objective h5 {
     border: 1px solid #d3d3d3;
     text-transform: uppercase;
     padding: 5px;
@@ -60,11 +60,11 @@ body{font-family: 'Montserrat', sans-serif;}
 #objective p {
     padding: 0 5px;
     line-height: 25px;
-    font-size: 14px;
+    font-size: 12px;
     color: #000;
 }
 
-#education h3 {
+#education h5 {
     border: 1px solid #d3d3d3;
     text-transform: uppercase;
     padding: 5px;
@@ -74,7 +74,7 @@ body{font-family: 'Montserrat', sans-serif;}
 
 #education table td {
     padding: 5px;
-    font-size: 14px;
+    font-size: 12px;
     color: #000;
 }
 
@@ -88,7 +88,7 @@ body{font-family: 'Montserrat', sans-serif;}
     padding-bottom: 25px;
 }
 
-#work h3 {
+#work h5 {
     border: 1px solid #d3d3d3;
     text-transform: uppercase;
     padding: 5px;
@@ -98,7 +98,7 @@ body{font-family: 'Montserrat', sans-serif;}
 
 #work table td {
     padding: 5px;
-    font-size: 14px;
+    font-size: 12px;
     color: #000;
 }
 
@@ -117,7 +117,7 @@ body{font-family: 'Montserrat', sans-serif;}
     color: gray;
 }
 
-#bio-data h3 {
+#bio-data h5 {
     border: 1px solid #d3d3d3;
     text-transform: uppercase;
     padding: 5px;
@@ -127,7 +127,7 @@ body{font-family: 'Montserrat', sans-serif;}
 
 #bio-data table td {
     padding: 8px;
-    font-size: 15px;
+    font-size: 12px;
     color: #000;
 }
 

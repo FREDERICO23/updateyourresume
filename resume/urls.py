@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path('generate-resume', views.generate_resume, name='generate_resume'),
-    path('resume/<int:resume_id>/', views.resume_display, name='resume_display'),
+    path('display/<int:resume_id>/', views.resume_display, name='resume_display'),
     # path('resume/<int:resume_id>/generate-cover-letter/', views.generate_cover_letter, name='generate_cover_letter'),
     path('generate-cover-letter/', views.generate_cover_letter, name='generate_cover_letter'),
 

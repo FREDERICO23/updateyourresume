@@ -1,12 +1,17 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="description" content="Revamp your resume in seconds with UpdateYourResume">
+    <meta name="author" content="updateyourresume">
     <title>Resume Preview</title>
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'icons/updateyourresumefavicon.png' %}">
+
 
 </head>
 <body>
@@ -15,27 +20,27 @@
     <div class="photo-and-name">
         <img src="{% static 'img/profile.png'%}" class="photo" alt="Profile Picture">
         <div class="contact-info-box">
-            <h1 class="name">{{ generated_text.name }}</h1>
+            <h4 class="name">{{ generated_text.name }}</h4>
             <br>
-            <h3 class="job-title">{{ resume.job_title }}</h3>
-            <p class="contact-details">Phone: {{ generated_text.contactDetails.phone }} &nbsp; - &nbsp; Email: {{ generated_text.contactDetails.email }}</p>
+            <h5 class="job-title">{{ resume.job_title }}</h5>
+            <p class="contact-details">{{ generated_text.contactDetails.phone }} &nbsp; - &nbsp; {{ generated_text.contactDetails.email }} &nbsp; - &nbsp; <a class="text-white" href="{{ generated_text.contactDetails.linkedin }}">linkedin</a></p>
         </div>
     </div>
     <div id="objective">
-        <h3>Objective</h3>
+        <h5>Summary</h5>
         <p>
-            {{ generated_text.objective }}
+            {{ generated_text.summary }}
         </p>
     </div>
     <div id="education">
-        <h3>Education</h3>
+        <h5>Education</h5>
                 <table>
             {% for education_item in generated_text.education %}
 
             <tr class="school-1">
                 <td rowspan="2">{{education_item.dates}}</td>
-                <td><b>{{education_item.degree}}</b></td>
-                <td>{{education_item.university}}</td>
+                <td><b>{{education_item.level}}</b></td>
+                <td>{{education_item.school}}</td>
 
             </tr>
             {% endfor %}
@@ -44,7 +49,7 @@
 
     </div>
     <div id="work">
-        <h3>Experience</h3>
+        <h5>Experience</h5>
         <table>
             {% for experience_item in generated_text.experience %}
             <tr class="work-1">
@@ -62,12 +67,12 @@
     </div>
   
     <div id="work">
-        <h3>Skills </h3>
+        <h5>Skills </h5>
         <table>
             <tr class="work-1">
             <div class="button-container">
                 {% for skill in generated_text.skills %}
-                    <button class="skill-button">{{ skill }}</button>
+                    <button class="btn btn-light  btn-sm">{{ skill }}</button>
                 {% endfor %}
             </div> 
             </tr>
@@ -75,18 +80,19 @@
     </div>
 
     <div id="work">
-        <h3>Interests </h3>
+        <h5>Interests </h5>
         <table>
             <tr class="work-1">
             <div class="button-container">
                 {% for interest in generated_text.interests %}
-                    <button class="interests-button">{{ interest }}</button>
+                    <button class="btn btn-light  btn-sm">{{ interest }}</button>
                 {% endfor %}
             </div> 
             </tr>
         </table>
     </div> 
 </div>
+
 
 </body>
 </html>
