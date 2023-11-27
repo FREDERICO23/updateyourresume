@@ -23,6 +23,7 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
     <link rel="stylesheet" href="blocks.css"> 
     <link rel="stylesheet" type="text/css" href="{% static 'home.css' %}">
+    
    
 
 </head>
@@ -78,7 +79,7 @@
                     <li class="nav-item"> <a class="nav-link px-lg-3 py-lg-4" href="#">Contact</a> </li>
                 </ul> 
                 <a class="btn btn-primary ms-lg-3" href="{% url 'account_login' %}">Login</a>
-                <a class="btn btn-primary ms-lg-3" href="{% url 'account_login' %}">Sign up</a>
+                <a class="btn btn-primary ms-lg-3" href="{% url 'account_signup' %}">Sign up</a>
                 {% endif %}
                 </div>
             </div>
