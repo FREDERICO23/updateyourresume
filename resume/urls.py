@@ -10,5 +10,8 @@ urlpatterns = [
     path('cover-letter/<int:cover_letter_id>/', views.cover_letter_display, name='cover_letter_display'),
     path('test/',views.display, name='display' ),
     path('', views.home, name='home'),
+    path('dashboard/', views.dashboard, name='dashboard'),
+
+
 
 ]

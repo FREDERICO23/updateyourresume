@@ -203,5 +203,9 @@ def display(request):
 
 def home(request):
     return render(request, 'pages/index.html')
+
+def dashboard(request):
+    return render(request, 'dashboard.html')
+
 def genresume(request):
     return render(request, 'generate_resume.html')
