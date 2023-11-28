@@ -18,7 +18,7 @@
         }
         .cover-letter {
             background-color: #fff;
-            border-radius: 8px;
+            border-radius: 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 30px;
             margin-top: 20px;
@@ -29,7 +29,7 @@
             margin-bottom: 20px;
         }
         p {
-            font-size: 18px;
+            font-size: 14px;
             line-height: 1.6;
             margin-bottom: 20px;
         }
@@ -58,9 +58,25 @@
         <div class="cover-letter">
             <p>{{ cover_letter.generated_text }}</p>
             <div class="download-link">
-                <a href="#">Download Cover Letter</a>
+                <button class="btn btn-dark" onclick="downloadResume()">Download Cover Letter</button>
+                <a href="{% url 'home'%}">Back to Dashboard</a>
+
             </div>
         </div>
     </div>
+    <script>
+        function downloadResume() {
+            // Replace 'data' with the content of the generated resume
+            let data = document.querySelector('.generated-text').innerText;
+            // Create a Blob containing the resume content
+            let blob = new Blob([data], { type: 'text/plain' });
+
+            // Create a link element and trigger the download
+            let a = document.createElement('a');
+            a.href = window.URL.createObjectURL(blob);
+            a.download = 'generated_resume.txt';
+            a.click();
+        }
+    </script>
 </body>
 </html>

@@ -94,8 +94,8 @@
    <a href="{% url 'generate_docx' %}">
       <button class=" btn btn-dark text-center">Download Docx</button>
    </a>
-   <a href="{% url 'generate_cover_letter' %}">
-    <button class=" btn btn-primary text-center">Cover Letter</button>
+   <a href="{% url 'generate_cover_letter' resume_id=resume_id %}">
+    <button class=" btn btn-primary text-center">Generate Cover Letter</button>
  </a>
    <button class=" btn btn-success text-center" onclick="saveChanges()">Save Changes</button>
 </div>

@@ -192,12 +192,13 @@ def generate_cover_letter(request, resume_id):
     generated_resume = get_object_or_404(GeneratedResume, id=resume_id)
 
     cover_letter_prompt = f"""
-    Task: Generate a tailored cover letter based on the information extracted from the generated resume.
+    Task: Generate a tailored cover letter based on the information extracted from the generated resume and job description.
 
     Instructions:
-
-    Generated Resume Text:
-    {generated_resume.generated_text}
+    
+    Input Data:
+    Generated Resume Text: {generated_resume.generated_text}
+    Job Description: {generated_resume.job_description}
 
     Cover Letter Content:
 
@@ -227,14 +228,16 @@ def generate_cover_letter(request, resume_id):
 
     if request.method == "POST":
         # Generate cover letter from the resume text
-        response = openai.Completion.create(
+        response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo-1106",
-            prompt= cover_letter_prompt,
-            max_tokens=750,  # Adjust based on your requirements
-            n=1  # Number of completions
-        )
+               messages=[
+                {"role": "system", "content": "You are an expert cover letter writer.You write cover letters that melt the recruiters to give you the job."},
+                {"role": "user", "content": cover_letter_prompt}
 
-        generated_cover_letter_text = response.choices[0].text
+            ]
+        )
+        generated_cover_letter_text = response.choices[0].message.content
+
 
         # Store the generated cover letter in the database
         generated_cover_letter = GeneratedCoverLetter(
