@@ -138,3 +138,65 @@ body{font-family: 'Montserrat', sans-serif;}
 #bio-data table tr td:nth-child(2) {
     width: 300px;
 }
+
+/* Retain the existing CSS styles */
+
+/* Adjust styles for the div elements */
+
+.editable-content {
+    border: 0.5px solid #d3d3d3;
+    border-radius: 1px;
+    margin: 30px 0 10px;
+}
+
+.editable-content > h5 {
+    text-transform: uppercase;
+    padding: 5px;
+}
+
+.editable-content > div {
+    padding: 0 5px;
+    line-height: 25px;
+    font-size: 12px;
+    color: #000;
+}
+
+.school-container,
+.work-container {
+    flex-direction: column;
+}
+
+.school-1,
+.work-1 {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    font-size: 12px;
+    color: #000;
+}
+
+/* ... Previous CSS remains unchanged ... */
+
+/* Additional styles for the new div-based sections */
+
+.skills-container,
+.interests-container {
+    border: 1px solid #d3d3d3;
+    border-radius: 5px;
+    margin: 30px 0 10px;
+}
+
+.skills-container > h5,
+.interests-container > h5 {
+    text-transform: uppercase;
+    padding: 5px;
+}
+
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding: 5px;
+}
+
+/* Adjust other specific styles as needed for these sections */

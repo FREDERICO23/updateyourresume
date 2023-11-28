@@ -8,9 +8,54 @@ from .models import GeneratedResume, GeneratedCoverLetter
 import json
 import fitz 
 import docx
+from .utils import render_to_pdf, render_to_word
+
 
 CustomUser = get_user_model()
 openai.api_key = ('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')
+
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from .models import GeneratedResume
+
+@require_POST
+def save_generated_resume(request):
+    if request.method == 'POST':
+        updated_content = request.POST.get('updated_content')
+
+        # Get the existing record if it exists, otherwise create a new one
+        generated_resume, created = GeneratedResume.objects.get_or_create(
+            resume_id=generate_resume.id,  # Replace this with your identifier
+            defaults={'content': updated_content}
+        )
+
+        # Update the content if the record exists
+        if not created:
+            generated_resume.content = updated_content
+            generated_resume.save()
+
+        return JsonResponse({'success': True})  
+
+    return JsonResponse({'success': False})  
+
+def generate_pdf(request):
+   context = {'resume_content': 'resume data'} 
+   pdf = render_to_pdf('resume_display.html', context)
+   # return HttpReponse for pdf
+   if pdf:
+        response = HttpResponse(pdf, content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="resume.pdf"'
+        return response
+    
+   return HttpResponse("Failed to generate PDF", status=400)
+   
+def generate_docx(request):
+   context = {'resume_content': 'resume data'}  
+   docx = render_to_word('resume_display.html', context) 
+   # return HttpReponse for docx
+   if docx:
+        return docx
+   return HttpResponse("Failed to generate DOCX", status=400)
 
 def extract_text_from_pdf(pdf_file):
     text = ""
@@ -123,6 +168,24 @@ def resume_display(request, resume_id):
         'resume_id' : resume_id,
     }  
     return render(request, 'resume_display.html', context)
+    #return render_to_pdf('resume_display.html', context)
+
+def save_resume(request):
+
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        updated_resume = data['resume']
+        
+        # Get Resume object for current user
+        resume = get_object_or_404(GeneratedResume, user=request.user)
+        
+        # Update HTML field 
+        resume.html_content = updated_resume  
+        resume.save()
+        
+        return HttpResponse('Resume saved')
+
+    return HttpResponseBadRequest()
 
 def generate_cover_letter(request, resume_id):
     # Retrieve the generated resume

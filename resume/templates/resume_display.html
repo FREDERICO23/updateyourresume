@@ -1,98 +1,137 @@
+{% extends '_base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Revamp your resume in seconds with UpdateYourResume">
-    <meta name="author" content="updateyourresume">
-    <title>Resume Preview</title>
+
+{% block title %}Dashboard - Updateyourresume {% endblock %}
+{% block css %}
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'icons/updateyourresumefavicon.png' %}">
+{% endblock %}
 
+{% block content %}
 
-</head>
-<body>
    
 <div id="page">
-    <div class="photo-and-name">
+    <div contenteditable="true" class="photo-and-name">
         <img src="{% static 'img/profile.png'%}" class="photo" alt="Profile Picture">
         <div class="contact-info-box">
-            <h4 class="name">{{ generated_text.name }}</h4>
+            <h4 contenteditable="true" class="name">{{ generated_text.name }}</h4>
             <br>
-            <h5 class="job-title">{{ resume.job_title }}</h5>
-            <p class="contact-details">{{ generated_text.contactDetails.phone }} &nbsp; - &nbsp; {{ generated_text.contactDetails.email }} &nbsp; - &nbsp; <a class="text-white" href="{{ generated_text.contactDetails.linkedin }}">linkedin</a></p>
+            <h5 contenteditable="true" class="job-title">{{ resume.job_title }}</h5>
+            <p contenteditable="true" class="contact-details">{{ generated_text.contactDetails.phone }} &nbsp; - &nbsp; {{ generated_text.contactDetails.email }} &nbsp; - &nbsp; <a class="text-white" href="{{ generated_text.contactDetails.linkedin }}">linkedin</a></p>
         </div>
     </div>
-    <div id="objective">
+    <div id="objective" class="editable-content">
         <h5>Summary</h5>
-        <p>
+        <div contenteditable="true">
             {{ generated_text.summary }}
-        </p>
+        </div>
     </div>
-    <div id="education">
+    <div id="education" class="editable-content">
         <h5>Education</h5>
-                <table>
+        <div class="school-container">
             {% for education_item in generated_text.education %}
-
-            <tr class="school-1">
-                <td rowspan="2">{{education_item.dates}}</td>
-                <td><b>{{education_item.level}}</b></td>
-                <td>{{education_item.school}}</td>
-
-            </tr>
+            <div contenteditable="true" class="school-1">
+                <div>{{education_item.dates}}</div>
+                <div><b>{{education_item.level}}</b></div>
+                <div>{{education_item.school}}</div>
+            </div>
             {% endfor %}
-
-        </table>
-
+        </div>
     </div>
-    <div id="work">
+    <div id="work" class="editable-content">
         <h5>Experience</h5>
-        <table>
+        <div class="work-container">
             {% for experience_item in generated_text.experience %}
-            <tr class="work-1">
-                <td>{{experience_item.title}}</td>                
-                <td>{{experience_item.dates}}</td>
-                <td><b>{{experience_item.company}}</b></td>
-                <td> 
-                {% for role in experience_item.responsibilities %}
-                <li>{{role}}</li>
-                {% endfor %}   
-                </td>
-            </tr>
-            {% endfor %} 
-        </table>
+            <div contenteditable="true" class="work-1">
+                <div>{{experience_item.title}}</div>
+                <div>{{experience_item.dates}}</div>
+                <div><b>{{experience_item.company}}</b></div>
+                <div class="role-container">
+                    {% for role in experience_item.responsibilities %}
+                    <div>{{role}}</div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
     </div>
-  
-    <div id="work">
-        <h5>Skills </h5>
-        <table>
-            <tr class="work-1">
-            <div class="button-container">
-                {% for skill in generated_text.skills %}
+    <div id="work" class="editable-content">
+        <h5>Skills</h5>
+        <div class="skills-container">
+            <div class="work-1">
+                <div class="button-container" contenteditable="true">
+                    {% for skill in generated_text.skills %}
                     <button class="btn btn-light  btn-sm">{{ skill }}</button>
-                {% endfor %}
-            </div> 
-            </tr>
-        </table>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div id="work">
-        <h5>Interests </h5>
-        <table>
-            <tr class="work-1">
-            <div class="button-container">
-                {% for interest in generated_text.interests %}
+    
+    <div id="work" class="editable-content">
+        <h5>Interests</h5>
+        <div class="interests-container">
+            <div class="work-1">
+                <div class="button-container" contenteditable="true">
+                    {% for interest in generated_text.interests %}
                     <button class="btn btn-light  btn-sm">{{ interest }}</button>
-                {% endfor %}
-            </div> 
-            </tr>
-        </table>
-    </div> 
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Other sections with div elements -->
 </div>
 
+<div class="text-center">
+   <a href="{% url 'generate_pdf' %}">
+      <button class=" btn btn-dark text-center">Download PDF</button>
+   </a>
 
-</body>
-</html>
+   <a href="{% url 'generate_docx' %}">
+      <button class=" btn btn-dark text-center">Download Docx</button>
+   </a>
+   <a href="{% url 'generate_cover_letter' %}">
+    <button class=" btn btn-primary text-center">Cover Letter</button>
+ </a>
+   <button class=" btn btn-success text-center" onclick="saveChanges()">Save Changes</button>
+</div>
+
+{% block javascript %}
+<script>
+    function saveChanges() {
+        var text = document.getElementById('myText');
+        var updatedContent = text.innerHTML;
+    
+        fetch('/save-generated-resume/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': getCSRFToken(),  // Include CSRF token if required
+            },
+            body: 'updated_content=' + encodeURIComponent(updatedContent)
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('Content successfully saved to the database!');
+            } else {
+                console.error('Failed to save content to the database.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+    
+    function getCSRFToken() {
+        
+        return document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+    }
+    
+</script>
+{% endblock javascript %}
+
+{% endblock %}
