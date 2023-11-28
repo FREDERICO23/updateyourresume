@@ -2,12 +2,12 @@ import openai
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-
-from .models import GeneratedResume, GeneratedCoverLetter
-
+import asyncio
 import json
 import fitz 
 import docx
+
+from .models import GeneratedResume, GeneratedCoverLetter
 from .utils import render_to_pdf, render_to_word
 
 
@@ -74,6 +74,22 @@ def extract_text_from_docx(docx_file):
         text += paragraph.text
     return text
 
+import openai
+
+# OpenAI API Call
+def call_openai_api(prompt):
+    # Define the prompt and call the OpenAI API
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are an expert resume writer. You only return and reply with valid, iterable RFC8259 compliant JSON in your responses"},
+            {"role": "user", "content": prompt}
+        ]
+    )
+
+    generated_text = response.choices[0].message.content
+
+    return generated_text
 
 def generate_resume(request):
     if request.method == "POST":
@@ -91,7 +107,8 @@ def generate_resume(request):
                 existing_resume_text = extract_text_from_docx(existing_resume_file)
             else:
                 existing_resume_text = existing_resume_text
-
+       
+       
         # Create a prompt for expert resume revamp
         prompt = f"""
         Task: Generate a professionally styled, ATS-compliant resume tailored to the provided job title, job description, and the existing resume. The aim is to optimize the resume to increase its compatibility with ATS systems, while creatively adjusting certain sections to better align with the job requirements.
@@ -111,18 +128,9 @@ def generate_resume(request):
         You will also improve the resume details like; interests, skills, experience title and responsibilities to match the job description to the latter.         
         
         """
-      
-        # Call the OpenAI API to generate the resume
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": "You are an expert resume writer.You only return and reply with valid, iterable RFC8259 compliant JSON in your responses"},
-                {"role": "user", "content": prompt}
-
-            ]
+        async_generated_text = asyncio.create_task(
+            call_openai_api(prompt)
         )
-
-        generated_text = response.choices[0].message.content
 
         user = request.user
         if isinstance(user, CustomUser):
@@ -170,23 +178,6 @@ def resume_display(request, resume_id):
     return render(request, 'resume_display.html', context)
     #return render_to_pdf('resume_display.html', context)
 
-def save_resume(request):
-
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        updated_resume = data['resume']
-        
-        # Get Resume object for current user
-        resume = get_object_or_404(GeneratedResume, user=request.user)
-        
-        # Update HTML field 
-        resume.html_content = updated_resume  
-        resume.save()
-        
-        return HttpResponse('Resume saved')
-
-    return HttpResponseBadRequest()
-
 def generate_cover_letter(request, resume_id):
     # Retrieve the generated resume
     generated_resume = get_object_or_404(GeneratedResume, id=resume_id)
@@ -202,28 +193,21 @@ def generate_cover_letter(request, resume_id):
 
     Cover Letter Content:
 
-    Introduction:
-
-    Address the hiring manager or employer with a polite salutation.
-    Express your interest in the position and briefly mention where you learned about the job opening.
-    Highlight a key accomplishment or skill from your resume to capture attention.
-    Body:
-
-    Provide a brief overview of your professional background and experiences.
+    Introduction: Address the hiring manager or employer with a polite salutation expressing your interest in the position and briefly mention where you learned about the job opening.
+    Make sure to highlight a key accomplishment or skill from your resume to capture attention.
+    
+    Body: Provide a brief overview of your professional background and experiences.
     Emphasize how your skills and experiences align with the requirements of the job.
     Reference specific achievements or projects mentioned in the resume.
     Express enthusiasm for the opportunity and explain why you are a suitable candidate.
     Closing:
 
-    Express appreciation for considering your application.
-    Mention your eagerness to further discuss your qualifications in an interview.
+    Express appreciation for considering your application. Mention your eagerness to further discuss your qualifications in an interview.
     Include a polite closing statement and express anticipation for a positive response.
-    Note: Use the generated resume text to tailor the cover letter content, ensuring a cohesive and compelling narrative that aligns with the specific job requirements.
+    
+    Note: Use the generated resume text and job description to tailor the cover letter content, ensuring a cohesive and compelling narrative that aligns with the specific job requirements.
 
-    Output:
 
-    Generate a well-crafted cover letter that complements the information in the generated resume.
-    Ensure the cover letter is professionally written, error-free, and suitable for submission with job applications.
     """
 
     if request.method == "POST":

@@ -21,7 +21,6 @@
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.5.0/lottie.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-    <link rel="stylesheet" href="blocks.css"> 
     <link rel="stylesheet" type="text/css" href="{% static 'home.css' %}">  
    {% endblock %}
 
@@ -31,7 +30,8 @@
     <nav class="bg-white navbar navbar-expand-lg navbar-light py-lg-1 shadow-sm">
         <div class="container"> 
             <a class="fs-6 fw-bold navbar-brand text-primary text-uppercase" href="{% url 'home' %}" target="_pg_blank">
-                <img src="{% static 'icons/updateyourresumelogo.png' %}" style="margin-right: 75px; margin-left: 35px;" width="150" height="40" alt="Updateyourresume logo" class="logo-img">
+                updateyourresume
+                {% comment %} <img src="{% static 'icons/updateyourresumelogo.png' %}" style="margin-right: 75px; margin-left: 35px;" width="150" height="40" alt="Updateyourresume logo" class="logo-img"> {% endcomment %}
             </a> 
             <button class="border-0 navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown-3" aria-controls="navbarNavDropdown-3" aria-expanded="false" aria-label="Toggle navigation"> <span class="fs-6 navbar-toggler-icon"></span> </button>
             <div class="collapse navbar-collapse " id="navbarNavDropdown-3">                
