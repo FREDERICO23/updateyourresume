@@ -31,7 +31,7 @@
                 </div>
                 <div class="col-lg-3 col-md-6 py-3">
                     <div class="bg-light border rounded text-secondary">
-                        <div class="align-items-center d-flex fw-light h5 justify-content-center pb-4 ps-3 pe-3 pt-4"> <span class="align-self-start">$</span> <span class="display-4 fw-normal text-dark">5</span> <span class="align-self-end">/mo</span> </div>
+                        <div class="align-items-center d-flex fw-light h5 justify-content-center pb-4 ps-3 pe-3 pt-4"> <span class="align-self-start">$</span> <span class="display-4 fw-normal text-dark">3</span> <span class="align-self-end">/mo</span> </div>
                         <h3 class="bg-primary fw-normal h4 mb-0 pb-3 pe-2 ps-2 pt-3 text-uppercase text-white">Newbie</h3>
                         <div class="pb-5 ps-3 pe-3 pt-4">
                             <ul class="list-unstyled mb-4">
@@ -46,7 +46,7 @@
                 </div>
                 <div class="col-lg-3 col-md-6 py-3">
                     <div class="bg-light border rounded text-secondary">
-                        <div class="align-items-center d-flex fw-light h5 justify-content-center pb-4 ps-3 pe-3 pt-4"> <span class="align-self-start">$</span> <span class="display-4 fw-normal text-dark">15</span> <span class="align-self-end">/mo</span> </div>
+                        <div class="align-items-center d-flex fw-light h5 justify-content-center pb-4 ps-3 pe-3 pt-4"> <span class="align-self-start">$</span> <span class="display-4 fw-normal text-dark">5</span> <span class="align-self-end">/mo</span> </div>
                         <h3 class="bg-dark fw-normal h4 mb-0 pb-3 pe-2 ps-2 pt-3 text-uppercase text-white">Professional</h3>
                         <div class="pb-5 ps-3 pe-3 pt-4">
                             <ul class="list-unstyled mb-4">
@@ -61,7 +61,7 @@
                 </div>
                 <div class="col-lg-3 col-md-6 py-3">
                     <div class="bg-light border rounded text-secondary">
-                        <div class="align-items-center d-flex fw-light h5 justify-content-center pb-4 ps-3 pe-3 pt-4"> <span class="align-self-start">$</span> <span class="display-4 fw-normal text-dark">5</span> <span class="align-self-end">/mo</span> </div>
+                        <div class="align-items-center d-flex fw-light h5 justify-content-center pb-4 ps-3 pe-3 pt-4"> <span class="align-self-start">$</span> <span class="display-4 fw-normal text-dark">15</span> <span class="align-self-end">/mo</span> </div>
                         <h3 class="bg-primary fw-normal h4 mb-0 pb-3 pe-2 ps-2 pt-3 text-uppercase text-white">Business</h3>
                         <div class="pb-5 ps-3 pe-3 pt-4">
                             <ul class="list-unstyled mb-4">
@@ -81,9 +81,9 @@
 <script>
     const prices = {
         student: { weekly: { price: 0, label: '/ per week' }, monthly: { price: 0, label: '/ per month' }, quarterly: { price: 0, label: '/ per quarter' } },
-        newbie: { weekly: { price: 5, label: '/ per week' }, monthly: { price: 5, label: '/ per month' }, quarterly: { price: 5, label: '/ per quarter' } },
-        professional: { weekly: { price: 15, label: '/ per week' }, monthly: { price: 15, label: '/ per month' }, quarterly: { price: 15, label: '/ per quarter' } },
-        business: { weekly: { price: 5, label: '/ per week' }, monthly: { price: 5, label: '/ per month' }, quarterly: { price: 5, label: '/ per quarter' } }
+        newbie: { weekly: { price: 3, label: '/ per week' }, monthly: { price: 5, label: '/ per month' }, quarterly: { price: 12, label: '/ per quarter' } },
+        professional: { weekly: { price: 5, label: '/ per week' }, monthly: { price: 10, label: '/ per month' }, quarterly: { price: 24, label: '/ per quarter' } },
+        business: { weekly: { price: 15, label: '/ per week' }, monthly: { price: 20, label: '/ per month' }, quarterly: { price: 48, label: '/ per quarter' } }
     };
     
     document.querySelectorAll('.col-lg-3').forEach(card => {
@@ -117,6 +117,7 @@
             card.style.display = 'block';
         });
     }
+    
     
 </script>
 {% endblock %}
