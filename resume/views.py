@@ -261,4 +261,4 @@ def genresume(request):
     return render(request, 'generate_resume.html')
 
 def pricing(request):
-    return render (request, 'pricing.html')
+    return render (request, 'pricing_page.html')
