@@ -15,6 +15,7 @@ urlpatterns = [
     path('generate_pdf/', views.generate_pdf, name='generate_pdf'),
     path('generate_docx/', views.generate_docx, name='generate_docx'),
     path('save-generated-resume/', views.save_generated_resume, name='save_generated_resume'),
+    path('pricing/', views.pricing, name='pricing'),
 
 
 
