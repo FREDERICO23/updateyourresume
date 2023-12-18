@@ -70,7 +70,9 @@
                                 <li class="pb-2 pt-2">Unlimited Downloads</li>
                                 <li class="pb-2 pt-2">Pdf/Docs Download formats</li>
                                 <li class="pb-2 pt-2">24/7 Support</li>
-                            </ul> <a href="#" class="btn btn-primary fw-light pb-2 ps-4 pe-4 pt-2">Sign Up</a>
+                            </ul> 
+                            <button type="submit" class="btn btn-primary fw-light pb-2 ps-4 pe-4 pt-2" onclick="payWithPaystack()"> Subscribe </button>
+
                         </div>
                     </div>
                 </div
@@ -78,6 +80,30 @@
         </div>
     </div>
 </section>
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script>
+    var paymentForm = document.getElementById('paymentForm');
+    paymentForm.addEventListener('submit', payWithPaystack, false);
+    function payWithPaystack() {
+      var handler = PaystackPop.setup({
+        key: 'pk_test_ab5107407fe1f0ea8a9037fa8e81cda7cdce908c', // Replace with your public key
+        email: document.getElementById('email-address').value,
+        amount: document.getElementById('amount').value * 100, // the amount value is multiplied by 100 to convert to the lowest currency unit
+        currency: 'NGN', // Use GHS for Ghana Cedis or USD for US Dollars
+        ref: 'YOUR_REFERENCE', // Replace with a reference you generated
+        callback: function(response) {
+          //this happens after the payment is completed successfully
+          var reference = response.reference;
+          alert('Payment complete! Reference: ' + reference);
+          // Make an AJAX call to your server with the reference to verify the transaction
+        },
+        onClose: function() {
+          alert('Transaction was not completed, window closed.');
+        },
+      });
+      handler.openIframe();
+    }
+</script>
 <script>
     const prices = {
         student: { weekly: { price: 0, label: '/ per week' }, monthly: { price: 0, label: '/ per month' }, quarterly: { price: 0, label: '/ per quarter' } },
