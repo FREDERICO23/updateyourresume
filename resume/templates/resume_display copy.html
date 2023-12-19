@@ -1,0 +1,173 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}Dashboard - Updateyourresume {% endblock %}
+{% block css %}
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'icons/updateyourresumefavicon.png' %}">
+{% endblock %}
+
+{% block content %}
+
+   
+<div id="page">
+    <div contenteditable="true" class="photo-and-name">
+        <img src="{% static 'img/profile.png'%}" class="photo" alt="Profile Picture">
+        <div class="contact-info-box">
+            <h4 contenteditable="true" class="name">{{ generated_text.name }}</h4>
+            <br>
+            <h5 contenteditable="true" class="job-title">{{ resume.job_title }}</h5>
+            <p contenteditable="true" class="contact-details">{{ generated_text.contactDetails.phone }} &nbsp; - &nbsp; {{ generated_text.contactDetails.email }} &nbsp; - &nbsp; <a class="text-white" href="{{ generated_text.contactDetails.linkedin }}">linkedin</a></p>
+        </div>
+    </div>
+    <div id="objective" class="editable-content">
+        <h5>Summary</h5>
+        <div contenteditable="true">
+            {{ generated_text.summary }}
+        </div>
+    </div>
+    <div id="education" class="editable-content">
+        <h5>Education</h5>
+        <div class="school-container">
+            {% for education_item in generated_text.education %}
+            <div contenteditable="true" class="school-1">
+                <div>{{education_item.dates}}</div>
+                <div><b>{{education_item.level}}</b></div>
+                <div>{{education_item.school}}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div id="work" class="editable-content">
+        <h5>Experience</h5>
+        <div class="work-container">
+            {% for experience_item in generated_text.experience %}
+            <div contenteditable="true" class="work-1">
+                <div>{{experience_item.title}}</div>
+                <div>{{experience_item.dates}}</div>
+                <div><b>{{experience_item.company}}</b></div>
+                <div class="role-container">
+                    {% for role in experience_item.responsibilities %}
+                    <div>{{role}}</div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div id="work" class="editable-content">
+        <h5>Skills</h5>
+        <div class="skills-container">
+            <div class="work-1">
+                <div class="button-container" contenteditable="true">
+                    {% for skill in generated_text.skills %}
+                    <button class="btn btn-light  btn-sm">{{ skill }}</button>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="work" class="editable-content">
+        <h5>Interests</h5>
+        <div class="interests-container">
+            <div class="work-1">
+                <div class="button-container" contenteditable="true">
+                    {% for interest in generated_text.interests %}
+                    <button class="btn btn-light  btn-sm">{{ interest }}</button>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Other sections with div elements -->
+</div>
+
+<div class="text-center">
+   <a href="{% url 'generate_pdf' %}">
+      <button class=" btn btn-dark text-center">Download PDF</button>
+   </a>
+
+   <a href="{% url 'generate_docx' %}">
+      <button class=" btn btn-dark text-center">Download Docx</button>
+   </a>
+   <a href="{% url 'generate_cover_letter' resume_id=resume_id %}">
+    <button class=" btn btn-primary text-center">Generate Cover Letter</button>
+ </a>
+   <button class=" btn btn-success text-center" onclick="saveChanges()">Save Changes</button>
+</div>
+
+{% block javascript %}
+<script>
+    function saveChanges() {
+        var text = document.getElementById('myText');
+        var updatedContent = text.innerHTML;
+    
+        fetch('/save-generated-resume/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': getCSRFToken(),  // Include CSRF token if required
+            },
+            body: 'updated_content=' + encodeURIComponent(updatedContent)
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('Content successfully saved to the database!');
+            } else {
+                console.error('Failed to save content to the database.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+    
+    function getCSRFToken() {
+        
+        return document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+    }
+    
+</script>
+{% endblock javascript %}
+
+{% endblock %}
+
+def generate_cover_letter(request, resume_id):
+    # Retrieve the generated resume
+    generated_resume = get_object_or_404(GeneratedResume, id=resume_id)
+
+    cover_letter_prompt = f"""
+    Task: Generate a tailored cover letter based on the information extracted from the generated resume and job description.
+    
+    """
+
+    if request.method == "POST":
+        # Generate cover letter from the resume text
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo-1106",
+               messages=[
+                {"role": "system", "content": "You are an expert cover letter writer.You write cover letters that melt the recruiters to give you the job."},
+                {"role": "user", "content": cover_letter_prompt}
+
+            ]
+        )
+        generated_cover_letter_text = response.choices[0].message.content
+
+
+        # Store the generated cover letter in the database
+        generated_cover_letter = GeneratedCoverLetter(
+            user=request.user,  # Assuming the user is authenticated
+            generated_resume=generated_resume,
+            generated_text=generated_cover_letter_text
+        )
+        generated_cover_letter.save()
+
+        # Redirect to a page to display or download the generated cover letter
+        return redirect('cover_letter_display', cover_letter_id=generated_cover_letter.id)
+
+    # Render the template with the generated resume details
+    return render(request, 'generate_cover_letter.html', {'generated_resume': generated_resume})

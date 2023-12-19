@@ -198,7 +198,7 @@ def generate_cover_letter(request, resume_id):
     
     Body: Provide a brief overview of your professional background and experiences.
     Emphasize how your skills and experiences align with the requirements of the job.
-    Reference specific achievements or projects mentioned in the resume.
+    Reference specific achievements or projects mentioned in the Generated Resume Text.
     Express enthusiasm for the opportunity and explain why you are a suitable candidate.
     Closing:
 
@@ -210,41 +210,32 @@ def generate_cover_letter(request, resume_id):
 
     """
 
-    if request.method == "POST":
-        # Generate cover letter from the resume text
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo-1106",
-               messages=[
-                {"role": "system", "content": "You are an expert cover letter writer.You write cover letters that melt the recruiters to give you the job."},
-                {"role": "user", "content": cover_letter_prompt}
+    # if request.method == "POST":
+    # Generate cover letter from the resume text
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo-1106",
+            messages=[
+            {"role": "system", "content": "You are an expert cover letter writer.You write cover letters that melt the recruiters to give you the job."},
+            {"role": "user", "content": cover_letter_prompt}
+        ]
+    )
+    generated_cover_letter_text = response.choices[0].message.content
 
-            ]
-        )
-        generated_cover_letter_text = response.choices[0].message.content
+    # Store the generated cover letter in the database
+    generated_cover_letter = GeneratedCoverLetter(
+        user=request.user, 
+        generated_resume=generated_resume,
+        generated_text=generated_cover_letter_text
+    )
+    generated_cover_letter.save()
 
+    # Redirect to a page to display or download the generated cover letter
+    return redirect('cover_letter_display', cover_letter_id=generated_cover_letter.id)
 
-        # Store the generated cover letter in the database
-        generated_cover_letter = GeneratedCoverLetter(
-            user=request.user,  # Assuming the user is authenticated
-            generated_resume=generated_resume,
-            generated_text=generated_cover_letter_text
-        )
-        generated_cover_letter.save()
-
-        # Redirect to a page to display or download the generated cover letter
-        return redirect('cover_letter_display', cover_letter_id=generated_cover_letter.id)
-
-    # Render the template with the generated resume details
-    return render(request, 'generate_cover_letter.html', {'generated_resume': generated_resume})
-
-def cover_letter_display(request, cover_letter_id):
-    cover_letter = get_object_or_404(GeneratedCoverLetter, id=cover_letter_id)
     
-    if request.method == 'POST':
-        # Handle download request
-        response = HttpResponse(cover_letter.generated_text, content_type='application/pdf')
-        response['Content-Disposition'] = f'attachment; filename=generated_resume.pdf'
-        return response
+def cover_letter_display(request, cover_letter_id):
+
+    cover_letter = get_object_or_404(GeneratedCoverLetter, id=cover_letter_id)     
     
     return render(request, 'cover_letter_display.html', {'cover_letter': cover_letter})
 
