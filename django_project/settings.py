@@ -182,4 +182,11 @@ ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 
+# Azure Storage
+AZURE_STORAGE_ACCOUNT = "updateyourresume"  
+AZURE_STORAGE_KEY = "/6cuojkO6760F41c7+80rWxHamgPF2IVL4+vF05zeYc54B0oMyVZog+Bvq9nYHFrN5onA+lcvoDM+AStk5GS4A==" # Access key
+AZURE_STORAGE_CONNECTION_STRING = "DefaultEndpointsProtocol=https;AccountName=updateyourresume;AccountKey=/6cuojkO6760F41c7+80rWxHamgPF2IVL4+vF05zeYc54B0oMyVZog+Bvq9nYHFrN5onA+lcvoDM+AStk5GS4A==;EndpointSuffix=core.windows.net" 
+
+AZURE_STORAGE_CONTAINER = "resumes" # Blob container name
+
 django_heroku.settings(locals(), staticfiles=False)

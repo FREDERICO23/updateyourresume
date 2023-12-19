@@ -1,22 +1,25 @@
 import openai
 from django.contrib.auth import get_user_model
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
+from django.conf import settings
+
 import asyncio
 import json
 import fitz 
 import docx
 
-from .models import GeneratedResume, GeneratedCoverLetter
-from .utils import render_to_pdf, render_to_word
+from azure.storage.blob import BlobServiceClient
+import azure.storage.blob as azureblob
 
+from .models import GeneratedResume, GeneratedCoverLetter
+from .utils import render_to_pdf, render_to_word, extract_text_from_pdf, extract_text_from_docx
 
 CustomUser = get_user_model()
 openai.api_key = ('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')
 
-from django.http import JsonResponse
-from django.views.decorators.http import require_POST
-from .models import GeneratedResume
 
 @require_POST
 def save_generated_resume(request):
@@ -57,63 +60,53 @@ def generate_docx(request):
         return docx
    return HttpResponse("Failed to generate DOCX", status=400)
 
-def extract_text_from_pdf(pdf_file):
-    text = ""
-    pdf_document = fitz.open(pdf_file)    
-    for page_num in range(pdf_document.page_count):
-        page = pdf_document[page_num]
-        text += page.get_text()
-
-    return text
-
-
-def extract_text_from_docx(docx_file):
-    text = ""
-    doc = docx.Document(docx_file)
-    for paragraph in doc.paragraphs:
-        text += paragraph.text
-    return text
-
-import openai
-
-# OpenAI API Call
-def call_openai_api(prompt):
-    # Define the prompt and call the OpenAI API
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "system", "content": "You are an expert resume writer. You only return and reply with valid, iterable RFC8259 compliant JSON in your responses"},
-            {"role": "user", "content": prompt}
-        ]
-    )
-
-    generated_text = response.choices[0].message.content
-
-    return generated_text
-
+@login_required
 def generate_resume(request):
     if request.method == "POST":
         # Get user inputs from the form
         job_title = request.POST.get("job_title")
         job_description = request.POST.get("job_description")
         existing_resume = request.POST.get("existing_resume_text")
-        existing_resume_file = request.FILES.get("existing_resume_file")
-
+        existing_resume_file = request.FILES.get("existing_resume_file")       
+    
         # If an existing resume file is uploaded, read the content
         if existing_resume_file:
+
+            blob_service = BlobServiceClient.from_connection_string(settings.AZURE_STORAGE_CONNECTION_STRING) 
+            blob_client = blob_service.get_blob_client(settings.AZURE_STORAGE_CONTAINER, existing_resume_file.name) 
+
+           # Upload in-memory file to blob    
+            data = existing_resume_file.read()
+            blob_client.upload_blob(data, length=len(data))
+
+            azure_path = f"https://{settings.AZURE_STORAGE_ACCOUNT}.blob.core.windows.net/{settings.AZURE_STORAGE_CONTAINER}/{existing_resume_file.name}"
+            
             if existing_resume_file.name.endswith('.pdf'):
-                existing_resume_text = extract_text_from_pdf(existing_resume_file)
+                try:
+                    existing_resume_text = extract_text_from_pdf(azure_path) 
+                    print(azure_path)
+                except Exception as e:
+                    print("PDF text extraction failed", e)
+
             elif existing_resume_file.name.endswith('.docx'):
-                existing_resume_text = extract_text_from_docx(existing_resume_file)
+                try:
+                    existing_resume_text = extract_text_from_docx(azure_path) 
+                    print(azure_path)
+
+                except Exception as e:
+                    print("PDF text extraction failed", e)
             else:
                 existing_resume_text = existing_resume_text
-       
+                print(existing_resume_text)
+            
+            blob_client.delete_blob()
+
        
         # Create a prompt for expert resume revamp
         prompt = f"""
         Task: Generate a professionally styled, ATS-compliant resume tailored to the provided job title, job description, and the existing resume. The aim is to optimize the resume to increase its compatibility with ATS systems, while creatively adjusting certain sections to better align with the job requirements.
 
-        Instructions:
+        Instructions: Be creative to generate related achievements on the job experiences of the existing resume and skills from the job description.
 
         Input Data:
 
@@ -128,10 +121,17 @@ def generate_resume(request):
         You will also improve the resume details like; interests, skills, experience title and responsibilities to match the job description to the latter.         
         
         """
-        async_generated_text = asyncio.create_task(
-            call_openai_api(prompt)
-        )
+        # Call the OpenAI API to generate the resume
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You are an expert resume writer.You only return and reply with valid, iterable RFC8259 compliant JSON in your responses"},
+                {"role": "user", "content": prompt}
 
+            ]    
+        )    
+        
+        generated_text = response.choices[0].message.content
         user = request.user
         if isinstance(user, CustomUser):
             generated_resume = GeneratedResume(
@@ -146,7 +146,7 @@ def generate_resume(request):
             return redirect('resume_display', resume_id=generated_resume.id)
 
         else: 
-            pass 
+            pass
         
         context = {
             'resume_id': generated_resume.id,

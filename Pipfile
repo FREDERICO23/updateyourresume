@@ -36,6 +36,9 @@ psycopg2-binary = "*"
 openai = "==0.27.7"
 pymupdf = "*"
 python-docx = "*"
+pypdf2 = "*"
+azure-storage-blob = "*"
+azure-identity = "*"
 
 [dev-packages]
 

@@ -7,6 +7,7 @@ class GeneratedResume(models.Model):
     job_description = models.TextField(null=True)
     existing_resume =  models.TextField(null=True)
     generated_text = models.TextField(null=True)
+    # created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"Generated Resume for {self.job_title}"
