@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card-deck mx-auto my-5" style="max-width: 1000px;">
+
+  <div class="row">
+
+    {% for resume in resumes %}
+    
+        <div class="col-md-6 pb-4">
+          
+        {% if forloop.counter is odd %}
+
+            <div class="card bg-primary text-white">
+        
+        {% else %}
+
+            <div class="card bg-light">
+        
+        {% endif %}
+
+            <div class="card-body">
+              <h4 class="card-title">{{ resume.title }}</h4>    
+              <p class="card-text">{{ resume }}</p>
+            </div>
+
+          </div>
+
+        </div>
+
+    {% endfor %}
+  
+  </div>
+
+</div>
+
+{% endblock %}

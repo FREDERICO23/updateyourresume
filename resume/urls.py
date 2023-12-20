@@ -11,6 +11,7 @@ urlpatterns = [
     path('cover-letter/<int:cover_letter_id>/', views.cover_letter_display, name='cover_letter_display'),
     path('test/',views.display, name='display' ),
     path('dashboard/', views.dashboard, name='dashboard'),
+    path('list-resumes/', views.user_resumes, name="list_resumes"),
 
     path('generate_pdf/', views.generate_pdf, name='generate_pdf'),
     path('generate_docx/', views.generate_docx, name='generate_docx'),

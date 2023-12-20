@@ -233,10 +233,18 @@ def generate_cover_letter(request, resume_id):
 
     
 def cover_letter_display(request, cover_letter_id):
-
-    cover_letter = get_object_or_404(GeneratedCoverLetter, id=cover_letter_id)     
-    
+    cover_letter = get_object_or_404(GeneratedCoverLetter, id=cover_letter_id)         
     return render(request, 'cover_letter_display.html', {'cover_letter': cover_letter})
+
+def user_resumes(request):
+    # Get generated resumes for user 
+    resumes = GeneratedResume.objects.filter(user=request.user)
+    
+    context = {
+        'resumes': resumes        
+    }
+    print(resumes)
+    return render(request, 'user_resumes.html', context)
 
 def display(request):
     return render(request, 'base.html')
