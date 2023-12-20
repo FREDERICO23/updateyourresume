@@ -104,6 +104,8 @@ def generate_resume(request):
        
         # Create a prompt for expert resume revamp
         prompt = f"""
+        
+        Task: Generate a professionally styled, ATS-compliant resume tailored to the provided job title, job description, and the existing resume. The aim is to optimize the resume to increase its compatibility with ATS systems, while creatively adjusting certain sections to better align with the job requirements.
 
         Instructions: Be creative to generate related achievements on the job experiences of the existing resume and skills from the job description.
 
@@ -243,7 +245,6 @@ def user_resumes(request):
     context = {
         'resumes': resumes        
     }
-    print(resumes)
     return render(request, 'user_resumes.html', context)
 
 def display(request):
