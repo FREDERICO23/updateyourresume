@@ -5,23 +5,13 @@ from xhtml2pdf import pisa
 import docx
 import PyPDF2
 import fitz
+from io import BytesIO
+from azure.storage.blob import BlobServiceClient
+import azure.storage.blob as azureblob
+from django.conf import settings
 
 
-# def extract_text_from_pdf(pdf_file):
-#     """Extract text from a PDF file.
-#     Args:
-#         pdf_file (str): Path to the PDF file
-#     Returns:
-#         str: Extracted text from the PDF 
-#     """
-#     text = ""
-#     with open(pdf_file, 'rb') as f:
-#         pdf = PyPDF2.PdfReader(f)
-#         for page in pdf.pages:
-#             text += page.extract_text()
-#     return text
-
-def extract_text_from_pdf(azure_path):
+def extract_text_from_pdf(azure_path, file_name):
     """Extract text from a PDF stored in Azure blob storage
     
     Args:
@@ -30,17 +20,23 @@ def extract_text_from_pdf(azure_path):
     Returns:
         str: Extracted text string from PDF
     """
+    blob_service = BlobServiceClient.from_connection_string(settings.AZURE_STORAGE_CONNECTION_STRING) 
+    blob_client = blob_service.get_blob_client(settings.AZURE_STORAGE_CONTAINER, file_name) 
+    # Download blob contents to bytes 
+    downloaded_bytes = BytesIO()
+    blob_client.download_blob().download_to_stream(downloaded_bytes)
+
+    # Extract text from bytes 
+    downloaded_bytes.seek(0) # Rewind pointer to start 
     try:
-        doc = fitz.open(azure_path)
+        doc = fitz.open("pdf", downloaded_bytes) 
     except fitz.fitz.FileNotFoundError as err:
         print("FITZ ERROR:",err)
     
-    doc = fitz.open(azure_path)
-    text = ""
-    
+    doc = fitz.open("pdf", downloaded_bytes) 
+    text = ""    
     for page in doc:
-        text += page.getText()
-        
+        text += page.get_textpage().extractText()       
     return text
 
 def extract_text_from_docx(docx_file):

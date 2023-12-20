@@ -68,7 +68,9 @@ def generate_resume(request):
         job_description = request.POST.get("job_description")
         existing_resume = request.POST.get("existing_resume_text")
         existing_resume_file = request.FILES.get("existing_resume_file")       
-    
+        
+        file_name = existing_resume_file.name
+
         # If an existing resume file is uploaded, read the content
         if existing_resume_file:
 
@@ -80,31 +82,28 @@ def generate_resume(request):
             blob_client.upload_blob(data, length=len(data))
 
             azure_path = f"https://{settings.AZURE_STORAGE_ACCOUNT}.blob.core.windows.net/{settings.AZURE_STORAGE_CONTAINER}/{existing_resume_file.name}"
-            
+
             if existing_resume_file.name.endswith('.pdf'):
                 try:
-                    existing_resume_text = extract_text_from_pdf(azure_path) 
-                    print(azure_path)
+                    existing_resume_text = extract_text_from_pdf(azure_path, file_name) 
                 except Exception as e:
                     print("PDF text extraction failed", e)
 
             elif existing_resume_file.name.endswith('.docx'):
                 try:
                     existing_resume_text = extract_text_from_docx(azure_path) 
-                    print(azure_path)
+                    print(existing_resume_text)
 
                 except Exception as e:
                     print("PDF text extraction failed", e)
             else:
                 existing_resume_text = existing_resume_text
-                print(existing_resume_text)
             
             blob_client.delete_blob()
 
        
         # Create a prompt for expert resume revamp
         prompt = f"""
-        Task: Generate a professionally styled, ATS-compliant resume tailored to the provided job title, job description, and the existing resume. The aim is to optimize the resume to increase its compatibility with ATS systems, while creatively adjusting certain sections to better align with the job requirements.
 
         Instructions: Be creative to generate related achievements on the job experiences of the existing resume and skills from the job description.
 
@@ -112,7 +111,7 @@ def generate_resume(request):
 
         Job Title: {job_title}
         Job Description: {job_description}
-        Existing Resume: {existing_resume}
+        Existing Resume: {existing_resume_text}
         Adjustments:
 
         From the job description, extract the following in details: name, email, phone, summary, experience, education, skills and interests.
