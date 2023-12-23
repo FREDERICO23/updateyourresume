@@ -20,8 +20,8 @@
   <div class="profile text-center">
     {% comment %} <img src="profile.png" class="photo"> {% endcomment %}
     <div class="info"> 
-      <h1 class="name" contenteditable="true">{{generated_text.name}}</h1>
-      <h2 class="title" contenteditable="true">{{resume.job_title}}</h2>
+      <h2 class="name" contenteditable="true">{{generated_text.name}}</h2>
+      <h4 class="title" contenteditable="true">{{resume.job_title}}</h4>
       <p class="contact" contenteditable="true">
         {{generated_text.contactDetails.phone}} | {{generated_text.contactDetails.email}} | <a href="{{generated_text.contactDetails.linkedin}}">LinkedIn</a>
       </p>
@@ -39,7 +39,7 @@
     <h2>Education</h2>
     {% for education in generated_text.education %}
     <div class="school" contenteditable="true">
-      <h4>{{education.school}}</h4>
+      <h5>{{education.school}}</h5>
       <p>{{education.level}} | {{education.dates}}</p>
     </div>
     {% endfor %}
@@ -50,7 +50,7 @@
     <h2>Experience</h2>
     {% for experience in generated_text.experience %}
     <div class="job">
-      <h4 contenteditable="true">{{experience.title}}</h4>
+      <h5 contenteditable="true">{{experience.title}}</h5>
       <p contenteditable="true">{{experience.company}} | {{experience.dates}}</p>
       <ul>
         {% for responsibility in experience.responsibilities %}
