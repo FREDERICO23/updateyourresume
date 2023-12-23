@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Harvard Template - Updateyourresume {% endblock %}
+{% block link %}
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"> 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> 
+    <link rel="stylesheet" type="text/css" href="{% static 'havard.css' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'icons/updateyourresumefavicon.png' %}">    
+{% endblock %}
+
+{% block content %}
+
+<div class="resume-wrapper">
+<div class="resume-container">
+
+  <!-- Profile section -->
+  <div class="profile text-center">
+    {% comment %} <img src="profile.png" class="photo"> {% endcomment %}
+    <div class="info"> 
+      <h1 class="name" contenteditable="true">{{generated_text.name}}</h1>
+      <h2 class="title" contenteditable="true">{{resume.job_title}}</h2>
+      <p class="contact" contenteditable="true">
+        {{generated_text.contactDetails.phone}} | {{generated_text.contactDetails.email}} | <a href="{{generated_text.contactDetails.linkedin}}">LinkedIn</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Summary section -->
+  <section class="summary">
+    <h2>Summary</h2>
+    <p contenteditable=True >{{generated_text.summary}}</p>
+  </section>
+
+  <!-- Education section -->
+  <section class="education">
+    <h2>Education</h2>
+    {% for education in generated_text.education %}
+    <div class="school" contenteditable="true">
+      <h4>{{education.school}}</h4>
+      <p>{{education.level}} | {{education.dates}}</p>
+    </div>
+    {% endfor %}
+  </section>
+
+  <!-- Experience section -->
+  <section class="experience">
+    <h2>Experience</h2>
+    {% for experience in generated_text.experience %}
+    <div class="job">
+      <h4 contenteditable="true">{{experience.title}}</h4>
+      <p contenteditable="true">{{experience.company}} | {{experience.dates}}</p>
+      <ul>
+        {% for responsibility in experience.responsibilities %}
+        <li contenteditable="true">{{responsibility}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+  </section>
+
+  <!-- Skills section -->
+  <section class="skills">
+    <h2>Skills</h2>
+    <ul class="skills-list">
+      {% for skill in generated_text.skills %}
+      <button class="btn btn-light  btn-sm" contenteditable="true">{{skill}}</button>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <!-- Interests section -->
+  <section class="interests">
+    <h2>Interests</h2>
+    <ul class="interests-list">
+      {% for interest in generated_text.interests %}
+      <button class="btn btn-light  btn-sm" contenteditable="true">{{interest}}</button>
+      {% endfor %}
+    </ul>
+  </section>
+
+</div>
+</div>
+
+<div class="text-center">
+    <a href="{% url 'generate_pdf' %}">
+       <button class=" btn btn-dark text-center">Download PDF</button>
+    </a>
+ 
+    <a href="{% url 'generate_docx' %}">
+       <button class=" btn btn-dark text-center">Download Docx</button>
+    </a>
+    <a href="{% url 'generate_cover_letter' resume_id=resume_id %}">
+     <button class=" btn btn-primary text-center">Generate Cover Letter</button>
+  </a>
+    <button class=" btn btn-success text-center" onclick="saveChanges()">Save Changes</button>
+ </div>
+{% endblock %}
+
+

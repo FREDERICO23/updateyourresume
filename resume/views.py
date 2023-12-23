@@ -153,7 +153,7 @@ def generate_resume(request):
             'resume_id': generated_resume.id,
         }
         print(generated_resume.id)
-        return redirect("resume_display", context)  
+        return redirect("havard_resume", context)  
     
     return render(request, "generate_resume_form.html") 
 
@@ -177,7 +177,27 @@ def resume_display(request, resume_id):
         'resume_id' : resume_id,
     }  
     return render(request, 'resume_display.html', context)
-    #return render_to_pdf('resume_display.html', context)
+
+def havard_resume(request, resume_id):
+    resume = get_object_or_404(GeneratedResume, id=resume_id)
+    
+    try:
+        generated_text = json.loads(resume.generated_text)
+    except json.JSONDecodeError:
+        generated_text = {} 
+
+    if request.method == 'POST':
+        # Handle download request
+        response = HttpResponse(resume.generated_text, content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename=generated_resume.pdf'
+        return response  
+    
+    context = {
+        'resume': resume,
+        'generated_text': generated_text,
+        'resume_id' : resume_id,
+    }  
+    return render(request, 'havard_resume.html', context)
 
 def generate_cover_letter(request, resume_id):
     # Retrieve the generated resume
