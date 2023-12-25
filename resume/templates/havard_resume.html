@@ -8,7 +8,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> 
     <link rel="stylesheet" type="text/css" href="{% static 'havard.css' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'icons/updateyourresumefavicon.png' %}">    
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'icons/updateyourresumefavicon.png' %}">  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -85,18 +86,40 @@
 </div>
 
 <div class="text-center">
-    <a href="{% url 'generate_pdf' %}">
-       <button class=" btn btn-dark text-center">Download PDF</button>
-    </a>
- 
-    <a href="{% url 'generate_docx' %}">
-       <button class=" btn btn-dark text-center">Download Docx</button>
-    </a>
-    <a href="{% url 'generate_cover_letter' resume_id=resume_id %}">
+    <button id="cmd" class=" btn btn-dark text-center" onclick="generatePDF()">Download PDF</button> 
+    <button id="cmd" class=" btn btn-dark text-center">Download Docx</button>
+    
+  <a href="{% url 'generate_cover_letter' resume_id=resume_id %}">
      <button class=" btn btn-primary text-center">Generate Cover Letter</button>
   </a>
     <button class=" btn btn-success text-center" onclick="saveChanges()">Save Changes</button>
  </div>
+
 {% endblock %}
+<script>
+    function generatePDF() {
+      const doc = new jsPDF();
+  
+      // Select resume content
+      const resumeContent = document.querySelector('.resume-wrapper');
+  
+      // Set the position for content on the PDF
+      const xPos = 10;
+      const yPos = 10;
+  
+      // Generate PDF by placing content on the canvas
+      doc.html(resumeContent, {
+        x: xPos,
+        y: yPos,
+        callback: function () {
+          doc.save('resume.pdf');
+        }
+      });
+    }
+  </script>
+  
+  
+  
+  
 
 
