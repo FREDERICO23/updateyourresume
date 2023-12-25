@@ -144,7 +144,7 @@ def generate_resume(request):
             )
             generated_resume.save()
             
-            return redirect('resume_display', resume_id=generated_resume.id)
+            return redirect('havard_resume', resume_id=generated_resume.id)
 
         else: 
             pass
