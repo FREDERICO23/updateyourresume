@@ -9,13 +9,17 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> 
     <link rel="stylesheet" type="text/css" href="{% static 'havard.css' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'icons/updateyourresumefavicon.png' %}">  
+   
+    <script src= "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src= "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="{% static 'js/download.js' %}"></script>
 {% endblock %}
 
 {% block content %}
 
-<div class="resume-wrapper">
-<div class="resume-container">
+<div class="resume-wrapper" id = "resumeWrapper">
+<div class="resume-container" id ="resumeContainer">
 
   <!-- Profile section -->
   <div class="profile text-center">
@@ -86,37 +90,19 @@
 </div>
 
 <div class="text-center">
-    <button id="cmd" class=" btn btn-dark text-center" onclick="generatePDF()">Download PDF</button> 
-    <button id="cmd" class=" btn btn-dark text-center">Download Docx</button>
-    
-  <a href="{% url 'generate_cover_letter' resume_id=resume_id %}">
-     <button class=" btn btn-primary text-center">Generate Cover Letter</button>
-  </a>
-    <button class=" btn btn-success text-center" onclick="saveChanges()">Save Changes</button>
- </div>
+  <button id="button-pdf" class=" btn btn-dark text-center" onclick="downloadPDF()">Download PDF</button>
+
+  <button id="cmd" class=" btn btn-dark text-center">Download Docx</button>
+  
+<a href="{% url 'generate_cover_letter' resume_id=resume_id %}">
+   <button class=" btn btn-primary text-center">Generate Cover Letter</button>
+</a>
+  <button class=" btn btn-success text-center" onclick="saveChanges()">Save Changes</button>
+</div>
+
 
 {% endblock %}
-<script>
-    function generatePDF() {
-      const doc = new jsPDF();
-  
-      // Select resume content
-      const resumeContent = document.querySelector('.resume-wrapper');
-  
-      // Set the position for content on the PDF
-      const xPos = 10;
-      const yPos = 10;
-  
-      // Generate PDF by placing content on the canvas
-      doc.html(resumeContent, {
-        x: xPos,
-        y: yPos,
-        callback: function () {
-          doc.save('resume.pdf');
-        }
-      });
-    }
-  </script>
+
   
   
   
