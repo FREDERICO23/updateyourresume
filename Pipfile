@@ -39,6 +39,7 @@ python-docx = "*"
 pypdf2 = "*"
 azure-storage-blob = "*"
 azure-identity = "*"
+django-easy-audit = "*"
 
 [dev-packages]
 
