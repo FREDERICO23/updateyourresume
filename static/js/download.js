@@ -2,7 +2,7 @@
 function downloadPDF() {
     const { jsPDF } = window.jspdf;
 
-    let doc = new jsPDF('l', 'mm', [900, 900]);
+    let doc = new jsPDF('p', 'px', [900, 900]);
     let pdfjs = document.querySelector('#resumeContainer');
 
     doc.html(pdfjs, {
