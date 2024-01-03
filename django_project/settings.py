@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "accounts",
     "pages",
     "resume",
+    "payments",
 ]
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
@@ -190,5 +191,14 @@ AZURE_STORAGE_KEY = "/6cuojkO6760F41c7+80rWxHamgPF2IVL4+vF05zeYc54B0oMyVZog+Bvq9
 AZURE_STORAGE_CONNECTION_STRING = "DefaultEndpointsProtocol=https;AccountName=updateyourresume;AccountKey=/6cuojkO6760F41c7+80rWxHamgPF2IVL4+vF05zeYc54B0oMyVZog+Bvq9nYHFrN5onA+lcvoDM+AStk5GS4A==;EndpointSuffix=core.windows.net" 
 
 AZURE_STORAGE_CONTAINER = "resumes" # Blob container name
+
+
+# Paystack KEYS
+PAYSTACK_SECRET_KEY = "sk_live_75643067bb66f17fe68386c92f1bc8335c6069bb"
+PAYSTACK_PUBLIC_KEY = "pk_live_031ec6cf2fc6d6cfa45aa7ebe56d9dcdc0315f56"
+PAYSTACK_TEST_SECRET_KEY = "sk_test_7817653a6ff27667f95222816acf1dd9ca2d3831"
+PAYSTACK_TEST_PUBLIC_KEY= "pk_test_ab5107407fe1f0ea8a9037fa8e81cda7cdce908c"
+
+
 
 django_heroku.settings(locals(), staticfiles=False)

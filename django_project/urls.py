@@ -7,6 +7,7 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     path("", include("pages.urls")),
     path("resume/", include("resume.urls")),
+    path("payments/", include("payments.urls")),
 ]
 
 if settings.DEBUG:
