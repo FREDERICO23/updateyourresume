@@ -8,8 +8,14 @@
     <div class="container">
         <div class="pb-5 pt-5 row">
             <div class="col-lg-8 col-xl-6 mx-auto">
-                <h1 class="display-4 fw-normal mb-3 text-dark">We Handle your Resume so you Focus on the Interview! </h1>
-                <p class="fw-light mb-4">Revamp you Resume/CV with updateyourresume. At UpdateYourResume, we understand that time is of the essence in the job search process. That's why we've revolutionized the way you update your resume and create cover letters.</p> 
+                <h1 class="display-4 fw-normal mb-3 text-dark">
+                    Get a job-specific tailored 
+                    <span style="font-weight: bold; font-size: 1.2em; color: #007bff;">Resume</span>
+                    and a
+                    <span style="font-weight: bold; font-size: 1.2em; color: #28a745;">Cover Letter</span>
+                    in seconds
+                </h1>
+                <p class="fw-light mb-4">Let AI rewrite your resume to fit the job title and job descriptions you're applying to.</p> 
                 <a href="{% url 'generate_resume' %}" class="btn btn-primary fw-light pb-2 ps-3 pe-3 pt-2">Get Started</a>
                 <a href="#" class="btn btn-secondary fw-light pb-2 ps-3 pe-3 pt-2">Learn More</a>
             </div>
@@ -124,27 +130,28 @@
                 <p class="fw-light mb-3"> Don't let your resume be the ghost in the career graveyard! Stop living on borrowed achievements and outdated skills. updateyourresume.xyz is your AI-powered genie, granting you wishes like a sparkling new resume that screams, "Hire me!" Ditch the resume blues and say hello to interview cheers. Update now, because your dream job isn't waiting for a dusty relic, it's waiting for you.</p>
                 <div class="row">
                     <div class="col-md-4 pb-3 pt-3">
-                        <div class="text-center"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="60" height="60" fill="currentColor" class="mb-3">
-                                <path d="M3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm13.464 12.536L20 12l-3.536-3.536L15.05 9.88 17.172 12l-2.122 2.121 1.414 1.415zM6.828 12L8.95 9.879 7.536 8.464 4 12l3.536 3.536L8.95 14.12 6.828 12zm4.416 5l3.64-10h-2.128l-3.64 10h2.128z"></path>
-                            </svg>
-                            <h3 class="fw-normal h5">Premium Support</h3>                            
-                            <p class="mb-0 text-start">Get Premium access to our resume experts for personalized guidance. Enjoy one-on-one sessions to perfect your resume, cover letters, LinkedIn profile, and interview preparation.</p>
+                        <div class="text-center"> <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-file-earmark-arrow-up-fill" viewBox="0 0 16 16">
+                            <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1M6.354 9.854a.5.5 0 0 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 8.707V12.5a.5.5 0 0 1-1 0V8.707z"/>
+                          </svg>
+                            <h3 class="fw-normal h5">Upload or Paste </h3>                            
+                            <p class="mb-0 text-start">Upload or paste your existing resume in pdf of docx formats</p>
                         </div>
                     </div>
                     <div class="col-md-4 pb-3 pt-3">
-                        <div class="text-center"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="60" height="60" fill="currentColor" class="mb-3">
-                                <path d="M5.636 12.707l1.828 1.829L8.88 13.12 7.05 11.293l1.414-1.414 1.829 1.828 1.414-1.414L9.88 8.464l1.414-1.414L13.12 8.88l1.415-1.415-1.829-1.828 2.829-2.828a1 1 0 0 1 1.414 0l4.242 4.242a1 1 0 0 1 0 1.414L8.464 21.192a1 1 0 0 1-1.414 0L2.808 16.95a1 1 0 0 1 0-1.414l2.828-2.829zm8.485 5.656l4.243-4.242L21 16.757V21h-4.242l-2.637-2.637zM5.636 9.878L2.807 7.05a1 1 0 0 1 0-1.415l2.829-2.828a1 1 0 0 1 1.414 0L9.88 5.635 5.636 9.878z"></path>
+                        <div class="text-center"> 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-file-earmark-font-fill" viewBox="0 0 16 16">
+                            <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1M5.057 6h5.886L11 8h-.5c-.18-1.096-.356-1.192-1.694-1.235l-.298-.01v5.09c0 .47.1.582.903.655v.5H6.59v-.5c.799-.073.898-.184.898-.654V6.755l-.293.01C5.856 6.808 5.68 6.905 5.5 8H5z"/>
                             </svg>
-                            <h3 class="fw-normal h5">Advanced Features</h3>                           
-                            <p class="mb-0 text-start">Automate resume tailoring to filter for opportunities that are the best match for your background. Access downloadable resume metrics and insights.</p>
+                            <h3 class="fw-normal h5">Multiple Templates</h3>                           
+                            <p class="mb-0 text-start">Select your desired resume template from our existing collection.</p>
                         </div>
                     </div>
                     <div class="col-md-4 pb-3 pt-3">
-                        <div class="text-center"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="60" height="60" fill="currentColor" class="mb-3">
-                                <path d="M15 21h-2v-3h-2v3H9v-2H7v2H4a1 1 0 0 1-1-1v-3h2v-2H3v-2h3v-2H3V9h2V7H3V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v9h9a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-3v-2h-2v2z"></path>
-                            </svg>
-                            <h3 class="fw-normal h5">99.99% Uptime</h3>
-                            <p class="mb-0 text-start">We guarantee 99.99% uptime outside of scheduled maintenance windows, ensuring 24/7 availability of our resume building and tracking tools. </p>
+                        <div class="text-center"> <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-file-earmark-arrow-down-fill" viewBox="0 0 16 16">
+                            <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1m-1 4v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 11.293V7.5a.5.5 0 0 1 1 0"/>
+                          </svg>
+                            <h3 class="fw-normal h5">Multiple Download Formats</h3>
+                            <p class="mb-0 text-start">Download your resume in your desired formats. PDF or Docx </p>
                         </div>
                     </div>
                 </div>
@@ -198,8 +205,8 @@
         <div class="align-items-center row">
             <div class="col-xl-10 ms-auto me-auto">
                 <div class="bg-primary pb-5 ps-4 pe-4 pt-5 rounded-3 text-white">
-                    <h2 class="fw-normal h1 mb-2">Let&apos;s simplify & automate your Job Application</h2>
-                    <p class="mb-4">Revamp your Resume in seconds.</p> <a href="#" class="btn btn-light fw-light pb-2 ps-3 pe-3 pt-2">Sign Up Now</a>
+                    <h2 class="fw-normal h1 mb-2">Let&apos;s simplify & hasten your Job Application</h2>
+                    <p class="mb-4">Revamp your Resume in seconds.</p> <a href="{% url 'account_signup' %}" class="btn btn-light fw-light pb-2 ps-3 pe-3 pt-2">Sign Up Now</a>
                 </div>
             </div>
         </div>
@@ -275,8 +282,8 @@
                 <h2 class="fw-normal h5 mb-4 text-uppercase text-white">About</h2>
                 <ul class="list-unstyled">
                     <li class="mb-3"> <a href="#" class="link-light text-decoration-none">About Us</a> </li>
-                    <li class="mb-3"> <a href="#" class="link-light text-decoration-none">Pricing Plans</a> </li>
-                    <li class="mb-3"> <a href="#" class="link-light text-decoration-none">Become an Affiliate</a> </li>
+                    <li class="mb-3"> <a href="{% url 'pricing' %}" class="link-light text-decoration-none">Pricing Plans</a> </li>
+                    {% comment %} <li class="mb-3"> <a href="#" class="link-light text-decoration-none">Become an Affiliate</a> </li> {% endcomment %}
                     <li class="mb-3"> <a href="#" class="link-light text-decoration-none">Testimonials</a> </li>
                 </ul>
             </div>
