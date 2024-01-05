@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Home |UpdateYourResume{% endblock title %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+  <div class="row">
+    <div class="col-12 col-md-4">
+      <div class="card">
+        <img src="{% static 'img/basic.png' %}" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title">Upgrade Resume</h5>
+          <p class="card-text">Get access to more resume designs and features by upgrading to premium.</p>
+          <a href="#" class="btn btn-primary">Upgrade</a> 
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-4">  
+      <div class="card bg-primary text-white">
+        <img src="{% static 'img/basic.png' %}" class="card-img-top">
+
+        <div class="card-body">
+          <h5 class="card-title">Update Resume</h5>
+          <p class="card-text">Make changes and tweak your existing resume.</p>
+          <a href="#" class="btn btn-light">Update Resume</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-4">
+      <div class="card">
+        <img src="{% static 'img/basic.png' %}" class="card-img-top">
+
+        <div class="card-body">
+          <h5 class="card-title">Create Resume</h5>
+          <p class="card-text">Build a new resume from scratch.</p>
+          <a href="#" class="btn btn-primary">Create Resume</a>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+</div>
+{% endblock %}

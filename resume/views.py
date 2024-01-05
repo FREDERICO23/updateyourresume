@@ -270,8 +270,11 @@ def user_resumes(request):
 def display(request):
     return render(request, 'base.html')
 
-def home(request):
+def index(request):
     return render(request, 'pages/index.html')
+
+def home(request):
+    return render(request, 'home.html')
 
 def dashboard(request):
     return render(request, 'dashboard.html')
