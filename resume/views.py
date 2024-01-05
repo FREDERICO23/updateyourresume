@@ -105,9 +105,7 @@ def generate_resume(request):
         # Create a prompt for expert resume revamp
         prompt = f"""
         
-        Task: Generate a professionally styled, ATS-compliant resume tailored to the provided job title, job description, and the existing resume. The aim is to optimize the resume to increase its compatibility with ATS systems, while creatively adjusting certain sections to better align with the job requirements.
-
-        Instructions: Be creative to generate related achievements on the job experiences of the existing resume and skills from the job description.
+        Task: Tailor the provided resume to the given job title and description by optimizing relevant sections.                   
 
         Input Data:
 
@@ -116,11 +114,13 @@ def generate_resume(request):
         Existing Resume: {existing_resume_text}
         Adjustments:
 
-        From the job description, extract the following in details: name, email, phone, summary, experience, education, skills and interests.
+        From the job description, extract the following in details: name, email, phone, summary, experience, education, skills, interests, certifications(only if on the resume), projects(only if on the resume) langauges(only if on the resume),achievements(only if on the resume)
         You will return a jSON response of the details using the keys:  name, contactDetails: "email, phone, linkedin", summary, experience:"title,company,dates,responsibilities(create a list)", education:"level, school, dates", skills(create a list), interests(create a list).
 
         You will also improve the resume details like; interests, skills, experience title and responsibilities to match the job description to the latter.         
         
+        Please use this information to create a tailored resume that aligns with the job description and highlights relevant skills and experiences from my existing resume. The generated resume should emphasize key qualifications and accomplishments needed for this job. Thank you!
+
         """
         # Call the OpenAI API to generate the resume
         response = openai.ChatCompletion.create(

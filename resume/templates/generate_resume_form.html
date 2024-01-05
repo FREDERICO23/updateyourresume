@@ -8,7 +8,7 @@
     <div class="container">
       <br>
         <h1>Update your Resume</h1>
-        <form method="post" enctype="multipart/form-data">
+        <form id="resumeForm" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="row">
                 <div class="col-md-6">
@@ -27,7 +27,7 @@
                       
                           <label class="mt-3" for="job_description">Job Description:</label>
                           
-                          <textarea class="form-control" name="job_description" rows="3"
+                          <textarea class="form-control" name="job_description" id='job_description' rows="3"
                             placeholder="Paste job description" required></textarea>
                       
                         </div>
@@ -50,7 +50,7 @@
                         <p class="text-center">or</p>
                           <div class="mt-3 text-center">
                             <label class="btn btn-primary">
-                              <input type="file" name="existing_resume_file" accept=".pdf,.docx">
+                              <input type="file" name="existing_resume_file" accept=".pdf,.docx" required>
                               Upload Resume  
                             </label>
                           </div>
@@ -62,12 +62,51 @@
                 </div>
             </div>
             <br>
-            <div class="text-center">
-            <button class="btn btn-primary btn-lg text-center" type="submit">Generate Resume</button>
-            </div>
+              
+            <div class="text-center">             
+              <button class="btn btn-primary btn-lg text-center" type="submit" id="generateButton">
+                <span id="buttonText">Generate Resume</span>
+                <span id="buttonSpinner" class="visually-hidden"> <!-- Initially hidden -->
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Generating...
+                </span>
+            </button>    
+          </div>
+           
         </form>
         
     </div>
+    <script>
+     // Get the form, button, button text, and button spinner elements
+    const resumeForm = document.getElementById('resumeForm');
+    const generateButton = document.getElementById('generateButton');
+    const buttonText = document.getElementById('buttonText');
+    const buttonSpinner = document.getElementById('buttonSpinner');
 
+    // Function to show loading text and disable the button
+    const showLoading = () => {
+        generateButton.disabled = true; // Disable the button
+        buttonText.style.display = 'none'; // Hide button text
+        buttonSpinner.classList.remove('d-none'); // Show loading spinner
+    };
+
+    // Add submit event listener to the form
+    resumeForm.addEventListener('submit', (event) => {
+        event.preventDefault(); // Prevent default form submission
+
+        showLoading(); // Show loading text
+        
+        // Perform your form submission or other processing here
+        // For demonstration purposes, simulating a process completion after 3 seconds
+        setTimeout(() => {
+            // Simulate form submission by submitting the form after process completion
+            resumeForm.submit();
+        }, 3000); // Change 3000 to your process duration in milliseconds
+    });
+
+
+      </script>
+
+ 
 {% endblock %}
 
