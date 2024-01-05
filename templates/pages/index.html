@@ -16,7 +16,7 @@
                     in seconds
                 </h1>
                 <p class="fw-light mb-4">Let AI rewrite your resume to fit the job title and job descriptions you're applying to.</p> 
-                <a href="{% url 'generate_resume' %}" class="btn btn-primary fw-light pb-2 ps-3 pe-3 pt-2">Get Started</a>
+                <a href="{% url 'home' %}" class="btn btn-primary fw-light pb-2 ps-3 pe-3 pt-2">Get Started</a>
                 <a href="#" class="btn btn-secondary fw-light pb-2 ps-3 pe-3 pt-2">Learn More</a>
             </div>
         </div>
@@ -123,7 +123,9 @@
     <div class="container pb-3 pt-3">
         <div class="align-items-center row">
             <div class="col-xl-5 mt-n5 order-xl-2 pb-3 pt-3">
-                <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_4ayeqfsd.json" background="transparent" speed="1" style="width: 100%; height: auto;" loop autoplay></lottie-player>
+                <img src="{% static 'img/basic.png' %}">
+
+                {% comment %} <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_4ayeqfsd.json" background="transparent" speed="1" style="width: 100%; height: auto;" loop autoplay></lottie-player> {% endcomment %}
             </div>
             <div class="col-xl-7 ms-auto order-xl-1 pb-3 pt-3">
                 <h2 class="fw-normal h1 mb-2">Don't take chances with your Resume</h2>
