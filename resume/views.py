@@ -18,7 +18,7 @@ from .models import GeneratedResume, GeneratedCoverLetter
 from .utils import render_to_pdf, render_to_word, extract_text_from_pdf, extract_text_from_docx
 
 CustomUser = get_user_model()
-openai.api_key = ('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')
+openai.api_key = ('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')
 
 
 @require_POST
