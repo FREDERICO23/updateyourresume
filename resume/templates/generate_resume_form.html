@@ -72,41 +72,42 @@
                 </span>
             </button>    
           </div>
-           
+
+       <!-- Popup card for job landing advice (initially hidden) -->
+        <div id="advicePopup" class="card advice-popup-card" style="display: none;">
+            <div class="card-header">Did you Know?</div>
+            <div class="card-body">
+                <p id="adviceText"></p>
+                
+                <button onclick="closeAdvicePopup()" class="btn btn-primary">Close</button>
+            </div>
+        </div>         
         </form>
         
     </div>
     <script>
-     // Get the form, button, button text, and button spinner elements
-    const resumeForm = document.getElementById('resumeForm');
-    const generateButton = document.getElementById('generateButton');
-    const buttonText = document.getElementById('buttonText');
-    const buttonSpinner = document.getElementById('buttonSpinner');
-
-    // Function to show loading text and disable the button
-    const showLoading = () => {
-        generateButton.disabled = true; // Disable the button
-        buttonText.style.display = 'none'; // Hide button text
-        buttonSpinner.classList.remove('d-none'); // Show loading spinner
-    };
-
-    // Add submit event listener to the form
-    resumeForm.addEventListener('submit', (event) => {
-        event.preventDefault(); // Prevent default form submission
-
-        showLoading(); // Show loading text
-        
-        // Perform your form submission or other processing here
-        // For demonstration purposes, simulating a process completion after 3 seconds
-        setTimeout(() => {
-            // Simulate form submission by submitting the form after process completion
-            resumeForm.submit();
-        }, 3000); // Change 3000 to your process duration in milliseconds
-    });
-
-
-      </script>
-
+      const resumeForm = document.getElementById('resumeForm');
+      const advicePopup = document.getElementById('advicePopup');
+      const adviceText = document.getElementById('adviceText');
+  
+      const jobLandingAdvices = [
+          "Tailor your resume for each job application.",
+          "Use specific examples to demonstrate your skills.",
+          "Highlight your achievements rather than just listing duties.",
+          "Network with professionals in your industry.",
+          // Add more advices as needed
+      ];
+  
+      const showAdvicePopup = () => {
+          const randomAdvice = jobLandingAdvices[Math.floor(Math.random() * jobLandingAdvices.length)];
+          adviceText.textContent = randomAdvice;
+          advicePopup.style.display = 'block';
+      };
+  
+      resumeForm.addEventListener('submit', () => {
+          showAdvicePopup(); // Show the popup when the form is submitted
+      });
+  </script>
  
 {% endblock %}
 

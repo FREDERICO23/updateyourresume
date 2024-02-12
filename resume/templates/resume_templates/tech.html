@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Tech Careers Template  - Updateyourresume {% endblock %}
+{% block link %}
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"> 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> 
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'icons/updateyourresumefavicon.png' %}">  
+    <link rel="stylesheet" href="{% url 'css/resume/tech.css'%}">
+   
+    <script src= "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src= "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="{% static 'js/download.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<body>
+  <main>
+    <div class="container">
+      <section class="header">
+        <div class="profile">
+          <div>
+            <h1 contenteditable>Ivana Johnson</h1>
+            <p contenteditable>HR Professional</p>
+          </div>
+
+          <p contenteditable>Astute and exceptionally dedicated professional with <b>6+ years of experience in
+              human resources management
+            </b>
+            operations. Equipped with a solid commitment to providing high-quality support to the management for
+            consistent growth and development of human resources of diverse companies. Demonstrated success in
+            developing
+            and executing training programs to optimize employee capabilities.</p>
+        </div>
+        <div class="profile-contact">
+          <span contenteditable>ivana@novoresume.com
+            <i class="fa fa-envelope"></i>
+          </span>
+          <span contenteditable>(123) 5343 444 <i class="fa fa-mobile-phone" style="font-size:24px"></i></span>
+          <span contenteditable>Bloomington, IN <i class="fa fa-map-marker"></i></span>
+          <span contenteditable>linkedin.com/in/ivana.johnson <i class="fa fa-linkedin"></i></span>
+          <span contenteditable>@ivana.johnson <i class="fa fa-twitter"></i></span>
+        </div>
+      </section>
+      <hr>
+      <section class="experience-skills">
+        <div class="work-experience">
+          <h2>WORK EXPERIENCE</h2>
+          <div class="experience-card">
+            <div class="card-header">
+              <h3 contenteditable>HR Generalist</h3>
+              <p contenteditable>The Good Hire Solutions</p>
+              <div class="card-time">
+                <span contenteditable><i>06/2016 - Present</i></span>
+                <span contenteditable><i>Bloomington, IN</i></span>
+              </div>
+            </div>
+
+            <ul>
+              <li contenteditable>
+                <span>Administer the onboarding process of newly hired employees by initiating pre-employment checks,
+                  drug
+                  screening, and first-day orientations to acquaint them with the company&apos;s operational procedures
+                  and
+                  policies</span>
+              </li>
+              <li contenteditable> <span>Perform effective formal/informal coaching and mentorship to various associates
+                  at all
+                  organizational
+                  levels in an impactful, collaborative, and consultative manner</li>
+              </span>
+              <li contenteditable>
+                <span>
+                  Serve as a Business Partner executing strategic HR initiatives across departments, from staffing and
+                  performance management to compensation planning, succession planning, and employee communication,
+                  among
+                  others</span>
+              </li>
+              <li contenteditable>
+                <span>
+                  Proficiently utilize the company&apos; HRIS system to enter, manage, and monitor pertinent HR-related
+                  information</span>
+              </li>
+              <li contenteditable><span>
+                  Conduct a thorough investigation on complaints brought forward by employees, such as discrimination
+                  claims and policy violations to come up with appropriate and prompt resolutions</span></li>
+              <li contenteditable><span>Conduct exit interviews documenting all feedback in accordance with the
+                  established HR standard
+                  operating procedures</span></li>
+            </ul>
+          </div>
+          <div class="experience-card">
+            <div class="card-header">
+              <h3 contenteditable>HR Coordinator</h3>
+              <p contenteditable>Better People Management Corp.</p>
+              <div class="card-time">
+                <span contenteditable><i>04/2013 - 05/2016</i></span>
+                <span contenteditable><i>Evansville, IN</i></span>
+              </div>
+            </div>
+
+            <ul>
+              <li contenteditable><span>Oversaw the recruiting, hiring, and onboarding process by performing background
+                  checks,
+                  conducting
+                  interviews, issuing employment contracts, and facilitating orientations</span></li>
+              <li contenteditable><span>Devised and implemented strategic HR programs promoting health and wellness
+                  initiatives, which
+                  remarkably enhanced employee engagement</span></li>
+              <li contenteditable><span>Recommended and implemented an Affirmative Action Plan that enabled the company
+                  to recruit and
+                  hire the
+                  most qualified individual to effectively meet the business&apos; rapidly changing needs</span></li>
+              <li contenteditable><span>Assisted the HR Manager in accomplishing various human-resource-related
+                  activities, including
+                  but not
+                  limited to drug testing, coaching, counseling, benefit explanation, and performance management</span>
+              </li>
+              <li contenteditable><span>Supported the execution of various developmental programs for both existing and
+                  new employees
+                  for
+                  their
+                  continuous personal and professional growth</span></li>
+              <li contenteditable><span>Provided immediate response to all general inquiries regarding HR policies,
+                  employment laws, and
+                  compliance</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="skills-education">
+          <div class="skills">
+            <h2>SKILLS AND COMPETENCIES</h2>
+            <ul>
+              <li contenteditable>HRIS</li>
+              <li contenteditable>Data analysis</li>
+              <li contenteditable>Onboarding</li>
+              <li contenteditable>Recruiting</li>
+              <li contenteditable>Employee relations</li>
+              <li contenteditable>Conflict Resolutions</li>
+              <li contenteditable>SAP</li>
+              <li contenteditable>Zoho Recruit</li>
+              <li contenteditable>Labor Laws & Regulatory Compliance</li>
+              <li contenteditable>Training & Performance Management</li>
+
+            </ul>
+          </div>
+          <div class="courses">
+            <h2>COURSES AND TRAINING</h2>
+            <div>
+              <h4 contenteditable>Data Handling Training (02/2013)</h4>
+              <span contenteditable><i>KeenAlignment - A leader in Cultural Alignment Consulting</i></span>
+            </div>
+            <div>
+              <h4 contenteditable>General Industry Safety & Health Training (10/2012)</h4>
+              <span contenteditable><i>Occupational Safety and Health Center</i></span>
+            </div>
+          </div>
+          <div class="certificates">
+            <h2>CERTIFICATES</h2>
+            <div>
+              <h4 contenteditable>Certified Professional Human Resources (PHR) (2014)</h4>
+              <span contenteditable><i>HR Certification Institute</i></span>
+            </div>
+            <div>
+              <h4 contenteditable>Behavioral Interviewing Certification (03/2013)</h4>
+              <span contenteditable><i>KeenAlignment - A leader in Cultural Alignment Consulting</i></span>
+            </div>
+          </div>
+          <div class="education">
+            <h2>EDUCATION</h2>
+            <div>
+              <h3 contenteditable>University of Indianapolis</h3>
+              <strong contenteditable>MBA in Human Resource Management</strong>
+              <span contenteditable><i>2011 - 2013</i></span>
+            </div>
+            <div>
+              <h3 contenteditable>Bachelor of Arts in Applied Psychology</h3>
+              <strong contenteditable>Indian University - Purdue University <br> Indianapolis</strong>
+              <span contenteditable><i>2008 - 2011</i></span>
+            </div>
+          </div>
+          <div class="languages">
+            <h2>LANGUAGES</h2>
+            <ul>
+              <li>
+                <strong contenteditable>English</strong>
+                <span contenteditable><i>Native or Bilingual Proficiency</i></span>
+              </li>
+              <li>
+                <strong contenteditable>Spanish</strong>
+                <span contenteditable><i>Full Professional Proficiency</i></span>
+              </li>
+              <li>
+                <strong contenteditable>German</strong>
+                <span contenteditable><i>Professional Working Proficiency</i></span>
+              </li>
+              <li>
+                <strong contenteditable>Italian</strong>
+                <span contenteditable><i>Professional Working Proficiency</i></span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</body>
+
+{% endblock %}
