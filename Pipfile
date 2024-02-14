@@ -43,7 +43,6 @@ django-easy-audit = "*"
 honeybadger = "*"
 python-dotenv = "*"
 google-generativeai = "*"
-markdown2 = "*"
 
 [dev-packages]
 

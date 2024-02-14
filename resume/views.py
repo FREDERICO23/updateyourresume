@@ -12,7 +12,6 @@ import json
 import fitz 
 import docx
 import textwrap
-from markdown2 import Markdown
 
 from azure.storage.blob import BlobServiceClient
 import azure.storage.blob as azureblob
@@ -185,7 +184,6 @@ def generate_resume(request):
         context = {
             'resume_id': generated_resume.id,
         }
-        print(generated_resume.id)
         return redirect("havard_resume", context)  
     
     return render(request, "generate_resume_form.html") 
