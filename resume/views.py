@@ -25,8 +25,11 @@ CustomUser = get_user_model()
 GOOGLE_API_KEY = os.getenv('GEMINI_API_KEY')
 
 gemini = """
-I am updating my resume for a new job opportunity. The new job title is "Digital Marketer" and the job description is as follows:
+Generate a JSON response in RFC8259 format, containing the details of a {{job title}} resume based on the provided information:
 
+Resume: ({{existing_resume}})
+Job Description: ({{job_description}})
+Desired Keys: name, contactDetails (email, phone, linkedin), summary, experience (title, company, dates, responsibilities), education (level, school, dates), skills (list), interests (list), achievements (list)
 
 **Additional instructions:**
 
@@ -141,23 +144,12 @@ def generate_resume(request):
         print(existing_resume_text)
 
         # Create a prompt for expert resume revamp
-        prompt = f"""
-        
-        Task: Tailor the provided resume to the given job title and description by optimizing relevant sections.                   
+        prompt = f"""        
+            Generate a JSON response in RFC8259 format, containing the details of a {job_title} resume based on the provided information:
 
-        Input Data:
-
-        Job Title: {job_title}
-        Job Description: {job_description}
-        Existing Resume: {existing_resume_text}
-        Adjustments:
-
-        From the job description, extract the following in details: name, email, phone, summary, experience, education, skills, interests, certifications(only if on the resume), projects(only if on the resume) langauges(only if on the resume),achievements(only if on the resume)
-        You will return a jSON response of the details using the keys:  name, contactDetails: "email", "phone", "linkedin", summary, experience:"title,company,dates,responsibilities(create a list)", education:"level, school, dates", skills(create a list), interests(create a list).
-
-        You will also improve the resume details like; interests, skills, experience title and responsibilities to match the job description to the latter.         
-        
-        Please use this information to create a tailored resume that aligns with the job description and highlights relevant skills and experiences from my existing resume. The generated resume should emphasize key qualifications and accomplishments needed for this job. Thank you!
+            Resume: ({existing_resume_text})
+            Job Description: ({job_description})
+            Desired Keys: name, contactDetails (email, phone, linkedin), summary, experience (title, company, dates, responsibilities), education (level, school, dates), skills (list), interests (list), achievements (list)
 
         """
         
