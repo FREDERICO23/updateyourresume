@@ -204,7 +204,7 @@ AZURE_STORAGE_CONTAINER = "resumes" # Blob container name
 
 # Honeybadger
 HONEYBADGER = {
-  'API_KEY': 'hbp_56ewcIFkn3EHYSluDdeQ1QeRCGD1G41wXV2o'
+  'API_KEY': os.getenv('HONEYBADGER')
 }
 
 django_heroku.settings(locals(), staticfiles=False)
