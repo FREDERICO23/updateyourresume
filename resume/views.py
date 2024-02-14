@@ -15,33 +15,15 @@ import textwrap
 
 from azure.storage.blob import BlobServiceClient
 import azure.storage.blob as azureblob
+import google.generativeai as genai
+
 
 from .models import GeneratedResume, GeneratedCoverLetter
 from .utils import render_to_word, extract_text_from_pdf, extract_text_from_docx
 
 CustomUser = get_user_model()
-# openai.api_key = ('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')
+
 GOOGLE_API_KEY = os.getenv('GEMINI_API_KEY')
-
-gemini = """
-Generate a JSON response in RFC8259 format, containing the details of a {{job title}} resume based on the provided information:
-
-Resume: ({{existing_resume}})
-Job Description: ({{job_description}})
-Desired Keys: name, contactDetails (email, phone, linkedin), summary, experience (title, company, dates, responsibilities), education (level, school, dates), skills (list), interests (list), achievements (list)
-
-**Additional instructions:**
-
-* Use strong action verbs and quantify your accomplishments whenever possible.
-* Tailor your resume to the specific requirements of the job description.
-* Use a professional and easy-to-read font and layout.
-* You only return and reply with valid, iterable RFC8259 compliant JSON in your responses. 
-* From the resume, intelligently adjust the following in details: summary, experience, education, skills, interests, certifications(only if on the resume), projects(only if on the resume) langauges(only if on the resume),achievements(only if on the resume) to fit the job role - ATS-optimized. 
-* The jSON response of the details using the keys:  name, contactDetails: "email, phone, linkedin", summary, experience:"title,company,dates,responsibilities(create a list)", education:"level, school, dates", skills(create a list), interests(create a list).
-"""
-
-import google.generativeai as genai
-
 genai.configure(api_key=GOOGLE_API_KEY)
 
 # Set up the model
@@ -49,7 +31,7 @@ generation_config = {
   "temperature": 0.92,
   "top_p": 0.85,
   "top_k": 1,
-  "max_output_tokens": 1000,
+  "max_output_tokens": 1500,
 }
 
 safety_settings = [
