@@ -73,13 +73,6 @@ def save_generated_resume(request):
     return JsonResponse({'success': False})  
 
    
-def generate_docx(request):
-   context = {'resume_content': 'resume data'}  
-   docx = render_to_word('resume_display.html', context) 
-   # return HttpReponse for docx
-   if docx:
-        return docx
-   return HttpResponse("Failed to generate DOCX", status=400)
 
 @login_required
 def generate_resume(request):

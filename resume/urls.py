@@ -17,7 +17,6 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
     path('list-resumes/', views.user_resumes, name="list_resumes"),
 
-    path('generate_docx/', views.generate_docx, name='generate_docx'),
     path('save-generated-resume/', views.save_generated_resume, name='save_generated_resume'),
     path('pricing/', views.pricing, name='pricing'),
 
