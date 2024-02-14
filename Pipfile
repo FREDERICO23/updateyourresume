@@ -40,7 +40,6 @@ pypdf2 = "*"
 azure-storage-blob = "*"
 azure-identity = "*"
 django-easy-audit = "*"
-honeybadger = "*"
 python-dotenv = "*"
 google-generativeai = "*"
 

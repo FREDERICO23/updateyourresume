@@ -43,7 +43,7 @@ INSTALLED_APPS = [
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
 MIDDLEWARE = [
-    'honeybadger.contrib.DjangoHoneybadgerMiddleware', # Honeybadger
+    # 'honeybadger.contrib.DjangoHoneybadgerMiddleware', # Honeybadger
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",  # WhiteNoise
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -203,8 +203,8 @@ AZURE_STORAGE_CONNECTION_STRING = "DefaultEndpointsProtocol=https;AccountName=up
 AZURE_STORAGE_CONTAINER = "resumes" # Blob container name
 
 # Honeybadger
-HONEYBADGER = {
-  'API_KEY': os.getenv('HONEYBADGER')
-}
+# HONEYBADGER = {
+#   'API_KEY': os.getenv('HONEYBADGER')
+# }
 
 django_heroku.settings(locals(), staticfiles=False)
