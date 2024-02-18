@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "939d22357fe40e7bea0c1ec193cb4f8732858ee267201374cfa5061a677356ad"
+            "sha256": "0897021fcd98f07e60f16d98dcb2923340deeed6970e56b21648d1554471994b"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -119,6 +119,7 @@
                 "sha256:9567dfe7bd8d3c8c892227827c41cce860b368104c3431da67a0c5a65a949506"
             ],
             "index": "pypi",
+            "markers": "python_version >= '3.7'",
             "version": "==3.6.0"
         },
         "asn1crypto": {
@@ -434,11 +435,12 @@
         },
         "django": {
             "hashes": [
-                "sha256:5e5c1c9548ffb7796b4a8a4782e9a2e5a3df3615259fc1bfd3ebc73b646146c1",
-                "sha256:b6b2b5cae821077f137dc4dade696a1c2aa292f892eca28fa8d7bfdf2608ddd4"
+                "sha256:a2d4c4d4ea0b6f0895acde632071aff6400bfc331228fc978b05452a0ff3e9f1",
+                "sha256:b1260ed381b10a11753c73444408e19869f3241fc45c985cd55a30177c789d13"
             ],
             "index": "pypi",
-            "version": "==4.2.5"
+            "markers": "python_version >= '3.8'",
+            "version": "==4.2.10"
         },
         "django-allauth": {
             "hashes": [
@@ -1498,6 +1500,7 @@
                 "sha256:69ca804846bb114d2ec380e4360a8a340db83f0ccf3afceeb1404df028f57268"
             ],
             "index": "pypi",
+            "markers": "python_version >= '3.5'",
             "version": "==0.4.3"
         },
         "svglib": {
