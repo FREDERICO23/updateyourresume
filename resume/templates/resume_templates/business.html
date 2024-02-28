@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Business Careers Template  - Updateyourresume {% endblock %}
+{% block link %}
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"> 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> 
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'icons/updateyourresumefavicon.png' %}">  
+    <link rel="stylesheet" href="{% url 'css/resume/business.css'%}">
+   
+    <script src= "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src= "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="{% static 'js/download.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<body>
+  <main>
+    <div class="container">
+      <section>
+        <div class="header">
+          <div class="profile">
+            <div>
+              <h1 contenteditable>Jane Roe</h1>
+              <p contenteditable>Business Development Manager</p>
+            </div>
+          </div>
+          <div class="profile-contact">
+            <span contenteditable>jane.roe@gmail.com
+              <i class="fa fa-envelope"></i>
+            </span>
+            <span contenteditable>202-555-0166 <i class="fa fa-mobile-phone" style="font-size:24px"></i></span>
+            <span contenteditable>New York, USA <i class="fa fa-map-marker"></i></span>
+            <span contenteditable>linkedin.com/in/jane.roe <i class="fa fa-linkedin"></i></span>
+            <span contenteditable>jane.roe <i class="fa fa-skype"></i></span>
+          </div>
+        </div>
+        <p contenteditable class="profile-desc">Professional Business Developer with more than four years of experience
+          in the business development process. Included in product testing, management, and development of new business
+          opportunities.</p>
+      </section>
+      <section class="skills">
+        <h2>SKILLS</h2>
+        <hr>
+        <ul>
+          <li contenteditable>SEO</li>
+          <li contenteditable>Public Speaking</li>
+          <li contenteditable>Negotiation</li>
+          <li contenteditable>Teamwork</li>
+          <li contenteditable>Decision Making</li>
+          <li contenteditable>Research & Strategy</li>
+          <li contenteditable>Emotional Intelligence</li>
+          <li contenteditable>Outbound Marketing</li>
+          <li contenteditable>Email Marketing</li>
+          <li contenteditable>Google Analytics</li>
+          <li contenteditable>Sales & Marketing</li>
+        </ul>
+      </section>
+      <section class="work-experience">
+        <h2>WORK EXPERIENCE</h2>
+        <hr>
+        <div class="experience-cards">
+          <div>
+            <div class="card-header">
+              <h3 contenteditable>Business Development Manager</h3>
+              <p contenteditable>AirState Solutions</p>
+              <div class="card-time">
+                <span contenteditable><i>09/2014 - 06/2017</i></span>
+                <span contenteditable><i>New York, USA</i></span>
+              </div>
+            </div>
+            <ul>
+              <li>
+                -
+                <span contenteditable>Successfully managed $2 - 3 million budget projects and successfully achieved the
+                  project
+                  scheduled
+                  goals.</span>
+
+              </li>
+              <li>- <span contenteditable>Developed and implemented new marketing and sales plans and defined the
+                  strategy for the next
+                  5 years.</span></li>
+              <li>- <span contenteditable>Reviewed constantly the customer feedback and then suggested the ways to
+                  improve the processes
+                  and customer service levels which increased the satisfaction rate from 81% to 95%.</span></li>
+              <li>- <span contenteditable>Ensured that new clients will grow into a loyal customer base in a specialist
+                  niche market by
+                  implementing a new loyalty program.</span></li>
+            </ul>
+          </div>
+          <div>
+            <div class="card-header">
+              <h3 contenteditable>Business Development Assistant</h3>
+              <p contenteditable>AirState Solutions</p>
+              <div class="card-time">
+                <span contenteditable><i>08/2012 - 09/2014</i></span>
+                <span contenteditable><i>Chicago, USA</i></span>
+              </div>
+            </div>
+            <ul>
+              <li>
+                -
+                <span contenteditable>Increased the customer satisfaction by 25% by improving the customer
+                  service.</span>
+              </li>
+              <li>- <span contenteditable>Planned, supervised, and coordinated daily activity of 3 junior business
+                  analysts.</span></li>
+              <li>- <span contenteditable>Improved the communication with the Marketing department to better understand
+                  the competitive
+                  position.</span></li>
+              <li>- <span contenteditable>Directed the creation and implementation of a Business Continuity Plan, and
+                  the management of
+                  audit programs.</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section class="education">
+        <h2>EDUCATION</h2>
+        <hr>
+        <div>
+          <h3 contenteditable>MSc in Economics and Business Administration</h3>
+          <strong contenteditable>The University of Chicago</strong>
+          <span contenteditable><i>09/2008 - 06/2010</i></span>
+        </div>
+      </section>
+      <section class="organizations">
+        <h2>ORGANIZATIONS</h2>
+        <hr>
+        <ul>
+          <li contenteditable>
+            American Management Association <br> (2015 - Present)
+          </li>
+          <li contenteditable>
+            Association of Private Enterprise Education <br>(2014 - Present)
+          </li>
+          <li contenteditable>
+            eBusiness Association (eBA) (2013 - Present)
+          </li>
+        </ul>
+      </section>
+    </div>
+  </main>
+</body>
+{% endblock %}

@@ -1,15 +1,19 @@
 from pathlib import Path
 import django_heroku
+import os
+from dotenv import load_dotenv
 
+# Load environment variables from .env file
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-SECRET_KEY
-SECRET_KEY = "django-insecure-0peo@#x9jur3!h$ryje!$879xww8y1y66jx!%*#ymhg&jkozs2"
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#debug
-DEBUG = True
+DEBUG = os.getenv('DEBUG')
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ["*"]
@@ -29,8 +33,8 @@ INSTALLED_APPS = [
     "allauth.account",
     "crispy_forms",
     "crispy_bootstrap5",
-    "debug_toolbar",
-    "easyaudit",
+    # "debug_toolbar",
+    # "easyaudit",
     # Local
     "accounts",
     "pages",
@@ -39,17 +43,18 @@ INSTALLED_APPS = [
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
 MIDDLEWARE = [
+    # 'honeybadger.contrib.DjangoHoneybadgerMiddleware', # Honeybadger
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",  # WhiteNoise
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",  # Django Debug Toolbar
+    # "debug_toolbar.middleware.DebugToolbarMiddleware",  # Django Debug Toolbar
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",  # django-allauth
-    "easyaudit.middleware.easyaudit.EasyAuditMiddleware",
+    #"easyaudit.middleware.easyaudit.EasyAuditMiddleware",
 ]
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#root-urlconf
@@ -76,23 +81,29 @@ TEMPLATES = [
 ]
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
+
 # DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
+#   'default': {
+#     'ENGINE': 'django.db.backends.postgresql',
+#     'NAME': 'neondb',
+#     'USER': 'FREDERICO23',
+#     'PASSWORD': 'WH94cDIltPfB',
+#     'HOST': 'ep-tight-mode-13472908.us-east-2.aws.neon.tech',
+#     'PORT': '5432',
+#     'OPTIONS': {'sslmode': 'require'},
+#   }
 # }
 
 DATABASES = {
-  'default': {
-    'ENGINE': 'django.db.backends.postgresql',
-    'NAME': 'neondb',
-    'USER': 'FREDERICO23',
-    'PASSWORD': 'WH94cDIltPfB',
-    'HOST': 'ep-tight-mode-13472908.us-east-2.aws.neon.tech',
-    'PORT': '5432',
-    'OPTIONS': {'sslmode': 'require'},
-  }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('NAME'),
+        'USER': os.getenv('USER'),
+        'PASSWORD': os.getenv('PASSWORD'),
+        'HOST': os.getenv('HOST'),
+        'PORT': os.getenv('PORT'),
+        'OPTIONS': {'sslmode': os.getenv('SSL_MODE')},
+    }
 }
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
@@ -190,5 +201,10 @@ AZURE_STORAGE_KEY = "/6cuojkO6760F41c7+80rWxHamgPF2IVL4+vF05zeYc54B0oMyVZog+Bvq9
 AZURE_STORAGE_CONNECTION_STRING = "DefaultEndpointsProtocol=https;AccountName=updateyourresume;AccountKey=/6cuojkO6760F41c7+80rWxHamgPF2IVL4+vF05zeYc54B0oMyVZog+Bvq9nYHFrN5onA+lcvoDM+AStk5GS4A==;EndpointSuffix=core.windows.net" 
 
 AZURE_STORAGE_CONTAINER = "resumes" # Blob container name
+
+# Honeybadger
+# HONEYBADGER = {
+#   'API_KEY': os.getenv('HONEYBADGER')
+# }
 
 django_heroku.settings(locals(), staticfiles=False)
