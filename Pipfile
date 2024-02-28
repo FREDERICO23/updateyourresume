@@ -41,7 +41,6 @@ azure-storage-blob = "*"
 azure-identity = "*"
 django-easy-audit = "*"
 python-dotenv = "*"
-google-generativeai = "*"
 
 [dev-packages]
 

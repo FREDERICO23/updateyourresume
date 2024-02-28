@@ -1,4 +1,4 @@
-# import openai
+import openai
 import os
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse, JsonResponse
@@ -9,13 +9,11 @@ from django.conf import settings
 
 import asyncio
 import json
-import fitz 
 import docx
-import textwrap
 
 from azure.storage.blob import BlobServiceClient
 import azure.storage.blob as azureblob
-import google.generativeai as genai
+# import google.generativeai as genai
 
 
 from .models import GeneratedResume, GeneratedCoverLetter
@@ -23,35 +21,39 @@ from .utils import render_to_word, extract_text_from_pdf, extract_text_from_docx
 
 CustomUser = get_user_model()
 
-GOOGLE_API_KEY = os.getenv('GEMINI_API_KEY')
-genai.configure(api_key=GOOGLE_API_KEY)
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+openai.api_key = ('OPENAI_API_KEY')
+
+# GOOGLE_API_KEY = os.getenv('GEMINI_API_KEY')
+# genai.configure(api_key=GOOGLE_API_KEY)
 
 # Set up the model
-generation_config = {
-  "temperature": 0.92,
-  "top_p": 0.85,
-  "top_k": 1,
-  "max_output_tokens": 1500,
-}
+# generation_config = {
+#   "temperature": 0.92,
+#   "top_p": 0.85,
+#   "top_k": 1,
+#   "max_output_tokens": 1500,
+# }
 
-safety_settings = [
-  {
-    "category": "HARM_CATEGORY_HARASSMENT",
-    "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-  },
-  {
-    "category": "HARM_CATEGORY_HATE_SPEECH",
-    "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-  },
-  {
-    "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
-    "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-  },
-  {
-    "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
-    "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-  },
-]
+# safety_settings = [
+#   {
+#     "category": "HARM_CATEGORY_HARASSMENT",
+#     "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+#   },
+#   {
+#     "category": "HARM_CATEGORY_HATE_SPEECH",
+#     "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+#   },
+#   {
+#     "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+#     "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+#   },
+#   {
+#     "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+#     "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+#   },
+# ]
+
 @require_POST
 def save_generated_resume(request):
     if request.method == 'POST':
@@ -126,19 +128,29 @@ def generate_resume(request):
             Desired Keys: name, contactDetails (email, phone, linkedin), summary, experience (title, company, dates, responsibilities), education (level, school, dates), skills (list), interests (list), achievements (list)
 
         """
+         # Call the OpenAI API to generate the resume
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You are an expert resume writer.You only return and reply with valid, iterable RFC8259 compliant JSON in your responses"},
+                {"role": "user", "content": prompt}
+            ]    
+        )    
         
-        # Create a generative model using gemini-pro
-        model = genai.GenerativeModel(
-            model_name="gemini-pro",
-            generation_config=generation_config, 
-            safety_settings=safety_settings
-        )
-
-        # Generate content using the model
-        response = model.generate_content(prompt)
-        generated_text = response.text
-
+        generated_text = response.choices[0].message.content
         user = request.user
+        # Create a generative model using gemini-pro
+        # model = genai.GenerativeModel(
+        #     model_name="gemini-pro",
+        #     generation_config=generation_config, 
+        #     safety_settings=safety_settings
+        # )
+
+        # # Generate content using the model
+        # response = model.generate_content(prompt)
+        # generated_text = response.text
+        # user = request.user
+
         if isinstance(user, CustomUser):
             generated_resume = GeneratedResume(
                 user=user,
@@ -221,16 +233,26 @@ def generate_cover_letter(request, resume_id):
     Adjustments: return the data in paragraphs.
     """
     # Generate cover letter from the resume text
-    model = genai.GenerativeModel(
-        model_name="gemini-pro",
-        generation_config=generation_config, 
-        safety_settings=safety_settings
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo-1106",
+            messages=[
+            {"role": "system", "content": "You are an expert cover letter writer.You write cover letters that melt the recruiters to give you the job."},
+            {"role": "user", "content": cover_letter_prompt}
+        ]
     )
+    generated_cover_letter_text = response.choices[0].message.content
 
-    # Generate content using the model
-    response = model.generate_content(cover_letter_prompt)
-    generated_cover_letter_text = response.text
+    # Generate cover letter from the resume text
+    # model = genai.GenerativeModel(
+    #     model_name="gemini-pro",
+    #     generation_config=generation_config, 
+    #     safety_settings=safety_settings
+    # )
 
+    # # Generate content using the model
+    # response = model.generate_content(cover_letter_prompt)
+    # generated_cover_letter_text = response.text
+    
     # Store the generated cover letter in the database
     generated_cover_letter = GeneratedCoverLetter(
         user=request.user, 
