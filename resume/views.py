@@ -22,7 +22,7 @@ from .utils import render_to_word, extract_text_from_pdf, extract_text_from_docx
 CustomUser = get_user_model()
 
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
-openai.api_key = ('OPENAI_API_KEY')
+openai.api_key = OPENAI_API_KEY
 
 # GOOGLE_API_KEY = os.getenv('GEMINI_API_KEY')
 # genai.configure(api_key=GOOGLE_API_KEY)
@@ -121,9 +121,8 @@ def generate_resume(request):
 
         # Create a prompt for expert resume revamp
         prompt = f"""        
-            Generate a JSON response in RFC8259 format, containing the details of a {job_title} resume based on the provided information:
+            Rewrite this resume: ({existing_resume_text}) to fit a {job_title} role based on the provided information (update the responsibilities and skills in every experience to match the role)
 
-            Resume: ({existing_resume_text})
             Job Description: ({job_description})
             Desired Keys: name, contactDetails (email, phone, linkedin), summary, experience (title, company, dates, responsibilities), education (level, school, dates), skills (list), interests (list), achievements (list)
 
