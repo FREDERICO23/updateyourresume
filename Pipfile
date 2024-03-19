@@ -41,6 +41,7 @@ azure-storage-blob = "*"
 azure-identity = "*"
 django-easy-audit = "*"
 python-dotenv = "*"
+pdfplumber = "*"
 
 [dev-packages]
 

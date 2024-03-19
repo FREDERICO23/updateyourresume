@@ -128,15 +128,28 @@ def generate_resume(request):
 
         """
          # Call the OpenAI API to generate the resume
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": "You are an expert resume writer.You only return and reply with valid, iterable RFC8259 compliant JSON in your responses"},
-                {"role": "user", "content": prompt}
-            ]    
-        )    
+        # response = openai.ChatCompletion.create(
+        #     model="gpt-3.5-turbo",
+        #     messages=[
+        #         {"role": "system", "content": "You are an expert resume writer.You only return and reply with valid, iterable RFC8259 compliant JSON in your responses"},
+        #         {"role": "user", "content": prompt}
+        #     ]    
+        # )    
         
-        generated_text = response.choices[0].message.content
+        # generated_text = response.choices[0].message.content
+
+         # Call the OpenAI API asynchronously to generate the resume
+        async def generate_resume_text(prompt):
+            response = await openai.ChatCompletion.acreate(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {"role": "system", "content": "You are an expert resume writer. You only return and reply with valid, iterable RFC8259 compliant JSON in your responses"},
+                    {"role": "user", "content": prompt}
+                ]
+            )
+            return response.choices[0].message.content
+
+        generated_text = asyncio.run(generate_resume_text(prompt))
         user = request.user
         # Create a generative model using gemini-pro
         # model = genai.GenerativeModel(
