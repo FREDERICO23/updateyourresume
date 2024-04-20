@@ -33,8 +33,8 @@ INSTALLED_APPS = [
     "allauth.account",
     "crispy_forms",
     "crispy_bootstrap5",
-    # "debug_toolbar",
-    # "easyaudit",
+    "debug_toolbar",
+    "easyaudit",
     # Local
     "accounts",
     "pages",
@@ -43,18 +43,18 @@ INSTALLED_APPS = [
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
 MIDDLEWARE = [
-    # 'honeybadger.contrib.DjangoHoneybadgerMiddleware', # Honeybadger
+    'honeybadger.contrib.DjangoHoneybadgerMiddleware', # Honeybadger
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",  # WhiteNoise
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
-    # "debug_toolbar.middleware.DebugToolbarMiddleware",  # Django Debug Toolbar
+    "debug_toolbar.middleware.DebugToolbarMiddleware",  # Django Debug Toolbar
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",  # django-allauth
-    #"easyaudit.middleware.easyaudit.EasyAuditMiddleware",
+    "easyaudit.middleware.easyaudit.EasyAuditMiddleware",
 ]
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#root-urlconf
@@ -203,8 +203,8 @@ AZURE_STORAGE_CONNECTION_STRING = "DefaultEndpointsProtocol=https;AccountName=up
 AZURE_STORAGE_CONTAINER = "resumes" # Blob container name
 
 # Honeybadger
-# HONEYBADGER = {
-#   'API_KEY': os.getenv('HONEYBADGER')
-# }
+HONEYBADGER = {
+  'API_KEY': os.getenv('HONEYBADGER')
+}
 
 django_heroku.settings(locals(), staticfiles=False)
