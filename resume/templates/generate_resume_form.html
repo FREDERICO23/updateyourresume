@@ -21,91 +21,70 @@
 
 {% block content %}
 
-    <div class="container">
-      <br>
-        <h1>Update your Resume</h1>
-        <form id="resumeForm" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="card">
-
-                        <div class="card-header text-white bg-primary">
-                          <h4 class="card-title">Job Post</h4>  
-                        </div>
-                      
-                        <div class="card-body">
-                      
-                          <label for="job_title">Job Title:</label>
-                      
-                          <input type="text" class="form-control" name="job_title" 
-                            placeholder="Enter job title" required>
-                      
-                          <label class="mt-3" for="job_description">Job Description:</label>
-                          
-                          <textarea class="form-control" name="job_description" id='job_description' rows="3"
-                            placeholder="Paste job description" required></textarea>
-                      
-                        </div>
-                      
-                      </div>
-                </div>
-                
-                <div class="col-md-6">
-                    <div class="card">
-
-                        <div class="card-header text-white bg-primary">
-                          <h4 class="card-title">Your Resume</h4>
-                        </div>
-                      
-                        <div class="card-body">
-                      
-                          <label>Existing Resume:</label>
-                          
-                          <textarea class="form-control" name="existing_resume_text" rows="3" placeholder="Paste resume text"></textarea>
-                        <p class="text-center">or</p>
-                          <div class="mt-3 text-center">
-                            <label class="btn btn-primary">
-                              <input type="file" name="existing_resume_file" accept=".pdf,.docx" required>
-                              Upload Resume  
-                            </label>
-                          </div>
-                      
-                        </div>
-                      
-                      </div>
-                    </div>
-                </div>
-            </div>
-            <br>
-              
-            <div class="text-center">             
-              <button class="btn btn-primary btn-lg text-center" type="submit" id="generateButton">
-                <span id="buttonText">Generate Resume</span>
-                {% comment %} <span id="buttonSpinner" class="visually-hidden"> <!-- Initially hidden -->
-                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                    Generating...
-                </span> {% endcomment %}
-            </button>    
+<div class="container">
+  <br>
+  <h1 style="color: #c79773;">Update your Resume</h1>
+  <form id="resumeForm" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="row">
+          <div class="col-md-6">
+              <div class="card">
+                  <div class="card-header text-white" style="background-color: #080059;">
+                      <h4 class="card-title">Job Post</h4>
+                  </div>
+                  <div class="card-body">
+                      <label for="job_title">Job Title:</label>
+                      <input type="text" class="form-control" name="job_title" placeholder="Enter job title" required>
+                      <label class="mt-3" for="job_description">Job Description:</label>
+                      <textarea class="form-control" name="job_description" id='job_description' rows="3" placeholder="Paste job description" required></textarea>
+                  </div>
+              </div>
           </div>
-
-       <!-- Popup card for job landing advice (initially hidden) -->
-        <div id="advicePopup" class="card advice-popup-card" style="display: none;">
-            <div class="card-header bg-primary text-white ">Job Tips you should Know</div>
-            <div class="card-body">
-                <p id="adviceText"></p>
-                
-                <button onclick="closeAdvicePopup()" class="btn btn-primary">Next Tip</button>
-                <br></br>
-                <div class="progress progress-striped active">
-                  <div class="progress-bar progress-bar-success" style="width: 0%"></div>
-                </div>
-            </div>
-           
-        </div>         
-        </form>
-        
-    </div>
+          <div class="col-md-6">
+              <div class="card">
+                  <div class="card-header text-white" style="background-color: #080059;">
+                      <h4 class="card-title">Your Resume</h4>
+                  </div>
+                  <div class="card-body">
+                      <label>Existing Resume:</label>
+                      <textarea class="form-control" name="existing_resume_text" rows="3" placeholder="Paste resume text"></textarea>
+                      <p class="text-center">or</p>
+                      <div class="mt-3 text-center">
+                          <label class="btn" style="background-color: #080059; color: white;">
+                              <input type="file" name="existing_resume_file" accept=".pdf,.docx" required> Upload Resume
+                          </label>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <br>
+  <div class="text-center">
+      <button class="btn btn-lg text-center" type="submit" id="generateButton" style="background-color: #c79773; color: white;">
+          <span id="buttonText">Generate Resume</span>
+          {% comment %}
+          <span id="buttonSpinner" class="visually-hidden">
+              <!-- Initially hidden -->
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Generating...
+          </span>
+          {% endcomment %}
+      </button>
+  </div>
+  <!-- Popup card for job landing advice (initially hidden) -->
+  <div id="advicePopup" class="card advice-popup-card" style="display: none;">
+      <div class="card-header" style="background-color: #080059; color: white;">Job Tips you should Know</div>
+      <div class="card-body">
+          <p id="adviceText"></p>
+          <button onclick="closeAdvicePopup()" class="btn" style="background-color: #c79773; color: white;">Next Tip</button>
+          <br><br>
+          <div class="progress progress-striped active">
+              <div class="progress-bar progress-bar-success" style="width: 0%"></div>
+          </div>
+      </div>
+  </div>
+</form>
+</div>
     <script>
       const resumeForm = document.getElementById('resumeForm');
       const advicePopup = document.getElementById('advicePopup');
