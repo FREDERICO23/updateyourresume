@@ -17,7 +17,7 @@
 <div class="container">
     <h1>Generated Cover Letter</h1>
     <div class="cover-letter">
-        <p>{{ cover_letter.generated_text }}</p>
+        <p>{{ cover_letter.generated_text | safe }}</p>
         <div class="download-link">
             <button class="btn btn-dark" onclick="downloadResume()">Download Cover Letter</button>            
             <button class="btn btn-primary text-light" ><a class="text-light"href="{% url 'home'%}">Back to Dashboard</a></button>

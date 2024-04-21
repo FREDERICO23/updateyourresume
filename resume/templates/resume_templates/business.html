@@ -24,39 +24,31 @@
         <div class="header">
           <div class="profile">
             <div>
-              <h1 contenteditable>Jane Roe</h1>
-              <p contenteditable>Business Development Manager</p>
+              <h1 class="name" contenteditable="true">{{generated_text.name}}</h1>
+              <p contenteditable>{{resume.job_title}}</p>
             </div>
           </div>
           <div class="profile-contact">
-            <span contenteditable>jane.roe@gmail.com
+            
+
+            <span contenteditable> {{generated_text.contactDetails.email}}
               <i class="fa fa-envelope"></i>
             </span>
-            <span contenteditable>202-555-0166 <i class="fa fa-mobile-phone" style="font-size:24px"></i></span>
+            <span contenteditable>{{generated_text.contactDetails.phone}} <i class="fa fa-mobile-phone" style="font-size:24px"></i></span>
             <span contenteditable>New York, USA <i class="fa fa-map-marker"></i></span>
-            <span contenteditable>linkedin.com/in/jane.roe <i class="fa fa-linkedin"></i></span>
+            <span contenteditable> <a href="{{generated_text.contactDetails.linkedin}}">LinkedIn</a> <i class="fa fa-linkedin"></i></span>
             <span contenteditable>jane.roe <i class="fa fa-skype"></i></span>
           </div>
         </div>
-        <p contenteditable class="profile-desc">Professional Business Developer with more than four years of experience
-          in the business development process. Included in product testing, management, and development of new business
-          opportunities.</p>
+        <p contenteditable class="profile-desc">{{generated_text.summary}}</p>
       </section>
       <section class="skills">
         <h2>SKILLS</h2>
         <hr>
         <ul>
-          <li contenteditable>SEO</li>
-          <li contenteditable>Public Speaking</li>
-          <li contenteditable>Negotiation</li>
-          <li contenteditable>Teamwork</li>
-          <li contenteditable>Decision Making</li>
-          <li contenteditable>Research & Strategy</li>
-          <li contenteditable>Emotional Intelligence</li>
-          <li contenteditable>Outbound Marketing</li>
-          <li contenteditable>Email Marketing</li>
-          <li contenteditable>Google Analytics</li>
-          <li contenteditable>Sales & Marketing</li>
+          {% for skill in generated_text.skills %}
+          <li contenteditable>{{skill}}</li>
+          {% endfor %}          
         </ul>
       </section>
       <section class="work-experience">
@@ -122,11 +114,13 @@
       <section class="education">
         <h2>EDUCATION</h2>
         <hr>
-        <div>
-          <h3 contenteditable>MSc in Economics and Business Administration</h3>
-          <strong contenteditable>The University of Chicago</strong>
-          <span contenteditable><i>09/2008 - 06/2010</i></span>
-        </div>
+          {% for education in generated_text.education %}
+          <div class="school" contenteditable="true">
+            <h3>{{education.level}}</h3>
+            <strong>{{education.school}}</strong>
+            <span><i>{{education.dates}}</i></span>
+          </div>
+          {% endfor %}
       </section>
       <section class="organizations">
         <h2>ORGANIZATIONS</h2>
