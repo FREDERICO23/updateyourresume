@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     "easyaudit",
     # Local
     "accounts",
-    "pages",
     "resume",
 ]
 
