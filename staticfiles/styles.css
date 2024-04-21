@@ -1,0 +1,202 @@
+* {margin: 0;padding: 0;}
+
+body{font-family: 'Montserrat', sans-serif;}
+
+#page {
+    min-height: 100%;
+    width: 60%;
+    min-width: 600px;
+    background: whitesmoke;
+    margin: 50px auto;
+    padding: 30px;
+    color: #27aae1;
+}
+
+.photo-and-name {
+    /* NO STYLE NEEDED YET */
+}
+
+.photo {
+    width: 15%;
+    min-width: 100px;
+    float: left;
+    margin-right: 20px;
+}
+
+.contact-info-box {
+    width: 70.9%;
+    display: inline-block;
+}
+
+.name {
+    margin-bottom: -10px;
+}
+.job-title {
+    display: inline-block;
+}
+
+.contact-details {
+    background: #27aae1;
+    color: white;
+    text-align: center;
+    margin: auto;
+    margin-top: 25px;
+    padding: 5px;
+    font-size: 12px;
+}
+
+#objective {
+    
+}
+
+#objective h5 {
+    border: 1px solid #d3d3d3;
+    text-transform: uppercase;
+    padding: 5px;
+    border-radius: 5px;
+    margin: 30px 0 10px;
+}
+
+#objective p {
+    padding: 0 5px;
+    line-height: 25px;
+    font-size: 12px;
+    color: #000;
+}
+
+#education h5 {
+    border: 1px solid #d3d3d3;
+    text-transform: uppercase;
+    padding: 5px;
+    border-radius: 5px;
+    margin: 30px 0 10px;
+}
+
+#education table td {
+    padding: 5px;
+    font-size: 12px;
+    color: #000;
+}
+
+#education table tr.school-1 td:first-child {
+    width: 120px;
+    color: gray;
+    padding-bottom: 25px;
+}
+
+#education table tr.school-2 td:first-child {
+    padding-bottom: 25px;
+}
+
+#work h5 {
+    border: 1px solid #d3d3d3;
+    text-transform: uppercase;
+    padding: 5px;
+    border-radius: 5px;
+    margin: 30px 0 10px;
+}
+
+#work table td {
+    padding: 5px;
+    font-size: 12px;
+    color: #000;
+}
+
+#work table tr.work-1 td:first-child {
+    width: 120px;
+    color: gray;
+    padding-bottom: 25px;
+}
+
+#work table tr.work-1 td {
+    padding-bottom: 25px;
+}
+
+#work table tr.work-2 td:first-child {
+    width: 120px;
+    color: gray;
+}
+
+#bio-data h5 {
+    border: 1px solid #d3d3d3;
+    text-transform: uppercase;
+    padding: 5px;
+    border-radius: 5px;
+    margin: 30px 0 10px;
+}
+
+#bio-data table td {
+    padding: 8px;
+    font-size: 12px;
+    color: #000;
+}
+
+#bio-data table tr td:first-child {
+    width: 200px;
+}
+
+#bio-data table tr td:nth-child(2) {
+    width: 300px;
+}
+
+/* Retain the existing CSS styles */
+
+/* Adjust styles for the div elements */
+
+.editable-content {
+    border: 0.5px solid #d3d3d3;
+    border-radius: 1px;
+    margin: 30px 0 10px;
+}
+
+.editable-content > h5 {
+    text-transform: uppercase;
+    padding: 5px;
+}
+
+.editable-content > div {
+    padding: 0 5px;
+    line-height: 25px;
+    font-size: 12px;
+    color: #000;
+}
+
+.school-container,
+.work-container {
+    flex-direction: column;
+}
+
+.school-1,
+.work-1 {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    font-size: 12px;
+    color: #000;
+}
+
+/* ... Previous CSS remains unchanged ... */
+
+/* Additional styles for the new div-based sections */
+
+.skills-container,
+.interests-container {
+    border: 1px solid #d3d3d3;
+    border-radius: 5px;
+    margin: 30px 0 10px;
+}
+
+.skills-container > h5,
+.interests-container > h5 {
+    text-transform: uppercase;
+    padding: 5px;
+}
+
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding: 5px;
+}
+
+/* Adjust other specific styles as needed for these sections */

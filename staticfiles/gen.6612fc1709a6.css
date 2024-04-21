@@ -1,0 +1,25 @@
+/* Mobile Styles */
+@media (max-width: 767px) {
+
+  .card {
+    width: 100%;
+  }
+  
+  .card-body {
+    padding: 15px; 
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+  }
+  
+}
+
+/* Tablet/Desktop Styles */
+@media (min-width: 768px) {
+
+  .card {
+    width: 35rem;
+  }
+
+}

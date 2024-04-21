@@ -194,6 +194,8 @@ ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 
+DEFAULT_TIMEOUT = 30  # Default timeout in seconds, adjust as necessary
+
 # Azure Storage
 AZURE_STORAGE_ACCOUNT = "updateyourresume"  
 AZURE_STORAGE_KEY = "/6cuojkO6760F41c7+80rWxHamgPF2IVL4+vF05zeYc54B0oMyVZog+Bvq9nYHFrN5onA+lcvoDM+AStk5GS4A==" # Access key
