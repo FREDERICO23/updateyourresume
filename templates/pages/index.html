@@ -1,336 +1,507 @@
-{% extends 'base.html' %}
 {% load static %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block title %} Get a Job-specific tailored Resume and a Cover Letter in seconds using AI | UpdateYourResume {% endblock title %}
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-{% block content %}
-<section class="bg-light pt-5 text-center">
+  <title>Get a Job-Winning Resume and Cover Letter in Seconds with AI | UpdateYourResume</title>
+  <meta content="UpdateYourResume helps you create a resume tailored to any job using AI. Get a professional cover letter too!" name="description">
+  <meta content="resume, cover letter, AI resume generator, job application" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+ 
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+</head>
+
+<body>
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top  header-transparent ">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <div class="logo">
+        <h1>
+          <a href="index.html"><img src="{% static "assets/img/logo.png" %}" class="img-fluid" alt="UpdateYourResume Logo">
+          </a>
+        </h1>
+      </div>
+      <!-- .navbar -->
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+          <li><a class="nav-link scrollto" href="#features">App Features</a></li>
+          <li><a class="nav-link scrollto" href="#gallery">Gallery</a></li>
+          <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
+          <li><a class="nav-link scrollto" href="#faq">F.A.Q</a></li>          
+          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+          <li><a class="getstarted scrollto" href="{% url 'account_signup' %}">Get Started</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+    </div>    
+  </header>
+  <!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center">
     <div class="container">
-        <div class="pb-5 pt-5 row">
-            <div class="col-lg-8 col-xl-6 mx-auto">
-                <h1 class="display-4 fw-normal mb-3 text-dark">
-                    Get a job-specific tailored 
-                    <span style="font-weight: bold; font-size: 1.2em; color: #007bff;">Resume</span>
-                    and a
-                    <span style="font-weight: bold; font-size: 1.2em; color: #28a745;">Cover Letter</span>
-                    in seconds
-                </h1>
-                <p class="fw-light mb-4">Let AI rewrite your resume to fit the job title and job descriptions you're applying to.</p> 
-                <a href="{% url 'home' %}" class="btn btn-primary fw-light pb-2 ps-3 pe-3 pt-2">Get Started</a>
-                <a href="#" class="btn btn-secondary fw-light pb-2 ps-3 pe-3 pt-2">Learn More</a>
-            </div>
-        </div>
-        <a href="https://www.producthunt.com/products/updateyourresume/reviews?utm_source=badge-product_review&utm_medium=badge&utm_souce=badge-updateyourresume" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/product_review.svg?product_id=562062&theme=light" alt="UpdateYourResume - Revamp&#0032;your&#0032;resume&#0032;to&#0032;match&#0032;Job&#0032;description&#0032;in&#0032;seconds&#0046; | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>    </div>
-</section>
-<section class="py-5">
-    <div class="container">
-        <div class="row justify-content-center text-center mb-4">
-            <div class="col-lg-8 col-xxl-7">
-                <span class="text-muted">Steps</span>
-                <h2 class="display-5 fw-bold">How it Works</h2>
-                <p class="lead">UpdateYourResume uses AI to ensure that your resume isn't just updated but is tailored to the specific job you're applying for. Stand out from the crowd with a resume that speaks directly to the employer's needs.</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <div class="text-center position-relative">
-                    <div class="step-icon mx-auto bg-primary border rounded-circle d-flex align-items-center justify-content-center" style="width:120px;height:120px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="2em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#eceff3}</style><path d="M80 96v16c0 17.7 14.3 32 32 32h60.8c16.6-28.7 47.6-48 83.2-48h62c-7.1-27.6-32.2-48-62-48H215.4C211.6 20.9 188.2 0 160 0s-51.6 20.9-55.4 48H64C28.7 48 0 76.7 0 112V384c0 35.3 28.7 64 64 64h96V400H64c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H80zm64-40a16 16 0 1 1 32 0 16 16 0 1 1 -32 0zM256 464c-8.8 0-16-7.2-16-16V192c0-8.8 7.2-16 16-16H384v48c0 17.7 14.3 32 32 32h48V448c0 8.8-7.2 16-16 16H256zm192 48c35.3 0 64-28.7 64-64V227.9c0-12.7-5.1-24.9-14.1-33.9l-51.9-51.9c-9-9-21.2-14.1-33.9-14.1H256c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H448z"/></svg>
-                    </div>
-                    <h4 class="mt-3 fs-5">Step 1</h4>
-                    <p class="lead text-muted mt-4 fs-5 px-lg-3 mb-5 mb-lg-0">Paste Job Title and Description</p>
-                    <div class="arrow-icon position-absolute d-none d-lg-block" style="top:50px; right:-25px">
-                        <svg class="bi bi-arrow-right" fill="currentColor" height="30" viewbox="0 0 16 16" width="30" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" fill-rule="evenodd"></path></svg>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="text-center position-relative">
-                    <div class="step-icon mx-auto bg-primary border rounded-circle d-flex align-items-center justify-content-center" style="width: 120px;height: 120px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="2em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#edf1f8}</style><path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM216 408c0 13.3-10.7 24-24 24s-24-10.7-24-24V305.9l-31 31c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l72-72c9.4-9.4 24.6-9.4 33.9 0l72 72c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-31-31V408z"/></svg>                        </div>
-                    <h4 class="mt-3 fs-5">Step 2</h4>
-                    <p class="lead text-muted mt-4 fs-5 px-lg-3 mb-5 mb-lg-0">Upload or Paste Your Existing Resume.</p>
-                    <div class="arrow-icon d-none d-lg-block position-absolute" style="top:50px; right:-25px">
-                        <svg class="bi bi-arrow-right" fill="currentColor" height="30" viewbox="0 0 16 16" width="30" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" fill-rule="evenodd"></path></svg>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="text-center position-relative">
-                    <div class="step-icon mx-auto bg-primary border rounded-circle d-flex align-items-center justify-content-center" style="width: 120px;height: 120px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="2em" viewBox="0 0 640 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#e5e7eb}</style><path d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-217c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l39-39V392c0 13.3 10.7 24 24 24s24-10.7 24-24V257.9l39 39c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0l-80 80z"/></svg>
-                    </div>
-                    <h4 class="mt-3 fs-5">Step 3</h4>
-                    <p class="lead text-muted mt-4 fs-5 px-lg-3 mb-5 mb-lg-0">Submit.</p>
-                    <div class="arrow-icon d-none d-lg-block position-absolute" style="top:50px; right:-25px">
-                        <svg class="bi bi-arrow-right" fill="currentColor" height="30" viewbox="0 0 16 16" width="30" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" fill-rule="evenodd"></path></svg>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="text-center position-relative">
-                    <div class="step-icon mx-auto bg-primary border rounded-circle d-flex align-items-center justify-content-center" style="width: 120px;height: 120px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="2em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#eff1f5}</style><path d="M176 24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64c-35.3 0-64 28.7-64 64H24c-13.3 0-24 10.7-24 24s10.7 24 24 24H64v56H24c-13.3 0-24 10.7-24 24s10.7 24 24 24H64v56H24c-13.3 0-24 10.7-24 24s10.7 24 24 24H64c0 35.3 28.7 64 64 64v40c0 13.3 10.7 24 24 24s24-10.7 24-24V448h56v40c0 13.3 10.7 24 24 24s24-10.7 24-24V448h56v40c0 13.3 10.7 24 24 24s24-10.7 24-24V448c35.3 0 64-28.7 64-64h40c13.3 0 24-10.7 24-24s-10.7-24-24-24H448V280h40c13.3 0 24-10.7 24-24s-10.7-24-24-24H448V176h40c13.3 0 24-10.7 24-24s-10.7-24-24-24H448c0-35.3-28.7-64-64-64V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H280V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H176V24zM160 128H352c17.7 0 32 14.3 32 32V352c0 17.7-14.3 32-32 32H160c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32zm192 32H160V352H352V160z"/></svg>                            <path d="M2 2h2v2H2V2Z"></path>
-                        <path d="M6 0v6H0V0h6ZM5 1H1v4h4V1ZM4 12H2v2h2v-2Z"></path>
-                        <path d="M6 10v6H0v-6h6Zm-5 1v4h4v-4H1Zm11-9h2v2h-2V2Z"></path>
-                        <path d="M10 0v6h6V0h-6Zm5 1v4h-4V1h4ZM8 1V0h1v2H8v2H7V1h1Zm0 5V4h1v2H8ZM6 8V7h1V6h1v2h1V7h5v1h-4v1H7V8H6Zm0 0v1H2V8H1v1H0V7h3v1h3Zm10 1h-1V7h1v2Zm-1 0h-1v2h2v-1h-1V9Zm-4 0h2v1h-1v1h-1V9Zm2 3v-1h-1v1h-1v1H9v1h3v-2h1Zm0 0h3v1h-2v1h-1v-2Zm-4-1v1h1v-2H7v1h2Z"></path>
-                        <path d="M7 12h1v3h4v1H7v-4Zm9 2v2h-3v-1h2v-1h1Z"></path></svg>
-                    </div>
-                    <h4 class="mt-3 fs-5">Step 4</h4>
-                    <p class="lead text-muted mt-4 fs-5 px-lg-3 mb-5 mb-lg-0">Generate Your Tailored Resume and Cover Letter in Seconds</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<div class="bg-dark"> <svg viewBox="0 0 100 100" preserveAspectRatio="none" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" height="80" width="100%" class="bg-light d-block text-white">
-        <path d="M 100 100 V 0 L 0 100" /> </svg> </div>
+      <div class="row">
+        <div class="col-lg-6 d-lg-flex flex-lg-column justify-content-center align-items-stretch pt-5 pt-lg-0 order-2 order-lg-1" data-aos="fade-up">
+          <div>
+            <h1 class="display-4 fw-normal mb-3 text-dark">
+              Get a job-specific tailored 
+              <span style="font-weight: bold; font-size: 1.2em; color: #080059;">Resume</span>
+              and a Powerful
+              <span style="font-weight: bold; font-size: 1.2em; color: #c79773;">Cover Letter</span>
+              in 15 seconds
+          </h1>
 
-{% comment %} <section class="pb-5 pt-5">
-<div class="container pb-4 pt-4">
-    <div class="align-items-center row">
-        <div class="col-lg-6 ms-auto order-lg-2 py-3 text-center">
-            <!-- Replace with your own animation or visual content -->
-            <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_sk5h1kfn.json" background="transparent" speed="1" style="width: 100%; height: auto;" loop autoplay></lottie-player>
+          <h2>UpdateYourResume uses AI to analyze the job description and transform your resume for the best chance of getting an interview.</h2>
+          <a href="{% url 'account_signup' %}" class="download-btn">Sign Up / Sign In</a>
+          </div>
         </div>
-        <div class="col-lg-5 order-lg-1 py-3">
-            <h2 class="fw-normal h1 mb-2 text-dark">Revamp Your Resume and Land Your Dream Job</h2>
-            <p class="fw-light mb-4">Welcome to UpdateYourResume - your ultimate solution for crafting winning resumes tailored for your dream job. Our software helps job seekers rewrite and revamp their existing resumes/CVs, increasing their chances of landing the perfect job. We analyze your skills, experience, and qualifications, ensuring your resume aligns perfectly with the job you're applying for.</p>
-            <a href="#" class="btn btn-primary fw-light pb-2 ps-3 pe-3 pt-2">Learn More</a>
+        <div class="col-lg-6 d-lg-flex flex-lg-column align-items-stretch order-1 order-lg-2 hero-img" data-aos="fade-up">
+          <img src="{% static "assets/img/illust.png"%}" class="img-fluid" alt="">
         </div>
+      </div>
     </div>
-</div>
-<div class="container pb-4 pt-4">
-    <div class="align-items-center row">
-        <div class="col-lg-6 me-lg-3 pb-3 pt-3 text-center">
-            <!-- Replace with your own animation or visual content -->
-            <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_kwgmvgfy.json" background="transparent" speed="1" style="width: 100%; height: auto;" loop autoplay></lottie-player>
-        </div>
-        <div class="col-lg-5 pb-3 pt-3">
-            <h2 class="fw-normal h1 mb-2 text-dark">Confidence in Every Application</h2>
-            <p class="fw-light mb-4">With our proven system, you'll have the confidence to apply for any job. Say goodbye to generic resumes that get lost in the pile. Our software ensures your resume stands out, highlighting your skills and experiences perfectly matched to the job requirements. It's time to step into your future career with confidence!</p>
-            <a href="#" class="btn btn-primary fw-light pb-2 ps-3 pe-3 pt-2">Learn More</a>
-        </div>
-    </div>
-</div>
-</section> {% endcomment %}
-{% comment %} <svg viewBox="0 0 100 100" preserveAspectRatio="none" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" height="64" width="100%" class="d-block text-primary">
-    <path d="M 100 100 V 0 L 0 100" /> </svg> {% endcomment %}
-<section class="bg-primary pb-5 pt-5 text-white">
-    <div class="container pb-3 pt-3">
-        <div class="align-items-center row">
-            <div class="col-xl-5 mt-n5 order-xl-2 pb-3 pt-3">
-                <img src="{% static 'img/basic.png' %}">
+  </section>
+  <!-- End Hero -->
 
-                {% comment %} <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_4ayeqfsd.json" background="transparent" speed="1" style="width: 100%; height: auto;" loop autoplay></lottie-player> {% endcomment %}
-            </div>
-            <div class="col-xl-7 ms-auto order-xl-1 pb-3 pt-3">
-                <h2 class="fw-normal h1 mb-2">Don't take chances with your Resume</h2>
-                <p class="fw-light mb-3"> Don't let your resume be the ghost in the career graveyard! Stop living on borrowed achievements and outdated skills. updateyourresume.xyz is your AI-powered genie, granting you wishes like a sparkling new resume that screams, "Hire me!" Ditch the resume blues and say hello to interview cheers. Update now, because your dream job isn't waiting for a dusty relic, it's waiting for you.</p>
-                <div class="row">
-                    <div class="col-md-4 pb-3 pt-3">
-                        <div class="text-center"> 
-                            <div style="margin-bottom: 10px;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-file-earmark-arrow-up-fill" viewBox="0 0 16 16">
-                                    <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1M6.354 9.854a.5.5 0 0 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 8.707V12.5a.5.5 0 0 1-1 0V8.707z"/>
-                                </svg>
-                            </div>
-                            <h3 class="fw-normal h5">Upload or Paste </h3>                            
-                            <p class="mb-0 text-start">Upload or paste your existing resume in pdf of docx formats</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 pb-3 pt-3">
-                        <div class="text-center"> 
-                            <div style="margin-bottom: 10px;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-file-earmark-font-fill" viewBox="0 0 16 16">
-                            <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1M5.057 6h5.886L11 8h-.5c-.18-1.096-.356-1.192-1.694-1.235l-.298-.01v5.09c0 .47.1.582.903.655v.5H6.59v-.5c.799-.073.898-.184.898-.654V6.755l-.293.01C5.856 6.808 5.68 6.905 5.5 8H5z"/>
-                            </svg>
-                            </div>
-                            <h3 class="fw-normal h5">Multiple Templates</h3>                           
-                            <p class="mb-0 text-start">Select your desired resume template from our existing collection.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 pb-3 pt-3">
-                        <div class="text-center">
-                            <div style="margin-bottom: 10px;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-file-earmark-arrow-down-fill" viewBox="0 0 16 16">
-                                    <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1m-1 4v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 11.293V7.5a.5.5 0 0 1 1 0"/>
-                                </svg>
-                            </div>
-                            <h3 class="fw-normal h5">Multiple Download Formats</h3>
-                            <p class="mb-0 text-start">Download your resume in your desired formats. PDF or Docx </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section> <svg viewBox="0 0 100 100" preserveAspectRatio="none" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" height="64" width="100%" class="bg-primary d-block text-light">
-    <path d="M 100 100 V 0 L 0 100" /> </svg>
-<section class="bg-light pb-5 pt-5 text-center">
-    <div class="container pb-3 position-relative pt-3">
-        <h2 class="fw-normal h1 mb-1 text-dark">Don't just take our word for it</h2>
-        <p class="mb-5">See what people have to say about our product</p>
-        <div class="row">
-            <div class="col-lg-8 ms-auto me-auto">
-                <div id="carousel5" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active"> <img src="https://picsum.photos/500/500" class="img-fluid mb-3 rounded-circle testimonial_img" width="200" height="200" alt="User image">
-                            <p class="fw-light h5 mb-4">
-                                My code was fire, but my resume was a buggy mess. UpdateYourResume's AI scrubbed the gibberish and polished my skills like a Silicon Valley hacker. Bam! Snagged funding and angel investors faster than you can say 'disruptive innovation.' Now I'm building the next big thing, thanks to a resume that speaks fluent investor."
-                            </p>
-                            <h3 class="fw-bold h4 mb-0 text-primary">David Murphy</h3>
-                            <p>Tech Startup Founder</p>
-                        </div>
-                        <div class="carousel-item"> <img src="https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?ixid=MXwyMDkyMnwwfDF8c2VhcmNofDE5fHxkb2d8ZW58MHx8fA&ixlib=rb-1.2.1q=85&fm=jpg&crop=faces&cs=srgb&w=360&h=360&fit=crop" class="img-fluid mb-3 rounded-circle testimonial_img" width="200" height="200" alt="User image">
-                            <p class="fw-light h5 mb-4"> 
-                                Grading papers never prepared me for job hunting! UpdateYourResume was my lifesaver. It took my tired old CV and turned it into a superhero teacher report card. Boom! Landed a dream job at a STEM-focused school with a killer tech lab. My kids are gonna flip when they see the classroom!
-                            </p>
-                            <h3 class="fw-bold h4 mb-0 text-primary">Dianne Russell</h3>
-                            <p>Elementary Teacher</p>
-                        </div>
-                        <div class="carousel-item"> <img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?ixid=MXwyMDkyMnwwfDF8c2VhcmNofDd8fGNhdHxlbnwwfHx8&ixlib=rb-1.2.1q=85&fm=jpg&crop=faces&cs=srgb&w=360&h=360&fit=crop" class="img-fluid mb-3 rounded-circle testimonial_img" width="200" height="200" alt="User image">
-                            <p class="fw-light h5 mb-4">
-                                Climbing the corporate ladder is tough in heels, let alone with a resume stuck in the mailroom. UpdateYourResume gave me the elevator pitch of a lifetime. My achievements practically danced off the page. Landed the C-suite corner office with a view, and the boardroom feels a lot less intimidating in this power suit! UpdateYourResume is the secret weapon CEOs don't want you to know about.
-                            </p>
-                            <h3 class="fw-bold h4 mb-0 text-primary">Darrell Steward</h3>
-                            <p>Executive Director</p>
-                        </div>
-                    </div>
-                    <ol class="carousel-indicators position-relative">
-                        <li data-bs-target="#carousel5" data-bs-slide-to="0" class="active bg-primary"></li>
-                        <li data-bs-target="#carousel5" data-bs-slide-to="1" class="bg-primary"></li>
-                        <li data-bs-target="#carousel5" data-bs-slide-to="2" class="bg-primary"></li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<section class="bg-light pb-5 pt-5 text-center">
-    <div class="container ">
-        <div class="align-items-center row">
-            <div class="col-xl-10 ms-auto me-auto">
-                <div class="bg-primary pb-5 ps-4 pe-4 pt-5 rounded-3 text-white">
-                    <h2 class="fw-normal h1 mb-2">Let&apos;s simplify & hasten your Job Application</h2>
-                    <p class="mb-4">Revamp your Resume in seconds.</p> <a href="{% url 'account_signup' %}" class="btn btn-light fw-light pb-2 ps-3 pe-3 pt-2">Sign Up Now</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-{% comment %} <section class="bg-light pb-5 pt-5 text-center">
-    <div class="container pb-4 pt-4">
-        <h2 class="fw-normal h1 mb-1 text-dark">Be part of something special</h2>
-        <p class="mb-4">Choose the plan that&rsquo;s right for you.</p>
-        <div class="col-xl-11 ms-auto me-auto px-0">
-            <div class="align-items-center justify-content-center row">
-                <div class="col-lg-4 col-md-6 py-3">
-                    <div class="bg-light border rounded text-secondary">
-                        <div class="align-items-center d-flex fw-light h5 justify-content-center pb-4 pe-3 ps-3 pt-4"> <span class="align-self-start">$</span> <span class="display-4 fw-normal text-dark">0</span> <span class="align-self-end">/mo</span> </div>
-                        <h3 class="bg-dark fw-normal h4 mb-0 pb-3 pe-2 ps-2 pt-3 text-uppercase text-white">Brokie</h3>
-                        <div class="pb-5 ps-3 pe-3 pt-4">
-                            <ul class="list-unstyled mb-4">
-                                <li class="pb-2 pt-2">5 Resumes</li>
-                                <li class="pb-2 pt-2">5 CoverLetters</li>
-                                <li class="pb-2 pt-2">1 Download</li>
-                                <li class="pb-2 pt-2">Docs Download format</li>
-                                <li class="pb-2 pt-2">24/7 Support</li>
-                            </ul> <a href="#" class="btn btn-dark fw-light pb-2 pe-4 ps-4 pt-2">Sign Up</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 py-3">
-                    <div class="bg-light border rounded text-secondary">
-                        <div class="align-items-center d-flex fw-light h5 justify-content-center pb-4 ps-3 pe-3 pt-4"> <span class="align-self-start">$</span> <span class="display-4 fw-normal text-dark">5</span> <span class="align-self-end">/mo</span> </div>
-                        <h3 class="bg-primary fw-normal h4 mb-0 pb-3 pe-2 ps-2 pt-3 text-uppercase text-white">Fresher</h3>
-                        <div class="pb-5 ps-3 pe-3 pt-4">
-                            <ul class="list-unstyled mb-4">
-                                <li class="pb-2 pt-2">100 Resumes</li>
-                                <li class="pb-2 pt-2">100 Cover Letter</li>
-                                <li class="pb-2 pt-2">Unlimited Downloads</li>
-                                <li class="pb-2 pt-2">Pdf/Docs Download formats</li>
-                                <li class="pb-2 pt-2">24/7 Support</li>
-                            </ul> <a href="#" class="btn btn-primary fw-light pb-2 ps-4 pe-4 pt-2">Sign Up</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 py-3">
-                    <div class="bg-light border rounded text-secondary">
-                        <div class="align-items-center d-flex fw-light h5 justify-content-center pb-4 ps-3 pe-3 pt-4"> <span class="align-self-start">$</span> <span class="display-4 fw-normal text-dark">15</span> <span class="align-self-end">/mo</span> </div>
-                        <h3 class="bg-dark fw-normal h4 mb-0 pb-3 pe-2 ps-2 pt-3 text-uppercase text-white">Professional</h3>
-                        <div class="pb-5 ps-3 pe-3 pt-4">
-                            <ul class="list-unstyled mb-4">
-                                <li class="pb-2 pt-2">Unlimited Resumes</li>
-                                <li class="pb-2 pt-2">Unlimited Cover Letters</li>
-                                <li class="pb-2 pt-2">Unlimited Downloads</li>
-                                <li class="pb-2 pt-2">Pdf/Docs/Docx Download formats</li>
-                                <li class="pb-2 pt-2">24/7 Support</li>
-                            </ul> <a href="#" class="btn btn-dark fw-light pb-2 ps-4 pe-4 pt-2">Sign Up</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section> <svg viewBox="0 0 100 100" preserveAspectRatio="none" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" height="64" width="100%" class="bg-light d-block text-dark"> {% endcomment %}
-    <path d="M 100 100 V 0 L 0 100" /> </svg>
-<footer class="bg-dark pt-5 text-white">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-4 py-3"> <a href="#" class="d-inline-block fw-bold h2 link-light mb-4 text-decoration-none" target="_pg_blank">
-                <img src="{% static 'icons/updateyourresumefavicon.png' %}" style="margin-right: 75px; margin-left: 35px;" width="100" height="100" alt="UpdateYourResume logo" class="logo-img">
+  <main id="main">
 
-            </a>
-                <p class="mb-3"> Get your ATS-Compliant Resume and Cover Letter in Seconds.</p>
-                <div class="mb-4"> <a href="#" class="link-light text-decoration-none">+254 792234006</a> <br> <a href="#" class="link-light text-decoration-none">hello@updateyourresume.xyz</a> </div>
-            </div>
-            <div class="col-md-3 col-xl-2 py-3">
-                <h2 class="fw-normal h5 mb-4 text-uppercase text-white">About</h2>
-                <ul class="list-unstyled">
-                    <li class="mb-3"> <a href="#" class="link-light text-decoration-none">About Us</a> </li>
-                    <li class="mb-3"> <a href="{% url 'pricing' %}" class="link-light text-decoration-none">Pricing Plans</a> </li>
-                    {% comment %} <li class="mb-3"> <a href="#" class="link-light text-decoration-none">Become an Affiliate</a> </li> {% endcomment %}
-                    <li class="mb-3"> <a href="#" class="link-light text-decoration-none">Testimonials</a> </li>
-                </ul>
-            </div>
-            <div class="col-md-3 col-xl-2 py-3">
-                <h2 class="fw-normal h5 mb-4 text-uppercase text-white">Services</h2>
-                <ul class="list-unstyled">
-                    <li class="mb-3"> <a href="{% url 'generate_resume'%}" class="link-light text-decoration-none">Resume revamp</a> </li>
-                    <li class="mb-3"> <a href="{% url 'generate_resume'%}" class="link-light text-decoration-none">CV Rewriting</a> </li>
-                    <li class="mb-3"> <a href="{% url 'generate_resume'%}" class="link-light text-decoration-none">Resume Rewriting</a> </li>
-                </ul>
-            </div>
-            <div class="col-md-6 col-xl-4 py-3">
-                <h2 class="fw-normal h5 mb-4 text-uppercase text-white">Subscribe</h2>
-                <p class="mb-3">Subscribe to our newsletter and get exclusive updates directly in your inbox.</p>
-                <form class="mb-4">
-                    <div class="bg-white border input-group p-1 rounded"> <input type="email" class="border-0 form-control pe-3 ps-3" placeholder="Enter email..." aria-label="Recipient's email" aria-describedby="button-addon2" required> <button class="btn btn-primary pb-2 pe-4 ps-4 pt-2 rounded" type="submit" id="button-addon2" aria-label="submit"> <svg viewBox="0 0 24 24" fill="currentColor" class="d-inline-block" height="16" width="16">
-                                <path d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"></path>
-                            </svg> </button> </div>
-                </form>
-                <h2 class="fw-normal h5 mb-3 text-uppercase text-white">Get Social</h2>
-                <div class="d-inline-flex flex-wrap"> <a href="#" class="link-light p-1" aria-label="facebook link"> <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                            <path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4v-8.5z" /> </svg> </a> <a href="#" class="link-light p-1" aria-label="twitter link"> <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                            <path d="M22.162 5.656a8.384 8.384 0 0 1-2.402.658A4.196 4.196 0 0 0 21.6 4c-.82.488-1.719.83-2.656 1.015a4.182 4.182 0 0 0-7.126 3.814 11.874 11.874 0 0 1-8.62-4.37 4.168 4.168 0 0 0-.566 2.103c0 1.45.738 2.731 1.86 3.481a4.168 4.168 0 0 1-1.894-.523v.052a4.185 4.185 0 0 0 3.355 4.101 4.21 4.21 0 0 1-1.89.072A4.185 4.185 0 0 0 7.97 16.65a8.394 8.394 0 0 1-6.191 1.732 11.83 11.83 0 0 0 6.41 1.88c7.693 0 11.9-6.373 11.9-11.9 0-.18-.005-.362-.013-.54a8.496 8.496 0 0 0 2.087-2.165z" /> </svg> </a> <a href="#" class="link-light p-1" aria-label="instagram link"> <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                            <path d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153a4.908 4.908 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 0 1-1.153 1.772 4.915 4.915 0 0 1-1.772 1.153c-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 0 1-1.772-1.153 4.904 4.904 0 0 1-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428a4.88 4.88 0 0 1 1.153-1.772A4.897 4.897 0 0 1 5.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm6.5-.25a1.25 1.25 0 0 0-2.5 0 1.25 1.25 0 0 0 2.5 0zM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6z" /> </svg> </a> <a href="#" class="link-light p-1" aria-label="linkedin link"> <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                            <path d="M6.94 5a2 2 0 1 1-4-.002 2 2 0 0 1 4 .002zM7 8.48H3V21h4V8.48zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-4 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.72-2.91l.04-1.68z" /> </svg> </a> <a href="#" class="link-light p-1" aria-label="youtube link"> <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                            <path d="M21.543 6.498C22 8.28 22 12 22 12s0 3.72-.457 5.502c-.254.985-.997 1.76-1.938 2.022C17.896 20 12 20 12 20s-5.893 0-7.605-.476c-.945-.266-1.687-1.04-1.938-2.022C2 15.72 2 12 2 12s0-3.72.457-5.502c.254-.985.997-1.76 1.938-2.022C6.107 4 12 4 12 4s5.896 0 7.605.476c.945.266 1.687 1.04 1.938 2.022zM10 15.5l6-3.5-6-3.5v7z" /> </svg> </a> </div>
-            </div>
+    <!-- ======= App Features Section ======= -->
+    <section id="features" class="features">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>App Features</h2>
+          <p>Here's how UpdateYourResume gives you a competitive edge:</p>
         </div>
-            <div class="pb-3 pt-3 small">
-                <hr class="border-secondary mt-0">
-                <div class="align-items-center row">
-                    <div class="col-md pb-2 pt-2">
-                        <p class="mb-0">&copy; 2024 | All Rights Reserved - UpdateYourResume</p>
-                    </div>
-                <div class="col-md-auto pb-2 pt-2"> <a href="#" class="link-light text-decoration-none">Privacy Policy</a> | <a href="#" class="link-light text-decoration-none">Terms of Use</a> </div>
+
+        <div class="row no-gutters">
+          <div class="col-xl-7 d-flex align-items-stretch order-2 order-lg-1">
+            <div class="content d-flex flex-column justify-content-center">
+              <div class="row">
+                <div class="col-md-6 icon-box" data-aos="fade-up">
+                  <i class="bx bx-receipt"></i>
+                  <h4>Tailored Resumes</h4>
+                  <p>Our AI matches your skills and experience to the specific job requirements.</p>
                 </div>
+                <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="100">
+                  <i class="bx bx-cube-alt"></i>
+                  <h4>Keyword Optimization</h4>
+                  <p>We make sure your resume beats applicant tracking systems (ATS) with the right keywords.</p>
+                </div>
+                <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="100">
+                  <i class="bx bx-images"></i>
+                  <h4>Custom Templates</h4>
+                  <p>Choose from modern, eye-catching resume templates to showcase your background professionally.</p>
+                </div>
+                <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="100">
+                  <i class="bx bx-shield"></i>
+                  <h4>Confidential and Secure</h4>
+                  <p>We understand the importance of your data. All information is processed securely and never shared.</p>
+                </div>                              
+              </div>
             </div>
+          </div>
+          <div class="image col-xl-5 d-flex align-items-stretch justify-content-center order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100">
+            <img src="{% static "assets/img/details-2.png" %}" class="img-fluid" alt="">
+          </div>
         </div>
-    </footer>
-    {% endblock content %}
+
+      </div>
+    </section><!-- End App Features Section -->
+
+      <!-- ======= Gallery Section ======= -->
+    <!--section id="gallery" class="gallery">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Gallery</h2>
+          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+        </div>
+
+      </div>
+
+      <div class="container-fluid" data-aos="fade-up">
+        <div class="gallery-slider swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><a href="{% static "assets/img/gallery/gallery-1.png"%}" class="gallery-lightbox" data-gall="gallery-carousel"><img src="assets/img/gallery/gallery-1.png" class="img-fluid" alt=""></a></div>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+    </section><!-- End Gallery Section -->
+
+    <!-- ======= Testimonials Section ======= -->
+    <section id="testimonials" class="testimonials section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Testimonials</h2>
+          <p>See what our users are saying about UpdateYourResume</p>
+        </div>
+
+        <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+          <div class="swiper-wrapper">
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="{% static "assets/img/testimonials/testimonials-1.jpg"%}" class="testimonial-img" alt="">
+                <h3>Edd Jobs</h3>
+                <h4>Software Developer</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  UpdateYourResume pinpointed the keywords I needed to get past those pesky applicant tracking systems. I'm finally getting interviews! 
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div> 
+            
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="{% static "assets/img/testimonials/testimonials-2.jpg"%}" class="testimonial-img" alt="">
+                <h3>John Larson</h3>
+                <h4>Entrepreneur</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  I was skeptical at first, but the AI did a fantastic job tailoring my resume. I've gotten way more callbacks! 
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="{% static "assets/img/testimonials/testimonials-3.jpg"%}" class="testimonial-img" alt="">
+                <h3>Lisa Thompson</h3>
+                <h4>Marketing Manager</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  UpdateYourResume is a lifesaver! It saved me so much time, and my resume finally highlights my achievements.  
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div>          
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="{% static "assets/img/testimonials/testimonials-5.jpg"%}" class="testimonial-img" alt="">
+                <h3>Peter Sam</h3>
+                <h4>Designer</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  UpdateYourResume helped me land my dream job! My new resume clearly shows why I'm the best fit.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div>
+
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+    </section><!-- End Testimonials Section -->
+
+    <!-- ======= Pricing Section ======= -->
+    <section id="pricing" class="pricing">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Pricing</h2>
+          <p>Choose the plan that fits your needs.</p>
+        </div>
+
+        <div class="row no-gutters">
+
+          <div class="col-lg-4 box" data-aos="fade-right">
+            <h3>Zero Budget</h3>
+            <h4>$0<span>per month</span></h4>
+            <ul>
+              <li><i class="bx bx-check"></i> Basic resume tailoring</li>
+              <li><i class="bx bx-check"></i> Limited template selection</li>
+              <li><i class="bx bx-check"></i> Limited Downloads</li>
+              <li><i class="bx bx-check"></i> Upto 5 Resumes</li>
+              <li class="na"><i class="bx bx-x"></i> <span>Cover letter generation</span></li>
+              <li class="na"><i class="bx bx-x"></i> <span>Keyword optimization</span></li>
+
+            </ul>
+            <a href="#" class="get-started-btn">Get Started</a>        </div>
+
+          <div class="col-lg-4 box featured" data-aos="fade-up">
+            <h3>Pro</h3>
+            <h4>$19<span>per month</span></h4>
+            <ul>
+              <li><i class="bx bx-check"></i> Upto 50 Resumes</li>
+              <li><i class="bx bx-check"></i> Advanced resume tailoring</li>
+              <li><i class="bx bx-check"></i> Wide range of templates</li>
+              <li><i class="bx bx-check"></i> Cover letter generation</li>
+              <li><i class="bx bx-check"></i> Keyword optimization</li>
+              <li><i class="bx bx-check"></i> Unlimited Downloads</li>
+            </ul>
+            <a href="#" class="get-started-btn">Get Started</a>
+          </div>
+
+          <div class="col-lg-4 box" data-aos="fade-left">
+            <h3>Business</h3>
+            <h4>$39<span>per month</span></h4>
+            <ul>
+              <li><i class="bx bx-check"></i> Unlimited Resumes</li>
+              <li><i class="bx bx-check"></i> Advanced resume tailoring</li>
+              <li><i class="bx bx-check"></i> Wide range of templates</li>
+              <li><i class="bx bx-check"></i> Cover letter generation</li>
+              <li><i class="bx bx-check"></i> Keyword optimization</li>
+              <li><i class="bx bx-check"></i> Unlimited Downloads</li>
+
+            </ul>
+            <a href="#" class="get-started-btn">Get Started</a>   </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Pricing Section -->
+
+    <!-- ======= Frequently Asked Questions Section ======= -->
+    <section id="faq" class="faq section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+
+          <h2>Frequently Asked Questions</h2>
+          <p>
+            Our AI analyzes thousands of resumes and job descriptions. It learns the language and patterns that make successful resumes stand out for specific job titles. 
+          </p> 
+          </div>
+
+        <div class="accordion-list">
+          <ul>            
+            <li data-aos="fade-up">
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" class="collapse" data-bs-target="#accordion-list-1">How does the AI work? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="accordion-list-1" class="collapse show" data-bs-parent=".accordion-list">
+                <p>
+                  Our AI analyzes thousands of resumes and job descriptions. It learns the language and patterns that make successful resumes stand out for specific job titles.  
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up" data-aos-delay="100">
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#accordion-list-2" class="collapsed">Is my information secure? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="accordion-list-2" class="collapse" data-bs-parent=".accordion-list">
+                <p>
+                  Absolutely! We employ industry-standard encryption and security measures.  Your data is never shared with third parties.
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up" data-aos-delay="200">
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#accordion-list-3" class="collapsed">Can I use my existing resume? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="accordion-list-3" class="collapse" data-bs-parent=".accordion-list">
+                <p>
+                  Yes! You can upload your resume, and UpdateYourResume will analyze it to provide tailored suggestions and edits.
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up" data-aos-delay="300">
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#accordion-list-4" class="collapsed">What if I'm not happy with the results? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="accordion-list-4" class="collapse" data-bs-parent=".accordion-list">
+                <p>
+                  We offer a satisfaction guarantee. If you're not happy, please contact our support team, and we'll work with you to refine your resume. 
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up" data-aos-delay="400">
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#accordion-list-5" class="collapsed">Is there a free trial? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="accordion-list-5" class="collapse" data-bs-parent=".accordion-list">
+                <p>
+                  Yes, we offer a free trial so you can experience the power of UpdateYourResume before signing up for a paid plan.
+                </p>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+
+      </div>
+    </section><!-- End Frequently Asked Questions Section -->
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Contact</h2>
+          <p>Reach out to us.</p>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="col-lg-6 info">
+                <i class="bx bx-map"></i>
+                <h4>Address</h4>
+                <p>Nairobi<br>Kenya</p>
+              </div>
+              <div class="col-lg-6 info">
+                <i class="bx bx-phone"></i>
+                <h4>Call Us</h4>
+                <p>+254 7922340065<br></p>
+              </div>
+              <div class="col-lg-6 info">
+                <i class="bx bx-envelope"></i>
+                <h4>Email Us</h4>
+                <p>hello@updateyourresume.xyz<br>info@updateyourresume.xyz</p>
+              </div>
+              <div class="col-lg-6 info">
+                <i class="bx bx-time-five"></i>
+                <h4>Working Hours</h4>
+                <p>Mon - Fri: 9AM to 5PM<br>Sunday: 9AM to 1PM</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <form action="forms/contact.php" method="post" role="form" class="php-email-form" data-aos="fade-up">
+              <div class="form-group">
+                <input placeholder="Your Name" type="text" name="name" class="form-control" id="name" required>
+              </div>
+              <div class="form-group mt-3">
+                <input placeholder="Your Email" type="email" class="form-control" name="email" id="email" required>
+              </div>
+              <div class="form-group mt-3">
+                <input placeholder="Subject" type="text" class="form-control" name="subject" id="subject" required>
+              </div>
+              <div class="form-group mt-3">
+                <textarea placeholder="Message" class="form-control" name="message" rows="5" required></textarea>
+              </div>
+              <div class="my-3">
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Your message has been sent. Thank you!</div>
+              </div>
+              <div class="text-center"><button type="submit">Send Message</button></div>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+    <div class="footer-newsletter">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <h4>Join Our Newsletter</h4>
+            <p>Get to learn what's new in the Job seeking world</p>
+            <form action="" method="post">
+              <input type="email" name="email"><input type="submit" value="Subscribe">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h3>UpdateYourResume</h3>
+            <p>
+              Nairobi CBD <br>
+              Nairobi<br>
+              Kenya <br><br>
+              <strong>Phone:</strong> +254 792234006<br>
+              <strong>Email:</strong> hello@updateyourresume.xyz<br>
+            </p>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Services</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Resume Revamp</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Resume Writing</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Cover Letter Writing</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Resume Optimization</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Resume Templates</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Social Networks</h4>
+            <p>Get in touch with us through social media</p>
+            <div class="social-links mt-3">
+              <!--a href="#" class="twitter"><i class="bx bxl-twitter"></i></a-->
+              <a href="https://web.facebook.com/profile.php?viewas=100000686899395&id=61554308647702" class="facebook"><i class="bx bxl-facebook"></i></a>
+              <!--a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+              <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a-->
+              <a href="https://www.linkedin.com/company/updateyourresume/?viewAsMember=true" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="container py-4">
+    <div class="copyright">
+      &copy; Copyright <strong><span>UpdateYourResume</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+           Designed by <a href="www.updateyourresume.xyz/">UpdateYourResume</a>
+    </div>
+  </div>
+    
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  
+</footer>
+ <!-- Vendor JS Files -->
+<script src="{% static 'assets/vendor/aos/aos.js'%}"></script>
+<script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+<script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js'%}"></script>
+<script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js'%}"></script>
+<script src="{% static 'assets/vendor/php-email-form/validate.js'%}"></script>
+
+<!-- Template Main JS File -->
+<script src="{% static 'assets/js/main.js'%}"></script>
+</body>
+
+</html>
