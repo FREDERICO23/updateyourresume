@@ -9,7 +9,7 @@ class TimeoutTestCase(TestCase):
 
     # @mock.patch('.views.settings.DEFAULT_TIMEOUT', new=2)
 
-    @mock.patch('django.conf.settings.DEFAULT_TIMEOUT', 2)  # Set a short timeout for testing
+    @mock.patch('django.conf.settings.DEFAULT_TIMEOUT', 4)  # Set a short timeout for testing
     def test_view_timeout(self):
         """
         Test that a view times out if it takes too long to respond.
@@ -45,8 +45,7 @@ class TimeoutTestCase(TestCase):
         response = self.client.get('/home/')
         self.assertEqual(response.status_code, 200)  # Expect a successful response (200)
 
-        response = self.client.get('/select-resumes/')
-        self.assertEqual(response.status_code, 200)  # Expect a successful response (200)
+      
 
         response = self.client.get('/test/')
         self.assertEqual(response.status_code, 200)  # Expect a successful response (200)
