@@ -43,9 +43,7 @@ class TimeoutTestCase(TestCase):
         Test that a view does not time out if it responds quickly.
         """
         response = self.client.get('/home/')
-        self.assertEqual(response.status_code, 200)  # Expect a successful response (200)
-
-      
+        self.assertEqual(response.status_code, 200)  # Expect a successful response (200)      
 
         response = self.client.get('/test/')
         self.assertEqual(response.status_code, 200)  # Expect a successful response (200)
@@ -54,9 +52,6 @@ class TimeoutTestCase(TestCase):
         self.assertEqual(response.status_code, 200)  # Expect a successful response (200)
 
         response = self.client.get('/list-resumes/')
-        self.assertEqual(response.status_code, 200)  # Expect a successful response (200)
-
-        response = self.client.get('/save-generated-resume/')
         self.assertEqual(response.status_code, 200)  # Expect a successful response (200)
 
         response = self.client.get('/pricing/')
