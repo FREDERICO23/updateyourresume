@@ -104,7 +104,12 @@ DATABASES = {
         'OPTIONS': {'sslmode': os.getenv('SSL_MODE')},
     }
 }
-
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -193,6 +198,8 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
+
+DEFAULT_TIMEOUT = 5  # Default timeout in seconds
 
 # Azure Storage
 AZURE_STORAGE_ACCOUNT = "updateyourresume"  

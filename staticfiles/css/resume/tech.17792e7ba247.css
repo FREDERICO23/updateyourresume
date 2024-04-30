@@ -1,0 +1,255 @@
+:root {
+  --green: #1ae71a;
+  --blue: #075985;
+  --gray: #4b5563;
+
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+hr {
+  border: 1px solid var(--blue);
+}
+
+h2 {
+  font-family: 700;
+}
+
+.container {
+  width: 100%;
+  max-width: 900px;
+  margin: 30px auto;
+}
+
+main {
+  height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 100px;
+  margin-bottom: 20px;
+}
+
+.profile {
+  max-width: 550px;
+}
+
+.profile div {
+  margin-bottom: 10px;
+}
+
+.profile div h1 {
+  font-size: 30px;
+  color: var(--blue);
+}
+
+.profile div p {
+  color: var(--green);
+  font-size: 17px;
+}
+
+.profile p {
+  font-size: 17px;
+}
+
+.profile-contact {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.profile-contact span {
+  font-size: 17px;
+  display: flex;
+  column-gap: 10px;
+  align-items: center;
+  text-align: end;
+  justify-content: flex-end;
+}
+
+.profile-contact span i {
+  color: var(--blue);
+}
+
+.experience-skills {
+  display: flex;
+  column-gap: 50px;
+  margin-top: 20px;
+}
+
+.work-experience {
+  max-width: 500px;
+}
+
+.work-experience h2 {
+  font-size: 20px;
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+
+.experience-card {
+  margin-bottom: 20px;
+}
+
+.card-header h3 {
+  font-weight: 700;
+  font-size: 19px;
+}
+
+.card-header p {
+  font-size: 17px;
+  margin-bottom: 3px;
+}
+
+.card-time {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--green);
+  margin-bottom: 3px;
+  font-weight: 500;
+}
+
+.experience-card ul {
+  margin-left: 15px;
+}
+
+.experience-card ul li {
+  font-size: 17px;
+  color: var(--green);
+  margin-bottom: 8px;
+}
+
+.experience-card ul li span {
+  color: black;
+}
+
+.skills-education {
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+}
+
+.skills-education h2 {
+  font-size: 20px;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.skills ul {
+  list-style: none;
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.skills ul li {
+  background-color: var(--blue);
+  opacity: 0.6;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.courses div {
+  margin-bottom: 15px;
+}
+
+.courses div h4 {
+  font-weight: 5;
+  font-size: 17px;
+}
+
+.courses div span {
+  color: var(--gray);
+  font-size: 15px;
+
+}
+
+.certificates div {
+  margin-bottom: 15px;
+}
+
+.certificates div h4 {
+  font-weight: 500;
+  font-size: 17px;
+}
+
+.certificates div span {
+  color: var(--gray);
+  font-size: 15px;
+
+}
+
+.education div {
+  margin-top: 15px;
+}
+
+.education div h3 {
+  font-family: 18px;
+  font-weight: 600;
+}
+
+.education div strong {
+  font-weight: 500;
+  font-size: 17px;
+}
+
+.education div span {
+  display: block;
+  color: var(--green);
+}
+
+.languages ul {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.languages ul li strong {
+  font-size: 17px;
+}
+
+.languages ul li span {
+  display: block;
+  color: var(--blue);
+  font-size: 15px;
+  margin-top: 4px;
+}
+
+@media (max-width: 576px) {
+  .container {
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  .header {
+    flex-direction: column;
+    row-gap: 20px;
+  }
+
+  .profile-contact {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .experience-skills {
+    flex-direction: column;
+    row-gap: 20px;
+  }
+}
+
+@media (max-width:400px) {
+  .languages ul {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

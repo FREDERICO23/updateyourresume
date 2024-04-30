@@ -1,0 +1,134 @@
+:root {
+  --blue: #1d4ed8;
+  --gray: #4b5563;
+  --grey: #6b7280;
+
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.container {
+  width: 100%;
+  max-width: 900px;
+  margin: 30px auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-left {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  margin-bottom: 100px;
+
+}
+
+.header-left h1 {
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.header-left p {
+  font-size: 17px;
+}
+
+.header-right {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  margin-bottom: 70px;
+
+}
+
+.cv-body {
+  display: flex;
+  column-gap: 100px;
+}
+
+.cv-body h2 {
+  font-size: 20px;
+  color: var(--blue);
+  margin-bottom: 10px;
+}
+
+
+.job-card {
+  margin-bottom: 30px;
+}
+
+.job-card p {
+  font-size: 17px;
+}
+
+
+.job-card span {
+  color: var(--grey);
+  font-size: 14px;
+  display: block;
+  margin: 5px 0px;
+}
+
+.education-card {
+  margin-bottom: 30px;
+}
+
+.education-card p {
+  font-size: 17px;
+}
+
+
+.education-card span {
+  color: var(--grey);
+  font-size: 14px;
+  display: block;
+  margin: 5px 0px;
+}
+
+.skills {
+  margin-bottom: 30px;
+}
+
+.skills p {
+  margin-bottom: 10px;
+}
+
+.awards {
+  margin-bottom: 30px;
+}
+
+.awards p {
+  margin-bottom: 10px;
+}
+
+@media (max-width:576px) {
+  .container {
+    width: 100%;
+    padding: 0px 10px;
+  }
+
+  .cv-body {
+    flex-direction: column;
+    row-gap: 20px;
+  }
+
+  .header-left {
+    margin-bottom: 40px;
+  }
+
+  .projects {
+    margin-bottom: 20px;
+  }
+
+  .br {
+    display: none;
+  }
+}
