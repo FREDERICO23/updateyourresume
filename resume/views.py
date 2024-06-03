@@ -1,5 +1,6 @@
 import openai
 import os
+from groq import Groq
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -22,6 +23,65 @@ CustomUser = get_user_model()
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 openai.api_key = OPENAI_API_KEY
 
+client = Groq(
+    api_key=os.getenv("GROQ_API_KEY"),
+)
+
+def generate_resume_prompt(job_title, job_description, existing_resume_text):
+    prompt = f"""
+        Update Resume for New Job Position
+
+        Original Resume: ({existing_resume_text})
+
+        Target Job Position: ({job_title})
+
+        Job Description: ({job_description})
+
+        Update Requirements:
+
+        Emphasize skills and experiences that are relevant to the ({job_title}) role
+        Downplay or remove skills and experiences that are less relevant to the ({job_title}) role
+        Highlight achievements and accomplishments that demonstrate transferable skills
+        Tailor the resume to the ({job_title}) role’s specific requirements, including keywords from the job posting
+        Desired Outcome:
+
+        A rewritten resume that effectively showcases the candidate’s skills and experiences for the ({job_title}) role
+        A clear and concise format that is easy to read and understand
+        A professional tone and language that aligns with the industry and ({job_title}) role
+        Additional Guidance:
+
+        Please use a standard font (e.g. Arial, Calibri, Helvetica) and a clear format with bullet points and white space to make the resume easy to read
+        Use action verbs (e.g. “managed,” “created,” “developed”) to begin each bullet point
+        Quantify achievements by including specific numbers and metrics wherever possible
+        Remove any irrelevant or outdated information to ensure the resume is concise and focused on the ({job_title}) role
+        Desired Keys:
+
+        Name
+        Contact Details (email, phone, LinkedIn)
+        Summary
+        Experience (title, company, dates, responsibilities)
+        Education (level, school, dates)
+        Skills (list)
+        Interests (list)
+        Achievements (list) """
+    return prompt
+
+def generate_resume_text(prompt):
+    chat_completion = client.chat.completions.create(
+        messages=[
+            {
+                "role": "system",
+                "content": "You are an expert resume writer. You only return and reply with valid, iterable RFC8259 compliant JSON in your responses"
+            },
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ],
+        model="llama3-70b-8192",
+    )
+    return chat_completion.choices[0].message.content
+
 @login_required
 def generate_resume(request):
     if request.method == "POST":
@@ -29,8 +89,8 @@ def generate_resume(request):
         job_title = request.POST.get("job_title")
         job_description = request.POST.get("job_description")
         existing_resume_txt = request.POST.get("existing_resume_text")
-        existing_resume_file = request.FILES.get("existing_resume_file")       
-        
+        existing_resume_file = request.FILES.get("existing_resume_file")
+
         if existing_resume_file:
             # Handle file upload case
             existing_resume_text = handle_file_upload(existing_resume_file)
@@ -38,30 +98,14 @@ def generate_resume(request):
             # Handle pasted text case
             existing_resume_text = existing_resume_txt
 
-
-        # Create a prompt for expert resume revamp
-        prompt = f"""        
-            Rewrite this resume: ({existing_resume_text}) to fit a {job_title} role based on the provided information (update the responsibilities and skills in every experience to match the role)
-
-            Job Description: ({job_description})
-            Desired Keys: name, contactDetails (email, phone, linkedin), summary, experience (title, company, dates, responsibilities), education (level, school, dates), skills (list), interests (list), achievements (list)
-
-        """     
+        # Generate the resume prompt
+        prompt = generate_resume_prompt(job_title, job_description, existing_resume_text)
         print(prompt)
-        # Call the OpenAI API asynchronously to generate the resume
-        async def generate_resume_text(prompt):
-            response = await openai.ChatCompletion.acreate(
-                model="gpt-3.5-turbo",
-                messages=[
-                    {"role": "system", "content": "You are an expert resume writer. You only return and reply with valid, iterable RFC8259 compliant JSON in your responses"},
-                    {"role": "user", "content": prompt}
-                ]
-            )
-            return response.choices[0].message.content
 
-        generated_text = asyncio.run(generate_resume_text(prompt))
-        user = request.user      
+        # Call the Groq API to generate the resume
+        generated_text = generate_resume_text(prompt)
 
+        user = request.user
         if isinstance(user, CustomUser):
             generated_resume = GeneratedResume(
                 user=user,
@@ -71,20 +115,19 @@ def generate_resume(request):
                 generated_text=generated_text
             )
             generated_resume.save()
-            # print(generated_resume)
-            # print(generated_text)
 
             return redirect('havard_resume', resume_id=generated_resume.id)
-
-        else: 
+        else:
             pass
-        
+
         context = {
             'resume_id': generated_resume.id,
+
         }
-        return redirect("havard_resume", context)  
-    
-    return render(request, "generate_resume_form.html") 
+        print(generated_resume)
+        return redirect("havard_resume", context)
+
+    return render(request, "generate_resume_form.html")
 
 def handle_file_upload(existing_resume_file):
     file_name = existing_resume_file.name
