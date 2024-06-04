@@ -29,41 +29,31 @@ client = Groq(
 
 def generate_resume_prompt(job_title, job_description, existing_resume_text):
     prompt = f"""
-        Update Resume for New Job Position
+        Rewrite this resume: ({existing_resume_text}) to fit a ({job_title}) position based on the job description: ({job_description})
 
-        Original Resume: ({existing_resume_text})
+        Requirements:
+        - Emphasize relevant skills and experiences for the ({job_title}) role
+        - Downplay or remove irrelevant skills and experiences
+        - Highlight achievements demonstrating transferable skills
+        - Include keywords from the job posting
+        - List atleast 3-5 relevant job responsibilities
 
-        Target Job Position: ({job_title})
+        Guidance:
+        - Begin bullets with action verbs (e.g., "managed", "created")
+        - Quantify achievements with numbers and metrics
+        - Remove irrelevant or outdated information
+        - Use industry-specific keywords and phrases
 
-        Job Description: ({job_description})
-
-        Update Requirements:
-
-        Emphasize skills and experiences that are relevant to the ({job_title}) role
-        Downplay or remove skills and experiences that are less relevant to the ({job_title}) role
-        Highlight achievements and accomplishments that demonstrate transferable skills
-        Tailor the resume to the ({job_title}) role’s specific requirements, including keywords from the job posting
-        Desired Outcome:
-
-        A rewritten resume that effectively showcases the candidate’s skills and experiences for the ({job_title}) role
-        A clear and concise format that is easy to read and understand
-        A professional tone and language that aligns with the industry and ({job_title}) role
-        Additional Guidance:
-
-        Please use a standard font (e.g. Arial, Calibri, Helvetica) and a clear format with bullet points and white space to make the resume easy to read
-        Use action verbs (e.g. “managed,” “created,” “developed”) to begin each bullet point
-        Quantify achievements by including specific numbers and metrics wherever possible
-        Remove any irrelevant or outdated information to ensure the resume is concise and focused on the ({job_title}) role
-        Desired Keys:
-
-        Name
-        Contact Details (email, phone, LinkedIn)
-        Summary
-        Experience (title, company, dates, responsibilities)
-        Education (level, school, dates)
-        Skills (list)
-        Interests (list)
-        Achievements (list) """
+        JSON return Keys:
+            - name
+            - contactDetails (email, phone, linkedIn)
+            - summary
+            - experience (title, company, dates, responsibilities)
+            - education (level, school, dates)
+            - skills (list)
+            - interests (list)
+            - achievements (list)
+        """
     return prompt
 
 def generate_resume_text(prompt):
@@ -71,16 +61,19 @@ def generate_resume_text(prompt):
         messages=[
             {
                 "role": "system",
-                "content": "You are an expert resume writer. You only return and reply with valid, iterable RFC8259 compliant JSON in your responses"
+                "content": "You are an assistant that ONLY speals JSON. Do not write normal text."
             },
             {
                 "role": "user",
                 "content": prompt
-            }
+            },
         ],
         model="llama3-70b-8192",
     )
+    print(chat_completion.choices[0].message.content)
+
     return chat_completion.choices[0].message.content
+
 
 @login_required
 def generate_resume(request):
@@ -94,13 +87,15 @@ def generate_resume(request):
         if existing_resume_file:
             # Handle file upload case
             existing_resume_text = handle_file_upload(existing_resume_file)
+            print(f"Existing resume text from file: {existing_resume_text}")
+
         else:
             # Handle pasted text case
             existing_resume_text = existing_resume_txt
+            print(f"Existing resume text from form: {existing_resume_text}")
 
         # Generate the resume prompt
         prompt = generate_resume_prompt(job_title, job_description, existing_resume_text)
-        print(prompt)
 
         # Call the Groq API to generate the resume
         generated_text = generate_resume_text(prompt)
@@ -111,7 +106,7 @@ def generate_resume(request):
                 user=user,
                 job_title=job_title,
                 job_description=job_description,
-                existing_resume=existing_resume_file,
+                existing_resume=existing_resume_text,
                 generated_text=generated_text
             )
             generated_resume.save()
@@ -124,7 +119,7 @@ def generate_resume(request):
             'resume_id': generated_resume.id,
 
         }
-        print(generated_resume)
+        print(f'***generated_resume:***', generated_resume)
         return redirect("havard_resume", context)
 
     return render(request, "generate_resume_form.html")
