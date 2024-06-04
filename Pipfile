@@ -43,6 +43,7 @@ django-easy-audit = "*"
 python-dotenv = "*"
 pdfplumber = "*"
 honeybadger = "*"
+groq = "*"
 
 [dev-packages]
 
