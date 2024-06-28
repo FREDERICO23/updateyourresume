@@ -7,6 +7,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.conf import settings
+from django.template.loader import get_template
+
 
 import asyncio
 import json
@@ -16,7 +18,7 @@ from azure.storage.blob import BlobServiceClient
 import azure.storage.blob as azureblob
 
 from .models import GeneratedResume, GeneratedCoverLetter
-from .utils import render_to_word, extract_text_from_pdf, extract_text_from_docx
+from .utils import render_to_word, extract_text_from_pdf, extract_text_from_docx, html_to_pdf
 
 CustomUser = get_user_model()
 
@@ -27,6 +29,32 @@ client = Groq(
     api_key=os.getenv("GROQ_API_KEY"),
 )
 
+@login_required
+def generate_pdf(request, resume_id):
+    resume = get_object_or_404(GeneratedResume, id=resume_id)
+    
+    try:
+        generated_text = json.loads(resume.generated_text)
+    except json.JSONDecodeError:
+        generated_text = {} 
+    
+    context = {
+        'resume': resume,
+        'generated_text': generated_text,
+        'resume_id': resume_id,
+    }
+    name = generated_text['name']
+    template = get_template('havard.html')
+    html = template.render(context)
+    pdf = html_to_pdf(html)
+    
+    if pdf:
+        response = HttpResponse(pdf, content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename="{name}_{resume.job_title}_resume.pdf"'
+        return response
+    else:
+        return HttpResponse("Error Rendering PDF", status=400)
+    
 def generate_resume_prompt(job_title, job_description, existing_resume_text):
     prompt = f"""
         Rewrite this resume: ({existing_resume_text}) to fit a ({job_title}) position based on the job description: ({job_description})
@@ -124,6 +152,38 @@ def generate_resume(request):
 
     return render(request, "generate_resume_form.html")
 
+@login_required
+def regenerate_resume(request, resume_id):
+    # Get the existing resume object
+    generated_resume = get_object_or_404(GeneratedResume, id=resume_id, user=request.user)
+
+    if request.method == "POST":
+        # Get user inputs from the form
+        job_title = request.POST.get("job_title", generated_resume.job_title)
+        job_description = request.POST.get("job_description", generated_resume.job_description)
+        existing_resume_text = request.POST.get("existing_resume_text", generated_resume.existing_resume)
+
+        # Generate the resume prompt
+        prompt = generate_resume_prompt(job_title, job_description, existing_resume_text)
+
+        # Call the API to generate the new resume text
+        new_generated_text = generate_resume_text(prompt)
+
+        # Update the existing GeneratedResume object
+        generated_resume.job_title = job_title
+        generated_resume.job_description = job_description
+        generated_resume.existing_resume = existing_resume_text
+        generated_resume.generated_text = new_generated_text
+        generated_resume.save()
+
+        return redirect('havard_resume', resume_id=generated_resume.id)
+
+    # If it's a GET request, render a form pre-filled with existing data
+    context = {
+        'resume': generated_resume,
+    }
+    return render(request, "regenerate_resume_form.html", context)
+
 def handle_file_upload(existing_resume_file):
     file_name = existing_resume_file.name
     existing_resume_text = ""
@@ -182,18 +242,13 @@ def havard_resume(request, resume_id):
         generated_text = json.loads(resume.generated_text)
     except json.JSONDecodeError:
         generated_text = {} 
-
-    if request.method == 'POST':
-        # Handle download request
-        response = HttpResponse(resume.generated_text, content_type='application/pdf')
-        response['Content-Disposition'] = f'attachment; filename=generated_resume.pdf'
-        return response  
     
     context = {
         'resume': resume,
         'generated_text': generated_text,
-        'resume_id' : resume_id,
-    }  
+        'resume_id': resume_id,
+    }
+    
     print(context)
     return render(request, 'havard_resume.html', context)
 

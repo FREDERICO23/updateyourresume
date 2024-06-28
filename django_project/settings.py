@@ -42,7 +42,7 @@ INSTALLED_APPS = [
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
 MIDDLEWARE = [
-    'honeybadger.contrib.DjangoHoneybadgerMiddleware', # Honeybadger
+    #'honeybadger.contrib.DjangoHoneybadgerMiddleware', # Honeybadger
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",  # WhiteNoise
     "django.contrib.sessions.middleware.SessionMiddleware",

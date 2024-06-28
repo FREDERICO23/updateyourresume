@@ -1,18 +1,31 @@
-
+// Function to capture the edited HTML content and send it to the server
 function downloadPDF() {
-    const { jsPDF } = window.jspdf;
+    var resumeContent = document.getElementById('resumeWrapper').innerHTML;
+    document.getElementById('html_content').value = resumeContent;
+    document.getElementById('pdfForm').submit();
+}
 
-    let doc = new jsPDF('p', 'px', [900, 900]);
-    let pdfjs = document.querySelector('#resumeContainer');
+// Function to save changes if required (you can implement as per your needs)
+function saveChanges() {
+    var resumeContent = document.getElementById('resumeWrapper').innerHTML;
+    // You can send an AJAX request to save the changes or any other implementation
+    console.log("Changes Saved:", resumeContent);
+}
 
-    doc.html(pdfjs, {
-        callback: function(doc) {
-            doc.save("resume.pdf");
-        },
-        x: 12,
-        y: 12
-    });                
-}            
+// function downloadPDF() {
+//     const { jsPDF } = window.jspdf;
+
+//     let doc = new jsPDF('p', 'px', [900, 900]);
+//     let pdfjs = document.querySelector('#resumeContainer');
+
+//     doc.html(pdfjs, {
+//         callback: function(doc) {
+//             doc.save("resume.pdf");
+//         },
+//         x: 12,
+//         y: 12
+//     });                
+// }            
 // function downloadPDF() {
 //     const { jsPDF } = window.jspdf;
 //     const doc = new jsPDF('p', 'px', [900, 900]);
