@@ -44,6 +44,8 @@ python-dotenv = "*"
 pdfplumber = "*"
 honeybadger = "*"
 groq = "*"
+reportlab = "*"
+weasyprint = "*"
 
 [dev-packages]
 

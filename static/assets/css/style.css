@@ -401,13 +401,14 @@ h6 {
   padding: 8px 24px 10px 46px;
   border-radius: 3px;
   transition: 0.5s;
-  color: #fff;
+  color: #080059;
   background: #c79773 ;
   position: relative;
 }
 
 #hero .download-btn:hover {
   background: #080059;
+  color: #fff;
 }
 
 #hero .download-btn i {
