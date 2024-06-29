@@ -15,6 +15,7 @@ urlpatterns = [
     # path('resume/<int:resume_id>/generate-cover-letter/', views.generate_cover_letter, name='generate_cover_letter'),
     path('generate-cover-letter//<int:resume_id>/', views.generate_cover_letter, name='generate_cover_letter'),
     path('cover-letter/<int:cover_letter_id>/', views.cover_letter_display, name='cover_letter_display'),
+    path('download-cover-letter/<int:cover_letter_id>/', views.download_cover_letter, name='download_cover_letter'),
     path('test/',views.display, name='display' ),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('list-resumes/', views.user_resumes, name="list_resumes"),

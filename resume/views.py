@@ -257,15 +257,15 @@ def generate_cover_letter(request, resume_id):
     generated_resume = get_object_or_404(GeneratedResume, id=resume_id)
 
     cover_letter_prompt = f"""
-    Task: Generate a tailored cover letter based on the information extracted from the generated resume and job description.
+        Task: Write a humanly creative cover letter using this resume:({generated_resume.generated_text}) and this job description: ({generated_resume.job_description})
 
-    Instructions:
-    
-    Input Data:
-    Generated Resume Text: {generated_resume.generated_text}
-    Job Description: {generated_resume.job_description} 
-    Adjustments: return the data in paragraphs.
-    """
+        Instructions:
+        - Format the cover letter in HTML with appropriate tags for paragraphs (<p>).
+        - Use <br> for line breaks within paragraphs if needed.
+        - Include a salutation and closing.
+
+        Note: You only Return the data as a properly formatted HTML resume.
+        """
     # Generate cover letter from the resume text
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo-1106",
@@ -283,6 +283,7 @@ def generate_cover_letter(request, resume_id):
         generated_text=generated_cover_letter_text
     )
     generated_cover_letter.save()
+    print(generated_cover_letter_text)
 
     # Redirect to a page to display or download the generated cover letter
     return redirect('cover_letter_display', cover_letter_id=generated_cover_letter.id)
@@ -291,6 +292,40 @@ def generate_cover_letter(request, resume_id):
 def cover_letter_display(request, cover_letter_id):
     cover_letter = get_object_or_404(GeneratedCoverLetter, id=cover_letter_id)         
     return render(request, 'cover_letter_display.html', {'cover_letter': cover_letter})
+
+@login_required
+def download_cover_letter(request, cover_letter_id):
+    cover_letter = get_object_or_404(GeneratedCoverLetter, id=cover_letter_id)
+    
+    # Ensure the user has permission to access this cover letter
+    if cover_letter.user != request.user:
+        return HttpResponse("Access Denied", status=403)
+
+    context = {
+        'cover_letter': cover_letter,
+    }
+
+    # Get the associated resume and job title
+    resume = cover_letter.generated_resume
+    job_title = resume.job_title if resume else "Job"
+
+    # Get the name from the associated resume's generated_text
+    try:
+        resume_generated_text = json.loads(resume.generated_text) if resume else {}
+        name = resume_generated_text.get('name', 'Applicant')
+    except json.JSONDecodeError:
+        name = 'Applicant'
+
+    template = get_template('cover_letter_pdf.html')
+    html = template.render(context)
+    pdf = html_to_pdf(html)
+    
+    if pdf:
+        response = HttpResponse(pdf, content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename="{name}_{job_title}_cover_letter.pdf"'
+        return response
+    else:
+        return HttpResponse("Error Rendering PDF", status=400)
 
 def user_resumes(request):
     # Get generated resumes for user 
