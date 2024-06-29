@@ -1,0 +1,50 @@
+{% load static %}
+<!Doctype html>
+<html>
+<head>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"> 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> 
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'icons/updateyourresumefavicon.png' %}">  
+    <link rel="stylesheet" type="text/css" href="{% static 'cover_letter.css' %}">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Light gray background */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            padding: 20px;
+        }
+        .cover-letter {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            margin-top: 1px;
+        }
+       
+        p {
+            font-size: 12px;
+            line-height: 1.3;
+            margin-bottom: 0px;
+            padding-bottom: 0px;
+        }
+              
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="cover-letter">
+            <p>{{ cover_letter.generated_text|safe }}</p>            
+        </div>
+    </div>
+</body>
+</html>
+
+    
+
+   
+
