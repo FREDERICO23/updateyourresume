@@ -14,6 +14,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src= "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="{% static 'js/download.js' %}"></script>
+    <style>    
+        .resume-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .resume-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0px;
+            font-size: 12px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+</style>
+
 </head>
 <body>
     <div class="resume-wrapper" id = "resumeWrapper">
@@ -58,7 +75,7 @@
                 <h2>Skills</h2>
                 <ul class="skills-list">
                     {% for skill in generated_text.skills %}
-                    <button class="btn btn-light  btn-sm" contenteditable="true">{{skill}}</button>
+                    <button class="btn btn-light  btn-sm" contenteditable="true">{{skill}},</button>
                     {% endfor %}
                 </ul>
             </section>
@@ -66,7 +83,7 @@
                 <h2>Interests</h2>
                 <ul class="interests-list">
                     {% for interest in generated_text.interests %}
-                    <button class="btn btn-light  btn-sm" contenteditable="true">{{interest}}</button>
+                    <button class="btn btn-light  btn-sm" contenteditable="true">{{interest}},</button>
                     {% endfor %}
                 </ul>
             </section>
