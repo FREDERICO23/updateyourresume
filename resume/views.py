@@ -64,23 +64,45 @@ def generate_resume_prompt(job_title, job_description, existing_resume_text):
         - Downplay or remove irrelevant skills and experiences
         - Highlight achievements demonstrating transferable skills
         - Include keywords from the job posting
-        - List atleast 3-5 relevant job responsibilities
+        - List all relevant job responsibilities
 
         Guidance:
         - Begin bullets with action verbs (e.g., "managed", "created")
-        - Quantify achievements with numbers and metrics
-        - Remove irrelevant or outdated information
+        - Quantify achievements with numbers and metrics where possible
         - Use industry-specific keywords and phrases
 
-        JSON return Keys:
-            - name
-            - contactDetails (email, phone, linkedIn)
-            - summary
-            - experience (title, company, dates, responsibilities)
-            - education (level, school, dates)
-            - skills (list)
-            - interests (list)
-            - achievements (list)
+        JSON return format:
+                {{
+                    "name": "Full Name",
+                    "contactDetails": {{
+                        "email": "email@example.com",
+                        "phone": "123-456-7890",
+                        "linkedIn": "linkedin.com/in/username"
+                    }},
+                    "summary": "Professional summary",
+                    "experience": [
+                        {{
+                            "title": "Job Title",
+                            "company": "Company Name",
+                            "dates": "Start Date - End Date",
+                            "responsibilities": [
+                                "Responsibility 1",
+                                "Responsibility 2",
+                                "Responsibility 3"
+                            ]
+                        }}
+                    ],
+                    "education": [
+                        {{
+                            "level": "Degree Type",
+                            "school": "School Name",
+                            "dates": "Graduation Date"
+                        }}
+                    ],
+                    "skills": ["Skill 1", "Skill 2", "Skill 3"],
+                    "interests": ["Interest 1", "Interest 2"],
+                    "achievements": ["Achievement 1", "Achievement 2"]
+                }}
         """
     return prompt
 
@@ -214,6 +236,7 @@ def handle_file_upload(existing_resume_file):
 
     return existing_resume_text
 
+@login_required
 def resume_display(request, resume_id):
     resume = get_object_or_404(GeneratedResume, id=resume_id)
     
@@ -235,6 +258,7 @@ def resume_display(request, resume_id):
     }  
     return render(request, 'resume_display.html', context)
 
+@login_required
 def havard_resume(request, resume_id):
     resume = get_object_or_404(GeneratedResume, id=resume_id)
     
@@ -252,6 +276,7 @@ def havard_resume(request, resume_id):
     print(context)
     return render(request, 'havard_resume.html', context)
 
+@login_required
 def generate_cover_letter(request, resume_id):
     # Retrieve the generated resume
     generated_resume = get_object_or_404(GeneratedResume, id=resume_id)
@@ -260,17 +285,33 @@ def generate_cover_letter(request, resume_id):
         Task: Write a humanly creative cover letter using this resume:({generated_resume.generated_text}) and this job description: ({generated_resume.job_description})
 
         Instructions:
-        - Format the cover letter in HTML with appropriate tags for paragraphs (<p>).
-        - Use <br> for line breaks within paragraphs if needed.
+        - Format the cover letter in HTML with paragraph tags (<p>).
         - Include a salutation and closing.
+        
+        Example Format:
 
-        Note: You only Return the data as a properly formatted HTML resume.
+        <p>Dear Hiring Manager,</p>
+
+        <p>I am writing to express my interest in the [Job Title] position at [Company Name] as advertised. With a strong background in [Relevant Skill/Experience], I am excited about the opportunity to contribute to your team.</p>
+
+        <p>In my previous role at [Previous Company], I successfully [Key Achievement or Responsibility]. This experience has equipped me with the skills to [Relevant Skill or Task].</p>
+
+        <p>Moreover, I have [Additional Qualification or Experience], which aligns well with the requirements outlined in the job description.</p>
+
+        <p>I am enthusiastic about the prospect of bringing my expertise to [Company Name] and am confident that my background and skills will make a valuable contribution to your team.</p>
+
+        <p>Thank you for considering my application. I look forward to the opportunity to discuss how my skills and experiences align with the needs of your team.</p>
+
+        <p>Sincerely,<br>
+         Name</p>
+
+        Note: You only Return the data as a properly formatted HTML resume. Do not write normal text.
         """
     # Generate cover letter from the resume text
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo-1106",
             messages=[
-            {"role": "system", "content": "You are an expert cover letter writer.You write cover letters that melt the recruiters to give you the job."},
+            {"role": "system", "content": "You are an assistant that ONLY speals HTML. Do not write normal text."},
             {"role": "user", "content": cover_letter_prompt}
         ]
     )
