@@ -35,6 +35,7 @@
 
         <div class="download-link">
             <a href="{% url 'download_cover_letter' cover_letter_id=cover_letter.id %}" class="btn btn-dark">Download Cover Letter</a>
+            <a href="{% url 'regenerate_cover_letter' cover_letter_id=cover_letter.id %}" class="btn btn-warning">Regenerate Cover Letter</a>
              <button class="btn btn-primary text-light" ><a class="text-light"href="{% url 'home'%}">Back to Dashboard</a></button>
         </div>
     </div>

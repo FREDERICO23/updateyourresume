@@ -9,10 +9,11 @@ urlpatterns = [
 
     path('display/<int:resume_id>/', views.resume_display, name='resume_display'),
     path('havard_display/<int:resume_id>/', views.havard_resume, name='havard_resume'),
-    path('resume/<int:resume_id>/pdf/', views.generate_pdf, name='generate_pdf'),
+    path('download-resume/<int:resume_id>/', views.generate_pdf, name='generate_pdf'),
 
+    path('regenerate-resume/<int:resume_id>/', views.regenerate_resume, name='regenerate_resume'),
+    path('regenerate-cover-letter/<int:cover_letter_id>/', views.regenerate_cover_letter, name='regenerate_cover_letter'),
 
-    # path('resume/<int:resume_id>/generate-cover-letter/', views.generate_cover_letter, name='generate_cover_letter'),
     path('generate-cover-letter//<int:resume_id>/', views.generate_cover_letter, name='generate_cover_letter'),
     path('cover-letter/<int:cover_letter_id>/', views.cover_letter_display, name='cover_letter_display'),
     path('download-cover-letter/<int:cover_letter_id>/', views.download_cover_letter, name='download_cover_letter'),
