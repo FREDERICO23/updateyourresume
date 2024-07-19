@@ -9,7 +9,21 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> 
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'icons/updateyourresumefavicon.png' %}">  
     <link rel="stylesheet" type="text/css" href="{% static 'cover_letter.css' %}">
-   
+    <style>
+        .cover-letter {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .cover-letter p {
+            margin-bottom: 15px;
+        }
+        .cover-letter h1, .cover-letter h2 {
+            color: #333;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -17,10 +31,11 @@
 <div class="container">
     <h1>Generated Cover Letter</h1>
     <div class="cover-letter">
-        <p>{{ cover_letter.generated_text | safe }}</p>
+        <p>{{ cover_letter.generated_text|safe }}</p>
+
         <div class="download-link">
-            <button class="btn btn-dark" onclick="downloadResume()">Download Cover Letter</button>            
-            <button class="btn btn-primary text-light" ><a class="text-light"href="{% url 'home'%}">Back to Dashboard</a></button>
+            <a href="{% url 'download_cover_letter' cover_letter_id=cover_letter.id %}" class="btn btn-dark">Download Cover Letter</a>
+             <button class="btn btn-primary text-light" ><a class="text-light"href="{% url 'home'%}">Back to Dashboard</a></button>
         </div>
     </div>
 </div>

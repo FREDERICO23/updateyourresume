@@ -1,48 +1,31 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} Home |UpdateYourResume{% endblock title %}
+{% block title %} Update Your resume to match your job description using AI | UpdateYourResume{% endblock title %}
 
 {% block content %}
-
-<div class="container mt-5">
-
-  <div class="row">
+<div class="container ">
+  <div class="row text-center container-center">
     <div class="col-12 col-md-4">
-      <div class="card bg-primary text-white">
-        <a href="#"><img src="{% static 'img/basic.png' %}" class="card-img-top" width="300" height="400"></a>
+      <div class="card" style="background-color: #c79773; color: #080059;">
+        <a href="{% url 'generate_resume'%}"><img src="{% static 'img/basic.png' %}" class="card-img-top" width="200" height="350"></a>
         <div class="card-body">
-          <h5 class="card-title">Upgrade Resume</h5>
-          <p class="card-text">Get more resume designs.</p>
-          <a href="#" class="btn btn-dark text-white">Upgrade Resume</a> 
-        </div>
-      </div>
-    </div>
-
-    <div class="col-12 col-md-4">  
-      <div class="card bg-primary text-white">
-        <a href="{% url 'generate_resume'%}"><img src="{% static 'img/basic.png' %}" class="card-img-top" width="300" height="400"></a>
-
-        <div class="card-body">
-          <h5 class="card-title">Update Resume</h5>
+          <h5 class="card-title">Update Existing Resume</h5>
           <p class="card-text">Update your existing resume.</p>
-          <a href="{% url 'generate_resume'%}" class="btn btn-light">Update Resume</a>
+          <a href="{% url 'generate_resume'%}" class="btn" style="background-color: white; color: #080059;">Update Resume</a>
         </div>
       </div>
     </div>
-
     <div class="col-12 col-md-4">
-      <div class="card bg-primary text-white">
-        <a href="{% url 'generate_resume'%}"><img src="{% static 'img/basic.png' %}" class="card-img-top" width="300" height="400"></a>
+      <div class="card" style="background-color: #c79773; color: #080059;">
+        <a href="{% url 'generate_resume'%}"><img src="{% static 'img/basic.png' %}" class="card-img-top" width="200" height="350"></a>
         <div class="card-body">
-          <h5 class="card-title">Create Resume</h5>
+          <h5 class="card-title">Create New Resume</h5>
           <p class="card-text">Build a new resume from scratch.</p>
-          <a href="#" class="btn btn-dark text-white">Create Resume</a>
+          <a href="#" class="btn text-white" style="background-color: #080059; color: #c79773;">Create Resume</a>
         </div>
       </div>
     </div>
-    
   </div>
-
 </div>
 {% endblock %}

@@ -41,6 +41,11 @@ azure-storage-blob = "*"
 azure-identity = "*"
 django-easy-audit = "*"
 python-dotenv = "*"
+pdfplumber = "*"
+honeybadger = "*"
+groq = "*"
+reportlab = "*"
+weasyprint = "*"
 
 [dev-packages]
 

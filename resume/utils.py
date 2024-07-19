@@ -8,6 +8,20 @@ from io import BytesIO
 from azure.storage.blob import BlobServiceClient
 import azure.storage.blob as azureblob
 from django.conf import settings
+from docx import Document
+
+from django.http import HttpResponse
+from django.template.loader import get_template
+
+from xhtml2pdf.document import pisaDocument
+from xhtml2pdf import pisa
+
+def html_to_pdf(html_content):
+    result = BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html_content.encode("UTF-8")), result)
+    if not pdf.err:
+        return result.getvalue()
+    return None
 
 
 def extract_text_from_pdf(azure_path, file_name):
@@ -38,18 +52,36 @@ def extract_text_from_pdf(azure_path, file_name):
         text += page.get_textpage().extractText()       
     return text
 
-def extract_text_from_docx(docx_file):
-    """Extract text from a DOCX file.
+
+def extract_text_from_docx(file_name):
+    """Extract text from a Word document stored in Azure blob storage
+    
     Args:
-        docx_file (str): Path to the DOCX file
+        file_name (str): The name of the Word document in the blob storage
+        
     Returns:
-        str: Extracted text from the DOCX 
+        str: Extracted text string from Word document
     """
-    doc = docx.Document(docx_file)
-    full_text = []
-    for para in doc.paragraphs:
-        full_text.append(para.text)
-    return '\n'.join(full_text)
+    blob_service = BlobServiceClient.from_connection_string(settings.AZURE_STORAGE_CONNECTION_STRING) 
+    blob_client = blob_service.get_blob_client(settings.AZURE_STORAGE_CONTAINER, file_name) 
+    
+    # Download blob contents to bytes 
+    downloaded_bytes = BytesIO()
+    blob_client.download_blob().download_to_stream(downloaded_bytes)
+
+    # Extract text from bytes 
+    downloaded_bytes.seek(0) # Rewind pointer to start 
+    try:
+        doc = Document(downloaded_bytes)
+    except Exception as err:
+        print("DOCX ERROR:", err)
+        return ""
+
+    text = ""
+    for paragraph in doc.paragraphs:
+        text += paragraph.text + "\n"
+        
+    return text
 
 
 def render_to_word(template_src, context_dict={}):

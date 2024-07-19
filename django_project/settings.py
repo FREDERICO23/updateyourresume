@@ -18,6 +18,8 @@ DEBUG = os.getenv('DEBUG')
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ["*"]
 
+CSRF_TRUSTED_ORIGINS = ['https://updateyourresume.xyz', 'https://www.updateyourresume.xyz']
+
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -33,29 +35,28 @@ INSTALLED_APPS = [
     "allauth.account",
     "crispy_forms",
     "crispy_bootstrap5",
-    # "debug_toolbar",
-    # "easyaudit",
+    "debug_toolbar",
+    "easyaudit",
     # Local
     "accounts",
-    "pages",
     "resume",
     "payments",
 ]
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
 MIDDLEWARE = [
-    # 'honeybadger.contrib.DjangoHoneybadgerMiddleware', # Honeybadger
+    #'honeybadger.contrib.DjangoHoneybadgerMiddleware', # Honeybadger
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",  # WhiteNoise
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
-    # "debug_toolbar.middleware.DebugToolbarMiddleware",  # Django Debug Toolbar
+    "debug_toolbar.middleware.DebugToolbarMiddleware",  # Django Debug Toolbar
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",  # django-allauth
-    #"easyaudit.middleware.easyaudit.EasyAuditMiddleware",
+    "easyaudit.middleware.easyaudit.EasyAuditMiddleware",
 ]
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#root-urlconf
@@ -102,11 +103,16 @@ DATABASES = {
         'USER': os.getenv('USER'),
         'PASSWORD': os.getenv('PASSWORD'),
         'HOST': os.getenv('HOST'),
-        'PORT': os.getenv('PORT'),
+        'PORT': '5432',
         'OPTIONS': {'sslmode': os.getenv('SSL_MODE')},
     }
 }
-
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -196,6 +202,8 @@ ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 
+DEFAULT_TIMEOUT = 5  # Default timeout in seconds
+
 # Azure Storage
 AZURE_STORAGE_ACCOUNT = "updateyourresume"  
 AZURE_STORAGE_KEY = "/6cuojkO6760F41c7+80rWxHamgPF2IVL4+vF05zeYc54B0oMyVZog+Bvq9nYHFrN5onA+lcvoDM+AStk5GS4A==" # Access key
@@ -204,9 +212,9 @@ AZURE_STORAGE_CONNECTION_STRING = "DefaultEndpointsProtocol=https;AccountName=up
 AZURE_STORAGE_CONTAINER = "resumes" # Blob container name
 
 # Honeybadger
-# HONEYBADGER = {
-#   'API_KEY': os.getenv('HONEYBADGER')
-# }
+HONEYBADGER = {
+  'API_KEY': os.getenv('HONEYBADGER')
+}
 
 
 # Paystack KEYS
