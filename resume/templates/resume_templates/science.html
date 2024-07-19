@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Science Careers Template  - Updateyourresume {% endblock %}
+{% block link %}
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"> 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> 
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'icons/updateyourresumefavicon.png' %}">  
+    <link rel="stylesheet" href="{% url 'css/resume/science.css'%}">
+   
+    <script src= "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src= "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="{% static 'js/download.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<body>
+  <main>
+    <div class="container">
+      <section class="cv-body">
+        <div>
+          <div class="header-left">
+            <h1 contenteditable>Your Name</h1>
+            <p contenteditable>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+          </div>
+          <div>
+            <h2>EXPERIENCE</h2>
+            <div class="job-card">
+              <p contenteditable><b>Company,</b> Location - <i>Job Title</i></p>
+              <span contenteditable>MONTH 2000 - PRESENT</span>
+              <p contenteditable>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed adipisci optio <br> hic id
+                placeat facere.
+              </p>
+            </div>
+            <div class="job-card">
+              <p contenteditable><b>Company,</b> Location - <i>Job Title</i></p>
+              <span contenteditable>MONTH 2000 - PRESENT</span>
+              <p contenteditable>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed adipisci optio <br> hic id
+                placeat facere.
+              </p>
+            </div>
+            <div class="job-card">
+              <p contenteditable><b>Company,</b> Location - <i>Job Title</i></p>
+              <span contenteditable>MONTH 2000 - PRESENT</span>
+              <p contenteditable>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed adipisci optio <br> hic id
+                placeat facere.
+              </p>
+            </div>
+          </div>
+          <div>
+            <h2>EDUCATION</h2>
+            <div class="education-card">
+              <p contenteditable><b>School Name,</b> Location - <i>Degree</i></p>
+              <span contenteditable>MONTH 2000 - MONTH 2003</span>
+              <p contenteditable>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed adipisci optio <br> hic id
+                placeat facere.
+              </p>
+            </div>
+            <div class="education-card">
+              <p contenteditable><b>School Name,</b> Location - <i>Degree</i></p>
+              <span contenteditable>MONTH 2000 - MONTH 2003</span>
+              <p contenteditable>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed adipisci optio <br> hic id
+                placeat facere.
+              </p>
+            </div>
+          </div>
+          <div class="projects">
+            <h2>PROJECTS</h2>
+            <div class="project-card">
+              <p contenteditable><b>Project Name</b> - <i>Detail</i></p>
+              <p contenteditable>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="header-right">
+            <span contenteditable>123 Your Street</span>
+            <span contenteditable>Your City, ST 12345</span>
+            <span contenteditable><b>[123] 456-7150</b></span>
+            <span contenteditable><b>no_reply@example.com</b></span>
+          </div>
+          <div class="skills">
+            <h2>SKILLS</h2>
+            <p contenteditable>Lorem ipsum dolor sit amet.</p>
+            <p contenteditable>consectetur adipisicing elit.</p>
+            <p contenteditable>Sed adipisci optio hic id placeat facere.</p>
+            <p contenteditable>Lorem ipsum dolor sit amet.</p>
+          </div>
+          <div class="awards">
+            <h2>AWARDS</h2>
+            <p contenteditable>Lorem ipsum, dolor sit amet <br class="br"> consectetur adipisicing elit. <br class="br">
+              Quae, odit?
+              Dolorem</p>
+            <p contenteditable>Lorem ipsum, dolor sit amet <br class="br"> consectetur adipisicing elit. <br class="br">
+              Quae, odit?
+              Dolorem</p>
+            <p contenteditable>Lorem ipsum, dolor sit amet <br class="br"> consectetur adipisicing elit. <br class="br">
+              Quae, odit?
+              Dolorem</p>
+            <p contenteditable>Lorem ipsum, dolor sit amet <br class="br"> consectetur adipisicing elit. <br class="br">
+              Quae, odit?
+              Dolorem</p>
+          </div>
+          <div>
+            <h2>LANGUAGES</h2>
+            <p contenteditable>Lorem ipsum dolor sit amet <br class="br"> consectetur.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+{% endblock %}

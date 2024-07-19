@@ -1,4 +1,5 @@
 import openai
+import os
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -8,18 +9,50 @@ from django.conf import settings
 
 import asyncio
 import json
-import fitz 
 import docx
 
 from azure.storage.blob import BlobServiceClient
 import azure.storage.blob as azureblob
+# import google.generativeai as genai
+
 
 from .models import GeneratedResume, GeneratedCoverLetter
-from .utils import render_to_pdf, render_to_word, extract_text_from_pdf, extract_text_from_docx
+from .utils import render_to_word, extract_text_from_pdf, extract_text_from_docx
 
 CustomUser = get_user_model()
-openai.api_key = ('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')
 
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+openai.api_key = ('OPENAI_API_KEY')
+
+# GOOGLE_API_KEY = os.getenv('GEMINI_API_KEY')
+# genai.configure(api_key=GOOGLE_API_KEY)
+
+# Set up the model
+# generation_config = {
+#   "temperature": 0.92,
+#   "top_p": 0.85,
+#   "top_k": 1,
+#   "max_output_tokens": 1500,
+# }
+
+# safety_settings = [
+#   {
+#     "category": "HARM_CATEGORY_HARASSMENT",
+#     "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+#   },
+#   {
+#     "category": "HARM_CATEGORY_HATE_SPEECH",
+#     "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+#   },
+#   {
+#     "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+#     "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+#   },
+#   {
+#     "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+#     "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+#   },
+# ]
 
 @require_POST
 def save_generated_resume(request):
@@ -41,24 +74,7 @@ def save_generated_resume(request):
 
     return JsonResponse({'success': False})  
 
-def generate_pdf(request):
-   context = {'resume_content': 'resume data'} 
-   pdf = render_to_pdf('resume_display.html', context)
-   # return HttpReponse for pdf
-   if pdf:
-        response = HttpResponse(pdf, content_type='application/pdf')
-        response['Content-Disposition'] = 'attachment; filename="resume.pdf"'
-        return response
-    
-   return HttpResponse("Failed to generate PDF", status=400)
    
-def generate_docx(request):
-   context = {'resume_content': 'resume data'}  
-   docx = render_to_word('resume_display.html', context) 
-   # return HttpReponse for docx
-   if docx:
-        return docx
-   return HttpResponse("Failed to generate DOCX", status=400)
 
 @login_required
 def generate_resume(request):
@@ -101,39 +117,40 @@ def generate_resume(request):
             
             blob_client.delete_blob()
 
-       
+        print(existing_resume_text)
+
         # Create a prompt for expert resume revamp
-        prompt = f"""
-        
-        Task: Generate a professionally styled, ATS-compliant resume tailored to the provided job title, job description, and the existing resume. The aim is to optimize the resume to increase its compatibility with ATS systems, while creatively adjusting certain sections to better align with the job requirements.
+        prompt = f"""        
+            Generate a JSON response in RFC8259 format, containing the details of a {job_title} resume based on the provided information:
 
-        Instructions: Be creative to generate related achievements on the job experiences of the existing resume and skills from the job description.
+            Resume: ({existing_resume_text})
+            Job Description: ({job_description})
+            Desired Keys: name, contactDetails (email, phone, linkedin), summary, experience (title, company, dates, responsibilities), education (level, school, dates), skills (list), interests (list), achievements (list)
 
-        Input Data:
-
-        Job Title: {job_title}
-        Job Description: {job_description}
-        Existing Resume: {existing_resume_text}
-        Adjustments:
-
-        From the job description, extract the following in details: name, email, phone, summary, experience, education, skills and interests.
-        You will return a jSON response of the details using the keys:  name, contactDetails: "email, phone, linkedin", summary, experience:"title,company,dates,responsibilities(create a list)", education:"level, school, dates", skills(create a list), interests(create a list).
-
-        You will also improve the resume details like; interests, skills, experience title and responsibilities to match the job description to the latter.         
-        
         """
-        # Call the OpenAI API to generate the resume
+         # Call the OpenAI API to generate the resume
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": "You are an expert resume writer.You only return and reply with valid, iterable RFC8259 compliant JSON in your responses"},
                 {"role": "user", "content": prompt}
-
             ]    
         )    
         
         generated_text = response.choices[0].message.content
         user = request.user
+        # Create a generative model using gemini-pro
+        # model = genai.GenerativeModel(
+        #     model_name="gemini-pro",
+        #     generation_config=generation_config, 
+        #     safety_settings=safety_settings
+        # )
+
+        # # Generate content using the model
+        # response = model.generate_content(prompt)
+        # generated_text = response.text
+        # user = request.user
+
         if isinstance(user, CustomUser):
             generated_resume = GeneratedResume(
                 user=user,
@@ -143,7 +160,9 @@ def generate_resume(request):
                 generated_text=generated_text
             )
             generated_resume.save()
-            
+            print(generated_resume)
+            print(generated_text)
+
             return redirect('havard_resume', resume_id=generated_resume.id)
 
         else: 
@@ -152,7 +171,6 @@ def generate_resume(request):
         context = {
             'resume_id': generated_resume.id,
         }
-        print(generated_resume.id)
         return redirect("havard_resume", context)  
     
     return render(request, "generate_resume_form.html") 
@@ -197,6 +215,7 @@ def havard_resume(request, resume_id):
         'generated_text': generated_text,
         'resume_id' : resume_id,
     }  
+    print(context)
     return render(request, 'havard_resume.html', context)
 
 def generate_cover_letter(request, resume_id):
@@ -210,28 +229,9 @@ def generate_cover_letter(request, resume_id):
     
     Input Data:
     Generated Resume Text: {generated_resume.generated_text}
-    Job Description: {generated_resume.job_description}
-
-    Cover Letter Content:
-
-    Introduction: Address the hiring manager or employer with a polite salutation expressing your interest in the position and briefly mention where you learned about the job opening.
-    Make sure to highlight a key accomplishment or skill from your resume to capture attention.
-    
-    Body: Provide a brief overview of your professional background and experiences.
-    Emphasize how your skills and experiences align with the requirements of the job.
-    Reference specific achievements or projects mentioned in the Generated Resume Text.
-    Express enthusiasm for the opportunity and explain why you are a suitable candidate.
-    Closing:
-
-    Express appreciation for considering your application. Mention your eagerness to further discuss your qualifications in an interview.
-    Include a polite closing statement and express anticipation for a positive response.
-    
-    Note: Use the generated resume text and job description to tailor the cover letter content, ensuring a cohesive and compelling narrative that aligns with the specific job requirements.
-
-
+    Job Description: {generated_resume.job_description} 
+    Adjustments: return the data in paragraphs.
     """
-
-    # if request.method == "POST":
     # Generate cover letter from the resume text
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo-1106",
@@ -242,6 +242,17 @@ def generate_cover_letter(request, resume_id):
     )
     generated_cover_letter_text = response.choices[0].message.content
 
+    # Generate cover letter from the resume text
+    # model = genai.GenerativeModel(
+    #     model_name="gemini-pro",
+    #     generation_config=generation_config, 
+    #     safety_settings=safety_settings
+    # )
+
+    # # Generate content using the model
+    # response = model.generate_content(cover_letter_prompt)
+    # generated_cover_letter_text = response.text
+    
     # Store the generated cover letter in the database
     generated_cover_letter = GeneratedCoverLetter(
         user=request.user, 
@@ -267,11 +278,17 @@ def user_resumes(request):
     }
     return render(request, 'user_resumes.html', context)
 
+def select_resumes(request):
+    return render(request, 'resumes.html')
+
 def display(request):
     return render(request, 'base.html')
 
-def home(request):
+def index(request):
     return render(request, 'pages/index.html')
+
+def home(request):
+    return render(request, 'home.html')
 
 def dashboard(request):
     return render(request, 'dashboard.html')
