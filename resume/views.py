@@ -169,7 +169,6 @@ def generate_resume(request):
             'resume_id': generated_resume.id,
 
         }
-        print(f'***generated_resume:***', generated_resume)
         return redirect("havard_resume", context)
 
     return render(request, "generate_resume_form.html")
@@ -177,32 +176,30 @@ def generate_resume(request):
 @login_required
 def regenerate_resume(request, resume_id):
     # Get the existing resume object
-    generated_resume = get_object_or_404(GeneratedResume, id=resume_id, user=request.user)
+    resume = get_object_or_404(GeneratedResume, id=resume_id, user=request.user)
 
     if request.method == "POST":
-        # Get user inputs from the form
-        job_title = request.POST.get("job_title", generated_resume.job_title)
-        job_description = request.POST.get("job_description", generated_resume.job_description)
-        existing_resume_text = request.POST.get("existing_resume_text", generated_resume.existing_resume)
-
+        # Get user inputs from the form if any changes are allowed
+        job_title = request.POST.get("job_title", resume.job_title)
+        job_description = request.POST.get("job_description", resume.job_description)
+        
         # Generate the resume prompt
-        prompt = generate_resume_prompt(job_title, job_description, existing_resume_text)
+        prompt = generate_resume_prompt(job_title, job_description, resume.existing_resume)
 
         # Call the API to generate the new resume text
         new_generated_text = generate_resume_text(prompt)
 
         # Update the existing GeneratedResume object
-        generated_resume.job_title = job_title
-        generated_resume.job_description = job_description
-        generated_resume.existing_resume = existing_resume_text
-        generated_resume.generated_text = new_generated_text
-        generated_resume.save()
+        resume.job_title = job_title
+        resume.job_description = job_description
+        resume.generated_text = json.dumps(new_generated_text)
+        resume.save()
 
-        return redirect('havard_resume', resume_id=generated_resume.id)
+        return redirect('havard_resume', resume_id=resume.id)
 
     # If it's a GET request, render a form pre-filled with existing data
     context = {
-        'resume': generated_resume,
+        'resume': resume,
     }
     return render(request, "regenerate_resume_form.html", context)
 
@@ -329,6 +326,56 @@ def generate_cover_letter(request, resume_id):
     # Redirect to a page to display or download the generated cover letter
     return redirect('cover_letter_display', cover_letter_id=generated_cover_letter.id)
 
+@login_required
+def regenerate_cover_letter(request, cover_letter_id):
+    # Get the existing cover letter object
+    cover_letter = get_object_or_404(GeneratedCoverLetter, id=cover_letter_id, user=request.user)
+    
+    # Get the associated resume
+    resume = cover_letter.generated_resume
+
+    cover_letter_prompt = f"""
+    Task: Regenerate a humanly tailored cover letter based on the information extracted from this resume ({resume.generated_text}) and this job description ({resume.job_description} ).
+
+    Instructions:
+        - Format the cover letter in HTML with paragraph tags (<p>).
+        - Include a salutation and closing.
+        
+        Example Format:
+
+        <p>Dear Hiring Manager,</p>
+
+        <p>I am writing to express my interest in the [Job Title] position at [Company Name] as advertised. With a strong background in [Relevant Skill/Experience], I am excited about the opportunity to contribute to your team.</p>
+
+        <p>In my previous role at [Previous Company], I successfully [Key Achievement or Responsibility]. This experience has equipped me with the skills to [Relevant Skill or Task].</p>
+
+        <p>Moreover, I have [Additional Qualification or Experience], which aligns well with the requirements outlined in the job description.</p>
+
+        <p>I am enthusiastic about the prospect of bringing my expertise to [Company Name] and am confident that my background and skills will make a valuable contribution to your team.</p>
+
+        <p>Thank you for considering my application. I look forward to the opportunity to discuss how my skills and experiences align with the needs of your team.</p>
+
+        <p>Sincerely,<br>
+         Name</p>
+
+        Note: You only Return the data as a properly formatted HTML resume. Do not write normal text.    """
+
+    # Generate new cover letter from the resume text
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo-1106",
+        messages=[
+            {"role": "system", "content": "You are an assistant that ONLY speals HTML. Do not write normal text."},
+            {"role": "user", "content": cover_letter_prompt}
+        ]
+    )
+    new_generated_cover_letter_text = response.choices[0].message.content
+
+    # Update the existing cover letter object
+    cover_letter.generated_text = new_generated_cover_letter_text
+    cover_letter.save()
+
+    # Redirect to display the regenerated cover letter
+    return redirect('cover_letter_display', cover_letter_id=cover_letter.id)
     
 def cover_letter_display(request, cover_letter_id):
     cover_letter = get_object_or_404(GeneratedCoverLetter, id=cover_letter_id)         
