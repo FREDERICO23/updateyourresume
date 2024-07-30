@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     # Local
     "accounts",
     "resume",
-    "payments",
 ]
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
