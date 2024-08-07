@@ -215,4 +215,13 @@ HONEYBADGER = {
   'API_KEY': os.getenv('HONEYBADGER')
 }
 
+
+# Paystack KEYS
+PAYSTACK_SECRET_KEY = "sk_live_75643067bb66f17fe68386c92f1bc8335c6069bb"
+PAYSTACK_PUBLIC_KEY = "pk_live_031ec6cf2fc6d6cfa45aa7ebe56d9dcdc0315f56"
+PAYSTACK_TEST_SECRET_KEY = "sk_test_7817653a6ff27667f95222816acf1dd9ca2d3831"
+PAYSTACK_TEST_PUBLIC_KEY= "pk_test_ab5107407fe1f0ea8a9037fa8e81cda7cdce908c"
+
+
+
 django_heroku.settings(locals(), staticfiles=False)
