@@ -406,8 +406,25 @@ h6 {
   position: relative;
 }
 
+#hero .download-btn1 {
+  font-family: "Raleway", sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  display: inline-block;
+  padding: 8px 24px 10px 46px;
+  border-radius: 3px;
+  transition: 0.5s;
+  color: #ededf1;
+  background: #080059 ;
+  position: relative;
+}
 #hero .download-btn:hover {
   background: #080059;
+  color: #fff;
+}
+
+#hero .download-btn1:hover {
+  background: #c79773;
   color: #fff;
 }
 
