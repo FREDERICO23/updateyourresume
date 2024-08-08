@@ -37,9 +37,51 @@
         a.appendChild(r);
     })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
   </script>
-  
+
   <!-- Template Main CSS File -->
   <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+  <!-- Font Awesome -->
+<link
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+rel="stylesheet"
+/>
+<!-- Google Fonts -->
+<link
+href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+rel="stylesheet"
+/>
+<!-- MDB -->
+<link
+href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.min.css"
+rel="stylesheet"
+/>
+
+<style>
+  .image-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+  }
+
+  .image-container a {
+      margin: 10px;
+  }
+
+  @media (max-width: 768px) {
+      .image-container {
+          flex-direction: column;
+          align-items: center;
+      }
+  }
+
+  @media (max-width: 480px) {
+      .image-container img {
+          width: 100%;
+          max-width: 300px;
+      }
+  }
+</style>
 </head>
 
 <body>
@@ -58,11 +100,13 @@
         <ul>
           <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
           <li><a class="nav-link scrollto" href="#features">App Features</a></li>
-          <li><a class="nav-link scrollto" href="#gallery">Gallery</a></li>
+          {% comment %} <li><a class="nav-link scrollto" href="#gallery">Gallery</a></li> {% endcomment %}
           <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
           <li><a class="nav-link scrollto" href="#faq">F.A.Q</a></li>          
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <li><a class="getstarted scrollto" href="{% url 'account_signup' %}">Get Started</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'account_login' %}">Login</a></li>
+
+          <li><a class="getstarted scrollto" href="{% url 'generate_resume' %}">Rewrite Resume/CV</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>
@@ -85,8 +129,8 @@
           </h1>
 
           <h2>UpdateYourResume uses AI to analyze the job description and transform your resume for the best chance of getting an interview.</h2>
-          <a href="{% url 'account_signup' %}" class="download-btn">Update Resume</a>
-          <a href="{% url 'account_signup' %}" class="download-btn1">Write Cover Letter</a>
+          <a href="{% url 'generate_resume' %}" class="download-btn">Update Resume</a>
+          <a href="{% url 'generate_resume' %}" class="download-btn1">Write Cover Letter</a>
           </div>
           
         </div>
@@ -185,7 +229,7 @@
 
             <div class="swiper-slide">
               <div class="testimonial-item">
-                <img src="{% static "assets/img/testimonials/testimonials-1.jpg"%}" class="testimonial-img" alt="">
+                {% comment %} <img src="{% static "assets/img/testimonials/testimonials-1.jpg"%}" class="testimonial-img" alt=""> {% endcomment %}
                 <h3>Edd Jobs</h3>
                 <h4>Software Developer</h4>
                 <p>
@@ -193,12 +237,29 @@
                   UpdateYourResume pinpointed the keywords I needed to get past those pesky applicant tracking systems. I'm finally getting interviews! 
                   <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                 </p>
+                <ul class="list-unstyled d-flex justify-content-center mb-0">
+                  <li>
+                    <i class="fas fa-star fa-sm text-warning"></i>
+                  </li>
+                  <li>
+                    <i class="fas fa-star fa-sm text-warning"></i>
+                  </li>
+                  <li>
+                    <i class="fas fa-star fa-sm text-warning"></i>
+                  </li>
+                  <li>
+                    <i class="fas fa-star fa-sm text-warning"></i>
+                  </li>
+                  <li>
+                    <i class="far fa-star fa-sm text-warning"></i>
+                  </li>
+                </ul>
               </div>
             </div> 
             
             <div class="swiper-slide">
               <div class="testimonial-item">
-                <img src="{% static "assets/img/testimonials/testimonials-2.jpg"%}" class="testimonial-img" alt="">
+                {% comment %} <img src="{% static "assets/img/testimonials/testimonials-2.jpg"%}" class="testimonial-img" alt=""> {% endcomment %}
                 <h3>John Larson</h3>
                 <h4>Entrepreneur</h4>
                 <p>
@@ -206,12 +267,29 @@
                   I was skeptical at first, but the AI did a fantastic job tailoring my resume. I've gotten way more callbacks! 
                   <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                 </p>
+                <ul class="list-unstyled d-flex justify-content-center mb-0">
+                  <li>
+                    <i class="fas fa-star fa-sm text-warning"></i>
+                  </li>
+                  <li>
+                    <i class="fas fa-star fa-sm text-warning"></i>
+                  </li>
+                  <li>
+                    <i class="fas fa-star fa-sm text-warning"></i>
+                  </li>
+                  <li>
+                    <i class="fas fa-star fa-sm text-warning"></i>
+                  </li>
+                  <li>
+                    <i class="fas fa-star fa-sm text-warning"></i>
+                  </li>
+                </ul>
               </div>
             </div>
 
             <div class="swiper-slide">
               <div class="testimonial-item">
-                <img src="{% static "assets/img/testimonials/testimonials-3.jpg"%}" class="testimonial-img" alt="">
+                {% comment %} <img src="{% static "assets/img/testimonials/testimonials-3.jpg"%}" class="testimonial-img" alt=""> {% endcomment %}
                 <h3>Lisa Thompson</h3>
                 <h4>Marketing Manager</h4>
                 <p>
@@ -219,12 +297,29 @@
                   UpdateYourResume is a lifesaver! It saved me so much time, and my resume finally highlights my achievements.  
                   <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                 </p>
+                <ul class="list-unstyled d-flex justify-content-center mb-0">
+                  <li>
+                    <i class="fas fa-star fa-sm text-warning"></i>
+                  </li>
+                  <li>
+                    <i class="fas fa-star fa-sm text-warning"></i>
+                  </li>
+                  <li>
+                    <i class="fas fa-star fa-sm text-warning"></i>
+                  </li>
+                  <li>
+                    <i class="fas fa-star fa-sm text-warning"></i>
+                  </li>
+                  <li>
+                    <i class="far fa-star fa-sm text-warning"></i>
+                  </li>
+                </ul>
               </div>
             </div>          
 
             <div class="swiper-slide">
               <div class="testimonial-item">
-                <img src="{% static "assets/img/testimonials/testimonials-5.jpg"%}" class="testimonial-img" alt="">
+                {% comment %} <img src="{% static "assets/img/testimonials/testimonials-5.jpg"%}" class="testimonial-img" alt=""> {% endcomment %}
                 <h3>Peter Sam</h3>
                 <h4>Designer</h4>
                 <p>
@@ -232,6 +327,23 @@
                   UpdateYourResume helped me land my dream job! My new resume clearly shows why I'm the best fit.
                   <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                 </p>
+                <ul class="list-unstyled d-flex justify-content-center mb-0">
+                  <li>
+                    <i class="fas fa-star fa-sm text-warning"></i>
+                  </li>
+                  <li>
+                    <i class="fas fa-star fa-sm text-warning"></i>
+                  </li>
+                  <li>
+                    <i class="fas fa-star fa-sm text-warning"></i>
+                  </li>
+                  <li>
+                    <i class="fas fa-star fa-sm text-warning"></i>
+                  </li>
+                  <li>
+                    <i class="far fa-star fa-sm text-warning"></i>
+                  </li>
+                </ul>
               </div>
             </div>
 
@@ -241,7 +353,7 @@
 
       </div>
     </section><!-- End Testimonials Section -->
-    
+        
     <!-- ======= Pricing Section ======= -->
 
     <section id="pricing" class="pricing" >
@@ -254,62 +366,73 @@
             <div class="align-items-center justify-content-center row">
                 <div class="col-lg-3 col-md-6 py-3">
                     <div class="bg-light border rounded text-secondary">
-                        <div class="align-items-center d-flex fw-light h5 justify-content-center pb-4 pe-3 ps-3 pt-4"> <span class="align-self-start">$</span> <span class="display-4 fw-normal text-dark">0</span> <span class="align-self-end">/mo</span> </div>
+                        <div class="align-items-center d-flex fw-light h5 justify-content-center pb-4 pe-3 ps-3 pt-4"> <span class="align-self-start">$</span> <span class="display-4 fw-normal text-dark">4</span> <span class="align-self-end">/mo</span> </div>
+                        <p class="align-items-center d-flex fw-light p justify-content-center pb-4 pe-3 ps-3">Pay $48 every 12 months</p>
                         <h3 class="fw-normal h4 mb-0 pb-3 pe-2 ps-2 pt-3 text-uppercase text-white"style="background-color: #080059;">Yearly</h3>
                         <div class="pb-5 ps-3 pe-3 pt-4">
                             <ul class="list-unstyled mb-4">
-                                <li class="pb-2 pt-2">5 Resumes</li>
-                                <li class="pb-2 pt-2">5 CoverLetters</li>
-                                <li class="pb-2 pt-2">5 Downloads</li>
+                                <li class="pb-2 pt-2">Unlimited Resumes</li>
+                                <li class="pb-2 pt-2">Unlimite CoverLetters</li>
+                                <li class="pb-2 pt-2">Unlimited Downloads</li>
                                 <li class="pb-2 pt-2">PDF Download format</li>
                                 <li class="pb-2 pt-2">24/7 Support</li>
-                            </ul> <a href="#" class="btn fw-light pb-2 pe-4 ps-4 pt-2 text-white"style="background-color: #080059;">Sign Up</a>
+                            </ul> <a href="#" class="btn fw-light pb-2 pe-4 ps-4 pt-2 text-white"style="background-color: #080059;">Upgrade Now</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 py-3">
                     <div class="bg-light border rounded text-secondary">
-                        <div class="align-items-center d-flex fw-light h5 justify-content-center pb-4 ps-3 pe-3 pt-4"> <span class="align-self-start">$</span> <span class="display-4 fw-normal text-dark">3</span> <span class="align-self-end">/mo</span> </div>
-                        <h3 class="fw-normal h4 mb-0 pb-3 pe-2 ps-2 pt-3 text-uppercase text-white" style="background-color: #c79773;">Newbie</h3>
+                        <div class="align-items-center d-flex fw-light h5 justify-content-center pb-4 ps-3 pe-3 pt-4"> <span class="align-self-start">$</span> <span class="display-4 fw-normal text-dark">10</span> <span class="align-self-end">/mo</span> </div>
+                        <p class="align-items-center d-flex fw-light p justify-content-center pb-4 pe-3 ps-3">Pay $10 every month</p>
+                        <h3 class="fw-normal h4 mb-0 pb-3 pe-2 ps-2 pt-3 text-uppercase text-white" style="background-color: #c79773;">Monthly</h3>
                         <div class="pb-5 ps-3 pe-3 pt-4">
                             <ul class="list-unstyled mb-4">
-                                <li class="pb-2 pt-2">30 Resumes</li>
-                                <li class="pb-2 pt-2">30 Cover Letter</li>
+                                <li class="pb-2 pt-2">Unlimited Resumes</li>
+                                <li class="pb-2 pt-2">Unlimited Cover Letter</li>
                                 <li class="pb-2 pt-2">Unlimited Downloads</li>
-                                <li class="pb-2 pt-2">Pdf/Word Download formats</li>
+                                <li class="pb-2 pt-2">Pdf Download formats</li>
                                 <li class="pb-2 pt-2">24/7 Support</li>
-                            </ul> <a href="#" class="btn fw-light pb-2 ps-4 pe-4 pt-2 text-white"style="background-color: #c79773;">Sign Up</a>
+                            </ul> <a href="#" class="btn fw-light pb-2 ps-4 pe-4 pt-2 text-white"style="background-color: #c79773;">Upgrade Now</a>
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-3 col-md-6 py-3 position-relative">
+                  <div class="bg-light border rounded text-secondary">
+                      <div class="align-items-center d-flex fw-light h5 justify-content-center pb-4 ps-3 pe-3 pt-4">
+                          <span class="align-self-start">$</span>
+                          <span class="display-4 fw-normal text-dark">8</span>
+                          <span class="align-self-end">/mo</span>
+                      </div>
+                      <p class="align-items-center d-flex fw-light justify-content-center pb-4 pe-3 ps-3">Pay $24 every 3 months</p>
+                      <h3 class="fw-normal h4 mb-0 pb-3 pe-2 ps-2 pt-3 text-uppercase text-white" style="background-color: #080059;">quarterly</h3>
+                      <div class="pb-5 ps-3 pe-3 pt-4">
+                          <ul class="list-unstyled mb-4">
+                              <li class="pb-2 pt-2">Unlimited Resumes</li>
+                              <li class="pb-2 pt-2">Unlimited Cover Letters</li>
+                              <li class="pb-2 pt-2">Unlimited Downloads</li>
+                              <li class="pb-2 pt-2">Pdf Download formats</li>
+                              <li class="pb-2 pt-2">24/7 Support</li>
+                          </ul>
+                          <a href="#" class="btn fw-light pb-2 ps-4 pe-4 pt-2 text-white" style="background-color: #080059;">Upgrade Now</a>
+                      </div>
+                  </div>
+                  <div class="badge bg-danger text-white position-absolute top-0 start-0 m-2 p-2 rounded">Most Popular</div>
+              </div>
+              
                 <div class="col-lg-3 col-md-6 py-3">
                     <div class="bg-light border rounded text-secondary">
-                        <div class="align-items-center d-flex fw-light h5 justify-content-center pb-4 ps-3 pe-3 pt-4"> <span class="align-self-start">$</span> <span class="display-4 fw-normal text-dark">5</span> <span class="align-self-end">/mo</span> </div>
-                        <h3 class="fw-normal h4 mb-0 pb-3 pe-2 ps-2 pt-3 text-uppercase text-white"style="background-color: #080059;">Professional</h3>
+                        <div class="align-items-center d-flex fw-light h5 justify-content-center pb-4 ps-3 pe-3 pt-4"> <span class="align-self-start">$</span> <span class="display-4 fw-normal text-dark">0</span> <span class="align-self-end">/mo</span> </div>
+                        <p class="align-items-center d-flex fw-light p justify-content-center pb-4 pe-3 ps-3">Pay $0 for ever</p>
+                        <h3 class="fw-normal h4 mb-0 pb-3 pe-2 ps-2 pt-3 text-uppercase text-white" style="background-color: #c79773;">Free</h3>
                         <div class="pb-5 ps-3 pe-3 pt-4">
                             <ul class="list-unstyled mb-4">
-                                <li class="pb-2 pt-2">100 Resumes</li>
-                                <li class="pb-2 pt-2">100 Cover Letters</li>
+                                <li class="pb-2 pt-2">5 Resumes</li>
+                                <li class="pb-2 pt-2">5 Cover Letter</li>
                                 <li class="pb-2 pt-2">Unlimited Downloads</li>
-                                <li class="pb-2 pt-2">Pdf/Word Download formats</li>
-                                <li class="pb-2 pt-2">24/7 Support</li>
-                            </ul> <a href="#" class="btn fw-light pb-2 ps-4 pe-4 pt-2 text-white"style="background-color: #080059;">Sign Up</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 py-3">
-                    <div class="bg-light border rounded text-secondary">
-                        <div class="align-items-center d-flex fw-light h5 justify-content-center pb-4 ps-3 pe-3 pt-4"> <span class="align-self-start">$</span> <span class="display-4 fw-normal text-dark">15</span> <span class="align-self-end">/mo</span> </div>
-                        <h3 class="fw-normal h4 mb-0 pb-3 pe-2 ps-2 pt-3 text-uppercase text-white" style="background-color: #c79773;">Business</h3>
-                        <div class="pb-5 ps-3 pe-3 pt-4">
-                            <ul class="list-unstyled mb-4">
-                                <li class="pb-2 pt-2">1000 Resumes</li>
-                                <li class="pb-2 pt-2">1000 Cover Letter</li>
-                                <li class="pb-2 pt-2">Unlimited Downloads</li>
-                                <li class="pb-2 pt-2">Pdf/Word Download formats</li>
+                                <li class="pb-2 pt-2">Pdf Download formats</li>
                                 <li class="pb-2 pt-2">24/7 Support</li>
                             </ul> 
-                            <button type="submit" class="btn fw-light pb-2 ps-4 pe-4 pt-2 text-white" style="background-color: #c79773;" onclick="payWithPaystack()"> Subscribe </button>
+                            <button type="submit" class="btn fw-light pb-2 ps-4 pe-4 pt-2 text-white" style="background-color: #c79773;" onclick="payWithPaystack()"> Sign Up </button>
 
                         </div>
                     </div>
@@ -375,18 +498,42 @@
 
       </div>
     </section--><!-- End Pricing Section -->
-    <!-- ======= Proof Section ======= -->
-  <section style="display: flex; justify-content: center; align-items: center; ">
-    <a href="https://www.aitechsuite.com/tools/17244?ref=featured&v=56" target="_blank" rel="nofollow">
-        <img width="300" src="https://aitsmarketing.s3.amazonaws.com/aits-verified-tool.svg?width=600"/>
-    </a>
+  
+    <!-- ======= Featured Section ======= -->  
+  <section style="display: flex; flex-direction: column; justify-content: center; align-items: center;  text-align: center;">
+    <h2>As Featured</h2>
+    <div class="image-container">
+        <a href="https://www.aitechsuite.com/tools/17244?ref=featured&v=56" target="_blank" rel="nofollow">
+            <img width="180" src="https://aitsmarketing.s3.amazonaws.com/aits-verified-tool.svg?width=600"/>
+        </a>
+        <a href="https://www.ainave.com/updateyourresume?utm_source=ainave&utm_medium=embed&ref=ainave" style="width: 120px; height: 54px;" width="120" height="54">
+          <img src="https://www.ainave.com/img/featured_tool.svg" alt="UpdateYourResume | Featured on ainave" style="width: 120px; height: 54px;" width="120" height="54">
+        </a>
+        
+        <a href="https://aitools.fyi/updateyourresume?utm_source=updateyourresume_embed" target="_blank" >
+          <img src="https://aitools.fyi/api/tool-embed/8748" alt="UpdateYourResume | aitools.fyi" style="width: 180px; height: 54px;" width="180" height="54"/>
+        </a>
+        <a href="https://www.toolify.ai/tool/updateyourresume/?ref=embed" target="_blank" style="cursor: pointer;"><img src="https://cdn.toolify.ai/featured_light.svg" style="width: 200px; height: 60px;" width="250" height="60" alt="UpdateYourResume: Revamp your resume in seconds with AI-powered matching."></a>       
+    
+        <!-- topAI.tools Spotlight -->
+        <a href="https://topai.tools/t/updateyourresume?ref=embed"><img src="https://topai.tools/assets/img/topai.tools.gif" style="max-width:220px;max-height:80px" alt="UpdateYourResume Featured on topAI.tools"></a>
+    
+      </div>
+</section>
 
+<!-- ======= Review Us Section ======= -->
+<section style="display: flex; flex-direction: column; justify-content: center; align-items: center;  text-align: center;">
+  <h2>Review Us </h2>
+  <div style="display: flex; justify-content: center; gap: 20px;">
+             
       <!-- TrustBox widget - Review Collector -->
-    <div class="trustpilot-widget" data-locale="en-US" data-template-id="56278e9abfbbba0bdcd568bc" data-businessunit-id="669aff3c4f3dfbc3a06fce10" data-style-height="52px" data-style-width="100%">
-      <a href="https://www.trustpilot.com/review/updateyourresume.xyz" target="_blank" rel="noopener">Trustpilot</a>
-    </div>
-  <!-- End TrustBox widget -->
-  </section>
+      <div class="trustpilot-widget" data-locale="en-US" data-template-id="56278e9abfbbba0bdcd568bc" data-businessunit-id="669aff3c4f3dfbc3a06fce10" data-style-height="52px" data-style-width="100%">
+        <a href="https://www.trustpilot.com/review/updateyourresume.xyz" target="_blank" rel="noopener">Trustpilot</a>
+      </div>
+      <!-- End TrustBox widget -->
+  </div>
+</section>
+
 
     <!-- ======= Frequently Asked Questions Section ======= -->
     <section id="faq" class="faq section-bg">
@@ -469,7 +616,7 @@
               <div class="col-lg-6 info">
                 <i class="bx bx-map"></i>
                 <h4>Address</h4>
-                <p>Nairobi<br>Kenya</p>
+                <p>hello@updateyourresume.xyz<br></p>
               </div>
               <div class="col-lg-6 info">
                 <i class="bx bx-phone"></i>
@@ -601,6 +748,11 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
   
 </footer>
+<!-- MDB -->
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.umd.min.js"
+></script>
 <script>
   const prices = {
       student: { weekly: { price: 0, label: '/ per week' }, monthly: { price: 0, label: '/ per month' }, quarterly: { price: 0, label: '/ per quarter' } },
