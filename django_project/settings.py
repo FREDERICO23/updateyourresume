@@ -77,6 +77,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "payments.context_processors.subscription_status",  # Custom context processor
             ],
         },
     },
@@ -96,23 +97,23 @@ TEMPLATES = [
 #   }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('NAME'),
-        'USER': os.getenv('USER'),
-        'PASSWORD': os.getenv('PASSWORD'),
-        'HOST': os.getenv('HOST'),
-        'PORT': '5432',
-        'OPTIONS': {'sslmode': os.getenv('SSL_MODE')},
-    }
-}
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         "NAME": BASE_DIR / "db.sqlite3",
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.getenv('NAME'),
+#         'USER': os.getenv('USER'),
+#         'PASSWORD': os.getenv('PASSWORD'),
+#         'HOST': os.getenv('HOST'),
+#         'PORT': '5432',
+#         'OPTIONS': {'sslmode': os.getenv('SSL_MODE')},
 #     }
 # }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+}
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -224,7 +225,9 @@ PAYSTACK_TEST_SECRET_KEY = os.getenv('PAYSTACK_TEST_SECRET_KEY')
 PAYSTACK_TEST_PUBLIC_KEY= os.getenv('PAYSTACK_TEST_PUBLIC_KEY')
 
 
-PLN_MONTHLY_CODE   = os.getenv('PLN_MONTHLY_CODE  ')
+PLN_MONTHLY_CODE   = os.getenv('PLN_MONTHLY_CODE')
+PLN_QUARTERLY_CODE = os.getenv('PLN_QUARTERLY_CODE')
+PLN_YEARLY_CODE    = os.getenv('PLN_YEARLY_CODE')
 
 
 django_heroku.settings(locals(), staticfiles=False)
