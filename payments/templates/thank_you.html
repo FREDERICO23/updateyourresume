@@ -1,20 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thank You!</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Thank You | UpdateYourResume{% endblock title %}
+{% block content %}
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6 text-center">
                 <h1>Thank You for Your Subscription!</h1>
                 <p>Your payment was successful and your subscription is now active.</p>
-                <a href="{% url 'generate_resume' %}" class="btn btn-primary">Continue Creating Resumes</a> 
+                <a href="{% url 'generate_resume' %}" class="btn" style="background-color: #080059; color: white;">Continue Creating Resumes</a> 
             </div>
         </div>
     </div>
-</body>
-</html>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Subscription Details | UpdateYourResume {% endblock title %}
+{% block content %}
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h4>Your Subscription Details</h4>
+                    </div>
+                    <div class="card-body">
+                        {% if is_subscribed %}
+                            <div class="alert alert-success">Your subscription is active.</div>
+                            <p><strong>Plan:</strong> {{ subscribed_plan }}</p>
+                            {% comment %} <p><strong>Price:</strong> ${{ subscription_price }}</p> {% endcomment %}
+                            <p><strong>Start Date:</strong> {{ subscription_start_date }}</p>
+                            <p><strong>End Date:</strong> {{ subscription_expiry_date }}</p>
+                            <p><strong>Resume Count:</strong> {{ resume_count }}</p>
+                            <p><strong>Cover Letter Count:</strong> {{ cover_letter_count }}</p>
+                            <p><strong>Last Reset Date:</strong> {{ last_reset_date }}</p>
+                        {% else %}
+                            <div class="alert alert-danger">You do not have an active subscription.</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

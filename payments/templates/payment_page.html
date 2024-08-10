@@ -17,10 +17,10 @@
                     <div class="card-body">
                         {% if error %}
                             <div class="alert alert-danger">
-                                {{ error }}
+                                <strong>Payment Failed!</strong> {{ error }} Please try again.
                             </div>
                         {% endif %}
-                        <form method="post" action="{% url 'monthly_payment_page' %}">
+                        <form method="post" action="{% url 'payment_page_monthly' %}">
                             {% csrf_token %}
                             <div class="form-group">
                                 <label for="email">Email</label>

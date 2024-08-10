@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}UpdateYourResume{% endblock title %}
+{% block content %}
+<section class="bg-light pb-5 pt-5 text-center">
+    <div class="container pb-4 pt-4">
+        <h2 class="fw-normal h1 mb-1 text-dark">Be part of something special</h2>
+        <p class="mb-4">Choose the plan that&rsquo;s right for you.</p>
+        
+        <div class="col-xl-11 ms-auto me-auto px-0">            
+            <div class="align-items-center justify-content-center row">
+                <div class="col-lg-3 col-md-6 py-3">
+                    <div class="bg-light border rounded text-secondary">
+                        <div class="align-items-center d-flex fw-light h5 justify-content-center pb-4 pe-3 ps-3 pt-4"> <span class="align-self-start">$</span> <span class="display-4 fw-normal text-dark">4</span> <span class="align-self-end">/mo</span> </div>
+                        <p class="align-items-center d-flex fw-light p justify-content-center pb-4 pe-3 ps-3">Pay $48 every 12 months</p>
+                        <h3 class="fw-normal h4 mb-0 pb-3 pe-2 ps-2 pt-3 text-uppercase text-white"style="background-color: #080059;">Yearly</h3>
+                        <div class="pb-5 ps-3 pe-3 pt-4">
+                            <ul class="list-unstyled mb-4">
+                                <li class="pb-2 pt-2">Unlimited Resumes</li>
+                                <li class="pb-2 pt-2">Unlimite CoverLetters</li>
+                                <li class="pb-2 pt-2">Unlimited Downloads</li>
+                                <li class="pb-2 pt-2">PDF Download format</li>
+                                <li class="pb-2 pt-2">24/7 Support</li>
+                            </ul> <a href="{% url 'payment_page_yearly' %}" class="btn fw-light pb-2 pe-4 ps-4 pt-2 text-white"style="background-color: #080059;">Upgrade Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 py-3">
+                    <div class="bg-light border rounded text-secondary">
+                        <div class="align-items-center d-flex fw-light h5 justify-content-center pb-4 ps-3 pe-3 pt-4"> <span class="align-self-start">$</span> <span class="display-4 fw-normal text-dark">10</span> <span class="align-self-end">/mo</span> </div>
+                        <p class="align-items-center d-flex fw-light p justify-content-center pb-4 pe-3 ps-3">Pay $10 every month</p>
+                        <h3 class="fw-normal h4 mb-0 pb-3 pe-2 ps-2 pt-3 text-uppercase text-white" style="background-color: #c79773;">Monthly</h3>
+                        <div class="pb-5 ps-3 pe-3 pt-4">
+                            <ul class="list-unstyled mb-4">
+                                <li class="pb-2 pt-2">Unlimited Resumes</li>
+                                <li class="pb-2 pt-2">Unlimited Cover Letter</li>
+                                <li class="pb-2 pt-2">Unlimited Downloads</li>
+                                <li class="pb-2 pt-2">Pdf Download formats</li>
+                                <li class="pb-2 pt-2">24/7 Support</li>
+                            </ul> <a href="{% url 'payment_page_monthly' %}" class="btn fw-light pb-2 ps-4 pe-4 pt-2 text-white"style="background-color: #c79773;">Upgrade Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 py-3 position-relative">
+                  <div class="bg-light border rounded text-secondary">
+                      <div class="align-items-center d-flex fw-light h5 justify-content-center pb-4 ps-3 pe-3 pt-4">
+                          <span class="align-self-start">$</span>
+                          <span class="display-4 fw-normal text-dark">8</span>
+                          <span class="align-self-end">/mo</span>
+                      </div>
+                      <p class="align-items-center d-flex fw-light justify-content-center pb-4 pe-3 ps-3">Pay $24 every 3 months</p>
+                      <h3 class="fw-normal h4 mb-0 pb-3 pe-2 ps-2 pt-3 text-uppercase text-white" style="background-color: #080059;">quarterly</h3>
+                      <div class="pb-5 ps-3 pe-3 pt-4">
+                          <ul class="list-unstyled mb-4">
+                              <li class="pb-2 pt-2">Unlimited Resumes</li>
+                              <li class="pb-2 pt-2">Unlimited Cover Letters</li>
+                              <li class="pb-2 pt-2">Unlimited Downloads</li>
+                              <li class="pb-2 pt-2">Pdf Download formats</li>
+                              <li class="pb-2 pt-2">24/7 Support</li>
+                          </ul>
+                          <a href="{% url 'payment_page_quarterly'%}" class="btn fw-light pb-2 ps-4 pe-4 pt-2 text-white" style="background-color: #080059;">Upgrade Now</a>
+                      </div>
+                  </div>
+                  <div class="badge bg-danger text-white position-absolute top-0 start-0 m-2 p-2 rounded">Most Popular</div>
+              </div>          
+                
+                    
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    const prices = {
+        student: { weekly: { price: 0, label: '/ per week' }, monthly: { price: 0, label: '/ per month' }, quarterly: { price: 0, label: '/ per quarter' } },
+        newbie: { weekly: { price: 3, label: '/ per week' }, monthly: { price: 5, label: '/ per month' }, quarterly: { price: 12, label: '/ per quarter' } },
+        professional: { weekly: { price: 5, label: '/ per week' }, monthly: { price: 10, label: '/ per month' }, quarterly: { price: 24, label: '/ per quarter' } },
+        business: { weekly: { price: 15, label: '/ per week' }, monthly: { price: 30, label: '/ per month' }, quarterly: { price: 72, label: '/ per quarter' } }
+    };
+    
+    document.querySelectorAll('.col-lg-3').forEach(card => {
+        card.style.display = 'weekly';
+    });
+    
+    document.querySelector('.toggle-btns').addEventListener('click', function(event) {
+        if (event.target.id === 'weeklyBtn' || event.target.id === 'monthlyBtn' || event.target.id === 'quarterlyBtn') {
+            togglePrice(event.target.id.replace('Btn', ''));
+        }
+    });
+    
+    function togglePrice(duration) {
+        document.querySelectorAll('.col-lg-3').forEach(card => {
+            card.style.display = 'none';
+        });
+    
+        const activeButton = document.querySelector('.toggle-btns .active');
+        activeButton.classList.remove('active');
+    
+        const selectedButton = document.getElementById(`${duration}Btn`);
+        selectedButton.classList.add('active');
+    
+        document.querySelectorAll('.col-lg-3').forEach(card => {
+            const packageName = card.querySelector('h3').textContent.toLowerCase();
+            const price = prices[packageName][duration].price;
+            const label = prices[packageName][duration].label;
+    
+            card.querySelector('.display-4').textContent = price;
+            card.querySelector('.align-self-end').textContent = label;
+            card.style.display = 'block';
+        });
+    }
+    
+    
+</script>
+{% endblock %}
