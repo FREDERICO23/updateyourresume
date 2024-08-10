@@ -15,7 +15,7 @@ def initialize_payment(request, amount, plan_code, callback_url):
     email = request.user.email  # Get the user's email
 
     headers = {
-        'Authorization': f'Bearer {settings.PAYSTACK_TEST_SECRET_KEY}',
+        'Authorization': f'Bearer {settings.PAYSTACK_SECRET_KEY}',
     }
     data = {
         'email': email,
@@ -75,7 +75,7 @@ def payment_page(request):
         plan = settings.PLN_MONTHLY_CODE    # The plan code for the monthly subscription in USD
 
         headers = {
-            'Authorization': f'Bearer {settings.PAYSTACK_TEST_SECRET_KEY}',
+            'Authorization': f'Bearer {settings.PAYSTACK_SECRET_KEY}',
         }
         data = {
             'email': email,
