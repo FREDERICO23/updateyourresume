@@ -1,69 +1,138 @@
 {% load static %}
-
-<!Doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Harvard Template - Updateyourresume</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'icons/updateyourresumefavicon.png' %}">  
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"> 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> 
-    <link rel="stylesheet" type="text/css" href="{% static 'havard.css' %}">
-    <script src= "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src= "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="{% static 'js/download.js' %}"></script>
-    <!-- Hotjar Tracking Code for https://updateyourresume.xyz -->
-    <script>
-        (function(h,o,t,j,a,r){
-            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-            h._hjSettings={hjid:5087390,hjsv:6};
-            a=o.getElementsByTagName('head')[0];
-            r=o.createElement('script');r.async=1;
-            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-            a.appendChild(r);
-        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-    </script>
-    <style>    
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'icons/updateyourresumefavicon.png' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'harvard.css' %}">
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+        p {
+            font-size: 12px; /* to match .contact, .skill-item, and .interest-item */
+        }
+
+        li {
+            font-size: 12px; /* to match .contact, .skill-item, and .interest-item */
+        }
+
         .resume-wrapper {
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
         }
 
         .resume-container {
             max-width: 800px;
-            margin: 0 auto;
-            padding: 0px;
-            font-size: 12px;
+            width: 100%;
             background: #fff;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 40px;
         }
-</style>
 
+        .profile {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .name {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .title {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .contact {
+            font-size: 14px;
+        }
+
+        section {
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .school, .job {
+            margin-bottom: 15px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        button {
+            font-size: 12px;
+        }
+
+       .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        [contenteditable="true"]:hover {
+            outline: 1px solid #ccc;
+        }
+
+        @media print {
+            body {
+                background-color: #fff;
+            }
+
+            .resume-container {
+                box-shadow: none;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="resume-wrapper" id = "resumeWrapper">
-        <div class="resume-container" id ="resumeContainer">
-            <div class="profile text-center">
-                <div class="info"> 
-                    <h2 class="name" contenteditable="true">{{generated_text.name}}</h2>
-                    <h4 class="title" contenteditable="true">{{resume.job_title}}</h4>
-                    <p class="contact" contenteditable="true">
-                        {{generated_text.contactDetails.phone}} | {{generated_text.contactDetails.email}} | <a href="{{generated_text.contactDetails.linkedin}}">LinkedIn</a>
-                    </p>
-                </div>
+    <div class="resume-wrapper" id="resumeWrapper">
+        <div class="resume-container" id="resumeContainer">
+            <div class="profile">
+                <h1 class="name" contenteditable="true">{{generated_text.name}}</h1>
+                <h2 class="title" contenteditable="true">{{resume.job_title}}</h2>
+                <p class="contact" contenteditable="true">
+                    {{generated_text.contactDetails.phone}} | {{generated_text.contactDetails.email}} | <a href="{{generated_text.contactDetails.linkedin}}">LinkedIn</a>
+                </p>
             </div>
             <section class="summary">
                 <h2>Summary</h2>
-                <p contenteditable=True >{{generated_text.summary}}</p>
+                <p contenteditable="true">{{generated_text.summary}}</p>
             </section>
             <section class="education">
                 <h2>Education</h2>
                 {% for education in generated_text.education %}
                 <div class="school" contenteditable="true">
-                    <h5>{{education.school}}</h5>
+                    <h3>{{education.school}}</h3>
                     <p>{{education.level}} | {{education.dates}}</p>
                 </div>
                 {% endfor %}
@@ -72,7 +141,7 @@
                 <h2>Experience</h2>
                 {% for experience in generated_text.experience %}
                 <div class="job">
-                    <h5 contenteditable="true">{{experience.title}}</h5>
+                    <h3 contenteditable="true">{{experience.title}}</h3>
                     <p contenteditable="true">{{experience.company}} | {{experience.dates}}</p>
                     <ul>
                         {% for responsibility in experience.responsibilities %}
@@ -102,8 +171,3 @@
     </div>
 </body>
 </html>
-
-
-
-
-
